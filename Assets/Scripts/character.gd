@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 		vel.y = jump_velocity
 
 	if Input.is_action_just_released("ui_up") and vel.y < 0.0:
-		vel.y *= 0.5wwww
+		vel.y *= 0.5
 
 	var direction: float = Input.get_axis("ui_left", "ui_right")
 
