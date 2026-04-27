@@ -29,6 +29,10 @@ tile_set = SubResource("TileSet_2leev")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1556982029]
 script = ExtResource("2_lkk4x")
+speed = null
+jump_velocity = null
+acceleration = null
+friction = null
 
 [node name="Sprite" type="Sprite2D" parent="CharacterBody2D" unique_id=2063410082]
 position = Vector2(470, 346)
