@@ -1,3 +1,39 @@
-[gd_scene format=3 uid="uid://c8bgu5pwxprsw"]
+[gd_scene format=4 uid="uid://c8bgu5pwxprsw"]
+
+[ext_resource type="Texture2D" uid="uid://cscwer3fh71m5" path="res://Assets/Sprites/character.png" id="1_ju4lv"]
+[ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
+[ext_resource type="Script" uid="uid://dbd8b2nnu5mx8" path="res://Assets/Scripts/character.gd" id="2_lkk4x"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkk4x"]
+texture = ExtResource("2_1ao1g")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_2leev"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_lkk4x")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ju4lv"]
+size = Vector2(20, 46)
 
 [node name="Level01" type="Node2D" unique_id=1613936254]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=316140590]
+tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAAAAAAAAAACABAAAAAAAAAAAAADABAAAAAAAAAAAAAEABAAAAAAAAAAAAAFABAAAAAAAAAAAAAGABAAAAAAAAAAAAAHABAAAAAAAAAAAAAIABAAAAAAAAAAAAAJABAAAAAAAAAAAAAKABAAAAAAAAAAAAALABAAAAAAAAAAAAAMABAAAAAAAAAAAAANABAAAAAAAAAAAAAOABAAAAAAAAAAAAAPABAAAAAAAAAAAAAQABAAAAAAAAAAAAARABAAAAAAAAAAAAASABAAAAAAAAAAAAATABAAAAAAAAAAAAAUABAAAAAAAAAAAAAVABAAAAAAAAAAAAAWABAAAAAAAAAAAAAXABAAAAAAAAAAAAAYABAAAAAAAAAAAAAZABAAAAAAAAAAAAAaABAAAAAAAAAAAAAbABAAAAAAAAAAAAAcABAAAAAAAAAAAAAdABAAAAAAAAAAAAAeABAAAAAAAAAAAAAfABAAAAAAAAAAAAAgABAAAAAAAAAAAAAhABAAAAAAAAAAAAAiABAAAAAAAAAAAAAjABAAAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAYAA8AAAAAAAAAAAAZAA8AAAAAAAAAAAAbAA0AAAAAAAAAAAAcAA0AAAAAAAAAAAAdAA0AAAAAAAAAAAAfAAsAAAAAAAAAAAAgAAsAAAAAAAAAAAAhAAsAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_2leev")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1556982029]
+script = ExtResource("2_lkk4x")
+
+[node name="Sprite" type="Sprite2D" parent="CharacterBody2D" unique_id=2063410082]
+position = Vector2(470, 346)
+texture = ExtResource("1_ju4lv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1180358369]
+position = Vector2(470, 346)
+shape = SubResource("RectangleShape2D_ju4lv")
