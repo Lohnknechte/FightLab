@@ -1,8 +1,9 @@
 ## Describe your changes
-- What does this PR add/fix?
-- Does it require a specific Godot version?
+- What does this PR add or fix?
+- How did you test and validate your changes?
 
 ## Dev Checklist
-- [ ] Scene runs without errors.
-- [ ] No merge conflicts with `main`.
-- [ ] `res://` paths are relative (won't break on other machines).
+- [ ] Scene runs without errors and achieves intended goal.
+- [ ] All `res://` paths are relative; no absolute OS paths.
+
+Close #<issue-id>

@@ -1,6 +1,4 @@
 .gitignore          @Lohnknechte/lead-devs
-.gitattributes       @Lohnknechte/lead-devs
-.editorconfig       @Lohnknechte/lead-devs
-project.godot       @Lohnknechte/lead-devs
+.gitattributes      @Lohnknechte/lead-devs
 /.github/           @Lohnknechte/lead-devs
-*.gd                @Lohnknechte/lead-devs
+LICENSE             @Lohnknechte/lead-devs
