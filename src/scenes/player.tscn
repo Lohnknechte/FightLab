@@ -1,63 +1,20 @@
 [gd_scene format=3 uid="uid://2wp52upgfki3"]
 
 [ext_resource type="Script" uid="uid://dbd8b2nnu5mx8" path="res://Assets/Scripts/character.gd" id="1_v4rts"]
-[ext_resource type="Texture2D" uid="uid://4sx31ber6ope" path="res://Assets/Sprites/Character_walk.png" id="2_v4rts"]
+[ext_resource type="Texture2D" uid="uid://cscwer3fh71m5" path="res://Assets/Sprites/character.png" id="2_hwyk6"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
-height = 48.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v4rts"]
-atlas = ExtResource("2_v4rts")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8v6aa"]
-atlas = ExtResource("2_v4rts")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4pcbe"]
-atlas = ExtResource("2_v4rts")
-region = Rect2(64, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xvyn7"]
-atlas = ExtResource("2_v4rts")
-region = Rect2(128, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0hlw3"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v4rts")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8v6aa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4pcbe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xvyn7")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ju4lv"]
+size = Vector2(20, 46)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=49530654]
 script = ExtResource("1_v4rts")
 
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2024852668]
+texture = ExtResource("2_hwyk6")
+
 [node name="BlockCollision" type="CollisionShape2D" parent="." unique_id=1703754211]
-shape = SubResource("CapsuleShape2D_hwyk6")
+shape = SubResource("RectangleShape2D_ju4lv")
 
 [node name="HeadHitDetector" type="RayCast2D" parent="." unique_id=864207704]
-position = Vector2(0, -21)
+position = Vector2(0, -19)
 target_position = Vector2(0, -10)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1356898955]
-position = Vector2(1, 0)
-sprite_frames = SubResource("SpriteFrames_0hlw3")
-animation = &"idle"
