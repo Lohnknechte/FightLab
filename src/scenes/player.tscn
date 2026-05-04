@@ -10,9 +10,11 @@ size = Vector2(20, 46)
 script = ExtResource("1_v4rts")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=2024852668]
-position = Vector2(495.5, 486.5)
 texture = ExtResource("2_hwyk6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1703754211]
-position = Vector2(495.5, 486.5)
+[node name="BlockCollision" type="CollisionShape2D" parent="." unique_id=1703754211]
 shape = SubResource("RectangleShape2D_ju4lv")
+
+[node name="HeadHitDetector" type="RayCast2D" parent="." unique_id=864207704]
+position = Vector2(0, -19)
+target_position = Vector2(0, -10)

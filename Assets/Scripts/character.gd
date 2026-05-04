@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var jump_velocity: float = -500.0
 @export var acceleration: float = 15.0
 @export var friction: float = 12.0
+@export var bounce_impulse: float = 16.0
 
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _sprite: Sprite2D
@@ -33,3 +34,12 @@ func _physics_process(delta: float) -> void:
 
 	velocity = vel
 	move_and_slide()
+	
+	$HeadHitDetector.force_raycast_update()
+	if $HeadHitDetector.is_colliding():
+		var collider = $HeadHitDetector.get_collider()
+		# Check if the collider is the destructible object and the player is moving upward
+		if collider.is_in_group("Destructibles") and velocity.y < 0:
+			collider.detonate() # Trigger the explosion
+			# Apply a bounce to the player
+			velocity.y = bounce_impulse # e.g., 300
