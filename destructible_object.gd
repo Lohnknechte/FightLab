@@ -21,6 +21,9 @@ func _ready():
 		print("No valid sprite found.")
 		return
 
+var _should_respawn = false
+var _respawn_position = Vector2.ZERO
+
 func detonate():
 	var original_position = position
 	$CollisionShape2D.disabled = true
@@ -28,18 +31,18 @@ func detonate():
 	set_process(false)
 	set_physics_process(false)
 
+	# Create debris...
 	var block_width = sprite_size.x / blocks_per_side
 	var block_height = sprite_size.y / blocks_per_side
-
 	for x in range(blocks_per_side):
 		for y in range(blocks_per_side):
 			create_debris_block(Vector2(x * block_width, y * block_height), block_width, block_height)
 
 	var timer = Timer.new()
 	timer.wait_time = respawn_delay
-	timer.one_shot = true
 	timer.timeout.connect(func():
-		position = original_position
+		_respawn_position = original_position
+		_should_respawn = true
 		$CollisionShape2D.disabled = false
 		visible = true
 		set_process(true)
@@ -47,6 +50,11 @@ func detonate():
 	)
 	add_child(timer)
 	timer.start()
+
+func _integrate_forces(state):
+	if _should_respawn:
+		state.transform.origin = _respawn_position
+		_should_respawn = false   
 
 func create_debris_block(offset: Vector2, width: float, height: float):
 	var piece = Node2D.new()
