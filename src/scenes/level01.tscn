@@ -24,3 +24,7 @@ tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAAAAAAAAAACABAAAAAAAAA
 tile_set = SubResource("TileSet_2leev")
 
 [node name="CharacterBody2D" parent="TileMapLayer" unique_id=49530654 instance=ExtResource("2_ju4lv")]
+
+[node name="Camera2D" type="Camera2D" parent="TileMapLayer/CharacterBody2D" unique_id=992987913]
+position = Vector2(496, 487)
+zoom = Vector2(1.5, 1.5)
