@@ -32,3 +32,7 @@ position = Vector2(498, 430)
 
 [node name="RigidBody2D2" parent="TileMapLayer" unique_id=562641980 instance=ExtResource("3_1ao1g")]
 position = Vector2(531, 430)
+
+[node name="Camera2D" type="Camera2D" parent="TileMapLayer/CharacterBody2D" unique_id=992987913]
+position = Vector2(496, 487)
+zoom = Vector2(1.5, 1.5)
