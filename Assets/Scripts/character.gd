@@ -7,10 +7,16 @@ extends CharacterBody2D
 @export var bounce_impulse: float = 16.0
 
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
-var _sprite: Sprite2D
+var _sprite: AnimatedSprite2D
+var _weaponSprite: Sprite2D
+var _weaponPivot: Node2D
+
+var facing_left : bool
 
 func _ready() -> void:
-	_sprite = $Sprite
+	_sprite = $AnimatedSprite2D
+	_weaponSprite = $WeaponPivot/Sprite
+	_weaponPivot = $WeaponPivot
 
 func _physics_process(delta: float) -> void:
 	var vel: Vector2 = velocity
@@ -28,7 +34,10 @@ func _physics_process(delta: float) -> void:
 
 	if direction != 0.0:
 		vel.x = move_toward(vel.x, direction * speed, acceleration * speed * delta)
-		_sprite.flip_h = direction < 0.0
+		
+		facing_left = direction < 0.0
+		_sprite.flip_h = facing_left
+
 	else:
 		vel.x = move_toward(vel.x, 0.0, friction * speed * delta)
 
