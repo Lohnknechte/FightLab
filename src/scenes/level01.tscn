@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
 [ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
 [ext_resource type="PackedScene" path="res://src/scenes/hud.tscn" id="4_hud"]
-[ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
+[ext_resource type="Script" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkk4x"]
 texture = ExtResource("2_1ao1g")
@@ -93,6 +93,9 @@ position = Vector2(752, 432)
 
 [node name="CharacterBody2D" parent="TileMapLayer" unique_id=49530654 instance=ExtResource("2_ju4lv")]
 position = Vector2(518, 481)
+
+[node name="CharacterBody2D2" parent="TileMapLayer" unique_id=1870017603 instance=ExtResource("2_ju4lv")]
+position = Vector2(347, 481)
 
 [node name="HUD" parent="." unique_id=111111111 instance=ExtResource("4_hud")]
 
