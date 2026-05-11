@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b3il3nssyiulc"]
 
-[ext_resource type="Script" uid="uid://b1sch0236p503" path="res://destructible_object.gd" id="1_anqmp"]
-[ext_resource type="Texture2D" uid="uid://btwhlpwkkfg7k" path="res://Assets/Sprites/tilemap/temp-tilemap - destructable.png" id="2_pmwu7"]
+[ext_resource type="Script" uid="uid://b1sch0236p503" path="res://Assets/Scripts/destructible_object.gd" id="1_anqmp"]
+[ext_resource type="Texture2D" uid="uid://brse5gg3vplp5" path="res://Assets/Sprites/tilemap/box.png" id="2_anqmp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7637h"]
 size = Vector2(32, 32)
@@ -9,16 +9,9 @@ size = Vector2(32, 32)
 [node name="RigidBody2D" type="RigidBody2D" unique_id=2079456990]
 gravity_scale = 0.0
 script = ExtResource("1_anqmp")
-blocks_per_side = null
-blocks_impulse = null
-debris_max_time = null
-remove_debris = null
-collision_layers = null
-collision_masks = null
-respawn_delay = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=782499340]
 shape = SubResource("RectangleShape2D_7637h")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=770253608]
-texture = ExtResource("2_pmwu7")
+texture = ExtResource("2_anqmp")
