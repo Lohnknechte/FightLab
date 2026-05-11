@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://cb3rly0vyph8k"]
 
-[ext_resource type="Texture2D" uid="uid://b3323w5n5mpuc" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
-[ext_resource type="PackedScene" path="res://src/scenes/player.tscn" id="2_ju4lv"]
-[ext_resource type="PackedScene" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
+[ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
+[ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
+[ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkk4x"]
 texture = ExtResource("2_1ao1g")

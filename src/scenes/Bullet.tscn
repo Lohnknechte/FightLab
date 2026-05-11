@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://pxc810m8jj2l"]
+
+[ext_resource type="Script" uid="uid://5kdrw3r1nvrn" path="res://Assets/Scripts/bullet.gd" id="1_6qdk2"]
+[ext_resource type="Texture2D" uid="uid://cn63yf0me57n2" path="res://Assets/Sprites/weapons/ammo/shotgun/buckshot.png" id="2_h23yn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6qdk2"]
+radius = 3.1622777
+
+[node name="Bullet" type="Area2D" unique_id=1205347518]
+script = ExtResource("1_6qdk2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=847219232]
+texture = ExtResource("2_h23yn")
+
+[node name="BulletHitDetector" type="CollisionShape2D" parent="." unique_id=329390983]
+shape = SubResource("CircleShape2D_6qdk2")

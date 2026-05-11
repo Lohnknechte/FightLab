@@ -1,15 +1,13 @@
 extends Node2D
 
 var _sprite: Sprite2D
-var _character: CharacterBody2D
+const CHARACTER_SCENE = preload("res://src/scenes/player.tscn")
 
 var originalPosX : float
 var originalPosY : float
 
 func _ready() -> void:
-	_sprite = $Sprite
-	_character = get_parent()
-	
+	_sprite = $Sprite  
 	originalPosX = self.position.x
 	originalPosY = self.position.y
 
@@ -18,6 +16,6 @@ func _process(delta: float) -> void:
 	var to_mouse = mouse_pos - global_position
 	
 	$Sprite.flip_v = to_mouse.x < 0
-	self.position.x = -originalPosX if _character.facing_left else originalPosX
+	self.position.x = -originalPosX if CHARACTER_SCENE.facing_left else originalPosX
 	
 	look_at(mouse_pos)
