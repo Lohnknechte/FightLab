@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://gttw8r6ysa35" path="res://src/scenes/BasisWeapon.tscn" id="3_hwyk6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
-height = 48.0
+height = 42.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v4rts"]
 atlas = ExtResource("2_v4rts")

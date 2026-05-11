@@ -14,13 +14,18 @@ signal health_changed(new_health: int, max_health: int)
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _sprite: AnimatedSprite2D 
 var originalPosX : float 
+var _weaponSprite: Node2D
+var _weapon: Node2D
 
 var facing_left: bool
 var _is_dead: bool = false
 
-func _ready() -> void:
+func _ready() -> void: 
+	add_to_group("Players")
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
+	_weaponSprite = $BasisWeapon/Sprite
+	_weapon = $BasisWeapon
 
 
 func _physics_process(delta: float) -> void:
@@ -67,8 +72,10 @@ func take_damage(amount: int) -> void:
 		die()
 
 func die() -> void:
-	_is_dead = true
+	_is_dead = true  
+	_weapon.set_process_input(false)
 	set_physics_process(false)
+	_weaponSprite.visible = false
 	_sprite.visible = false
 	await get_tree().create_timer(3.0).timeout
 	_respawn()
@@ -79,8 +86,10 @@ func _respawn() -> void:
 		global_position = points[randi() % points.size()].global_position
 	current_health = max_health
 	health_changed.emit(current_health, max_health)
-	velocity = Vector2.ZERO
+	velocity = Vector2.ZERO 
+	_weapon.set_process_input(true)
 	set_physics_process(true)
 	await get_tree().physics_frame
 	_sprite.visible = true
+	_weaponSprite.visible = true
 	_is_dead = false
