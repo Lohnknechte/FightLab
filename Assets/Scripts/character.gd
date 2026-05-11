@@ -21,8 +21,7 @@ var _is_dead: bool = false
 func _ready() -> void:
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
-	_weaponSprite = $WeaponPivot/Sprite
-	_weaponPivot = $WeaponPivot
+
 
 func _physics_process(delta: float) -> void:
 	var vel: Vector2 = velocity 
@@ -71,7 +70,6 @@ func die() -> void:
 	_is_dead = true
 	set_physics_process(false)
 	_sprite.visible = false
-	_weaponPivot.visible = false
 	await get_tree().create_timer(3.0).timeout
 	_respawn()
 
@@ -85,5 +83,4 @@ func _respawn() -> void:
 	set_physics_process(true)
 	await get_tree().physics_frame
 	_sprite.visible = true
-	_weaponPivot.visible = true
 	_is_dead = false
