@@ -11,7 +11,7 @@ func _ready() -> void:
 	originalPosX = self.position.x
 	originalPosY = self.position.y
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var mouse_pos = get_global_mouse_position()
 	var to_mouse = mouse_pos - global_position
 	
