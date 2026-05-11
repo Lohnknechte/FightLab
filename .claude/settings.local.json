@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\itlabvi\\\\Desktop\\\\Git\\\\FightLab\" -Force)",
+      "Bash(Select-Object Name, BaseName, Extension)",
+      "Bash(Format-Table)",
+      "PowerShell(tree \"C:\\\\Users\\\\itlabvi\\\\Desktop\\\\Git\\\\FightLab\" -L 3)"
+    ]
+  }
+}

@@ -1,24 +1,27 @@
 [gd_scene format=4 uid="uid://cb3rly0vyph8k"]
 
-[ext_resource type="Texture2D" uid="uid://b3323w5n5mpuc" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
-[ext_resource type="PackedScene" path="res://src/scenes/player.tscn" id="2_ju4lv"]
-[ext_resource type="PackedScene" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
+[ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
+[ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
+[ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
+[ext_resource type="PackedScene" path="res://src/scenes/hud.tscn" id="4_hud"]
+[ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkk4x"]
 texture = ExtResource("2_1ao1g")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_2leev"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_lkk4x")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deathzone"]
+size = Vector2(1499, 200)
+
 [node name="Level01" type="Node2D" unique_id=1613936254]
+script = ExtResource("5_lv01")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=316140590]
 tile_map_data = PackedByteArray("AAAAABAAAAAAAAAAAAABABAAAAAAAAAAAAACABAAAAAAAAAAAAADABAAAAAAAAAAAAAEABAAAAAAAAAAAAAFABAAAAAAAAAAAAAGABAAAAAAAAAAAAAHABAAAAAAAAAAAAAIABAAAAAAAAAAAAAJABAAAAAAAAAAAAAKABAAAAAAAAAAAAALABAAAAAAAAAAAAAMABAAAAAAAAAAAAANABAAAAAAAAAAAAAOABAAAAAAAAAAAAAPABAAAAAAAAAAAAAQABAAAAAAAAAAAAARABAAAAAAAAAAAAASABAAAAAAAAAAAAATABAAAAAAAAAAAAAUABAAAAAAAAAAAAAVABAAAAAAAAAAAAAWABAAAAAAAAAAAAAXABAAAAAAAAAAAAAYABAAAAAAAAAAAAAZABAAAAAAAAAAAAAaABAAAAAAAAAAAAAbABAAAAAAAAAAAAAcABAAAAAAAAAAAAAdABAAAAAAAAAAAAAeABAAAAAAAAAAAAAfABAAAAAAAAAAAAAgABAAAAAAAAAAAAAhABAAAAAAAAAAAAAiABAAAAAAAAAAAAAjABAAAAAAAAAAAAADAA0AAAAAAAAAAAAEAA0AAAAAAAAAAAAFAA0AAAAAAAAAAAAGAA0AAAAAAAAAAAAHAA0AAAAAAAAAAAAYAA8AAAAAAAAAAAAZAA8AAAAAAAAAAAAbAA0AAAAAAAAAAAAcAA0AAAAAAAAAAAAdAA0AAAAAAAAAAAAfAAsAAAAAAAAAAAAgAAsAAAAAAAAAAAAhAAsAAAAAAAAAAAA=")
@@ -32,3 +35,26 @@ position = Vector2(531, 430)
 
 [node name="CharacterBody2D" parent="TileMapLayer" unique_id=49530654 instance=ExtResource("2_ju4lv")]
 position = Vector2(518, 481)
+
+[node name="HUD" parent="." unique_id=111111111 instance=ExtResource("4_hud")]
+
+[node name="DeathZone" type="Area2D" parent="." unique_id=330000001]
+position = Vector2(500, 700)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=330000002]
+position = Vector2(-35.5, 0)
+shape = SubResource("RectangleShape2D_deathzone")
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=220000001]
+
+[node name="SpawnPoint1" type="Marker2D" parent="SpawnPoints" unique_id=220000002]
+position = Vector2(150, 481)
+
+[node name="SpawnPoint2" type="Marker2D" parent="SpawnPoints" unique_id=220000003]
+position = Vector2(350, 481)
+
+[node name="SpawnPoint3" type="Marker2D" parent="SpawnPoints" unique_id=220000004]
+position = Vector2(518, 481)
+
+[node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" unique_id=220000005]
+position = Vector2(700, 481)

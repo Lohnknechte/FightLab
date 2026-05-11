@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbd8b2nnu5mx8" path="res://Assets/Scripts/character.gd" id="1_v4rts"]
 [ext_resource type="Texture2D" uid="uid://4sx31ber6ope" path="res://Assets/Sprites/Character_walk.png" id="2_v4rts"]
-[ext_resource type="Texture2D" uid="uid://bjvmj1y5dh211" path="res://Assets/Sprites/weapons/guns/shotgun.png" id="3_hwyk6"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/shotgun.png" id="3_hwyk6"]
 [ext_resource type="Script" uid="uid://bmk5yoyhxq7on" path="res://Assets/Scripts/weapon_pivot.gd" id="3_l2v1k"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
