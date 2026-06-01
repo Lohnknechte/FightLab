@@ -61,10 +61,13 @@ target_position = Vector2(0, -10)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1356898955]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_0hlw3")
-animation = &"walk"
+animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2128611471]
 zoom = Vector2(1.5, 1.5)
 
 [node name="BasisWeapon" parent="." unique_id=1560606592 instance=ExtResource("3_hwyk6")]
 position = Vector2(4, 0)
+
+[node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=2009660001]
+volume_db = -6.0
