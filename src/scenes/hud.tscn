@@ -1,6 +1,10 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Assets/Scripts/hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/shotgun.png" id="2_shotgun_icon"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/sniper_old.png" id="3_sniper_icon"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/shuriken.png" id="4_shuriken_icon"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/knife.png" id="5_knife_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill_health"]
 bg_color = Color(0.2, 0.8, 0.2, 1)
@@ -75,5 +79,178 @@ theme_override_styles/background = SubResource("StyleBoxFlat_bg_transparent")
 [node name="TakeDamageButton" type="Button" parent="VBoxContainer"]
 text = "Take Damage"
 focus_mode = 0
+
+[node name="Hotbar" type="Control" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -170.0
+offset_top = -52.0
+offset_right = 170.0
+offset_bottom = -10.0
+
+[node name="AmmoDisplay" type="VBoxContainer" parent="Hotbar"]
+visible = false
+z_index = 5
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -110.0
+offset_top = -54.0
+offset_right = 110.0
+offset_bottom = -26.0
+alignment = 1
+
+[node name="WeaponLabel" type="Label" parent="Hotbar/AmmoDisplay"]
+text = "Shotgun"
+horizontal_alignment = 1
+
+[node name="AmmoIcons" type="HBoxContainer" parent="Hotbar/AmmoDisplay"]
+alignment = 1
+
+[node name="StatusBar" type="ProgressBar" parent="Hotbar/AmmoDisplay"]
+visible = false
+custom_minimum_size = Vector2(120, 10)
+show_percentage = false
+
+[node name="PanelContainer" type="PanelContainer" parent="Hotbar"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Hotbar/PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = -8.0
+offset_bottom = -6.0
+alignment = 1
+
+[node name="Slot1" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot1"]
+text = "1"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot1"]
+custom_minimum_size = Vector2(24, 24)
+texture = ExtResource("2_shotgun_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot2" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot2"]
+text = "2"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot2"]
+custom_minimum_size = Vector2(24, 24)
+texture = ExtResource("3_sniper_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot3" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot3"]
+text = "3"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot3"]
+custom_minimum_size = Vector2(24, 24)
+texture = ExtResource("4_shuriken_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot4" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot4"]
+text = "4"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot4"]
+custom_minimum_size = Vector2(24, 24)
+texture = ExtResource("5_knife_icon")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot5" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot5"]
+text = "5"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot5"]
+custom_minimum_size = Vector2(24, 24)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot6" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot6"]
+text = "6"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot6"]
+custom_minimum_size = Vector2(24, 24)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot7" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot7"]
+text = "7"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot7"]
+custom_minimum_size = Vector2(24, 24)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot8" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot8"]
+text = "8"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot8"]
+custom_minimum_size = Vector2(24, 24)
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Slot9" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+alignment = 1
+
+[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot9"]
+text = "9"
+horizontal_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot9"]
+custom_minimum_size = Vector2(24, 24)
+expand_mode = 1
+stretch_mode = 5
 
 [connection signal="pressed" from="VBoxContainer/TakeDamageButton" to="." method="_on_take_damage_pressed"]

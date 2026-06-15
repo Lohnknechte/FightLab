@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/shuriken_weapon.gd" id="1_8h3m2"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/shuriken.png" id="2_8r2k4"]
+
+[node name="ShurikenWeapon" type="Node2D"]
+script = ExtResource("1_8h3m2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(7, 1)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_8r2k4")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(28, 0)

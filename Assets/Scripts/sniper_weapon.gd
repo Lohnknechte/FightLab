@@ -3,20 +3,24 @@ extends Node2D
 signal hud_state_changed(state: Dictionary)
 
 
-const BULLET_SCENE = preload("res://src/scenes/Bullet.tscn")
-const SHOTGUN_FIRE_STREAM = preload("res://audio/sfx/weapons/shotgun/shotgun_fire_01.wav")
-const SHOTGUN_RELOAD_STREAM = preload("res://audio/reload.wav")
-const SHELL_FULL = preload("res://Assets/Sprites/weapons/ammo/shotgun/shell_full.png")
-const SHELL_EMPTY = preload("res://Assets/Sprites/weapons/ammo/shotgun/shell_empty.png")
+const BULLET_SCENE = preload("res://src/scenes/SniperBullet.tscn")
+const ROUND_FULL = preload("res://Assets/Sprites/weapons/ammo/sniper/sniper_round_full.png")
+const ROUND_EMPTY = preload("res://Assets/Sprites/weapons/ammo/sniper/sniper_round_empty.png")
+const SNIPER_SHOT_STREAM = preload("res://audio/108852__emsiarma__snipershot.wav")
+const SNIPER_RELOAD_STREAM = preload("res://audio/276956__gfl7__awp-reload-sound.mp3")
 
 @onready var muzzle = $Muzzle
 var _sprite: Sprite2D
 
-@export var magazine_size: int = 5
-@export var reload_time: float = 1.5
-@export var pellet_damage: int = 5
+@export var fire_cooldown: float = 0.75
+@export var bullet_speed: float = 1350.0
+@export var bullet_max_distance: float = 2200.0
+@export var bullet_damage: int = 50
+@export var magazine_size: int = 3
+@export var reload_time: float = 2.0
 
-var current_ammo: int = 5
+var can_shoot: bool = true
+var current_ammo: int = 3
 var is_reloading: bool = false
 var reload_elapsed: float = 0.0
 var _reload_cycle: int = 0
@@ -42,7 +46,7 @@ func _process(delta: float) -> void:
 
 func _input(event):
 	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_LEFT:
+		if event.button_index == MOUSE_BUTTON_LEFT and can_shoot:
 			shoot()
 	elif event.is_action_pressed("reload_weapon"):
 		reload()
@@ -52,29 +56,30 @@ func shoot() -> void:
 	if is_reloading or current_ammo <= 0:
 		return
 
-	var bullet_count := 5
-	var spread_angle := 0.26
+	can_shoot = false
 	current_ammo -= 1
 	_emit_hud_state()
 
+	var bullet = BULLET_SCENE.instantiate()
+	bullet.global_position = muzzle.global_position
+	bullet.rotation = global_rotation
+	bullet.speed = bullet_speed
+	bullet.max_distance = bullet_max_distance
+	bullet.bullet_Damage = bullet_damage
+	bullet.rand_scale = 1.0
+
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
-		audio_manager.play_sfx_2d(SHOTGUN_FIRE_STREAM, muzzle.global_position, -3.0, 0.98, 1.02)
+		audio_manager.play_sfx_2d(SNIPER_SHOT_STREAM, muzzle.global_position, -5.0, 0.98, 1.02)
 
-	for i in range(bullet_count):
-		var bullet = BULLET_SCENE.instantiate()
-		bullet.global_position = muzzle.global_position
-		bullet.speed = randf_range(180.0, 260.0)
-		bullet.max_distance = randf_range(90.0, 125.0)
-		bullet.rand_scale = randf_range(0.9, 1.2)
-		bullet.bullet_Damage = pellet_damage
-
-		var rotation_offset = (i - (bullet_count - 1) / 2.0) * randf_range(-spread_angle, spread_angle)
-		bullet.rotation = global_rotation + rotation_offset
-		get_tree().root.add_child(bullet)
+	get_tree().root.add_child(bullet)
 
 	if current_ammo <= 0:
 		reload()
+
+	await get_tree().create_timer(fire_cooldown).timeout
+	if not is_reloading:
+		can_shoot = true
 
 
 func reload() -> void:
@@ -82,6 +87,7 @@ func reload() -> void:
 		return
 
 	is_reloading = true
+	can_shoot = false
 	reload_elapsed = 0.0
 	_reload_cycle += 1
 	var reload_id := _reload_cycle
@@ -96,18 +102,19 @@ func reload() -> void:
 	current_ammo = magazine_size
 	is_reloading = false
 	reload_elapsed = 0.0
+	can_shoot = true
 	_emit_hud_state()
 
 
 func get_hud_state() -> Dictionary:
 	return {
 		"mode": "ammo",
-		"label": "Shotgun",
+		"label": "Sniper",
 		"visible": true,
 		"current": current_ammo,
 		"max": magazine_size,
-		"full_icon": SHELL_FULL,
-		"empty_icon": SHELL_EMPTY,
+		"full_icon": ROUND_FULL,
+		"empty_icon": ROUND_EMPTY,
 		"bar_visible": is_reloading,
 		"bar_progress": clamp(reload_elapsed / reload_time, 0.0, 1.0) if reload_time > 0.0 else 0.0,
 	}
@@ -120,4 +127,4 @@ func _emit_hud_state() -> void:
 func _play_reload_sound() -> void:
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
-		audio_manager.play_sfx_2d(SHOTGUN_RELOAD_STREAM, muzzle.global_position, -6.0, 0.98, 1.02)
+		audio_manager.play_sfx_2d(SNIPER_RELOAD_STREAM, muzzle.global_position, -7.0, 0.98, 1.02)

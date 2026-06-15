@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://dbd8b2nnu5mx8" path="res://Assets/Scripts/character.gd" id="1_v4rts"]
 [ext_resource type="Texture2D" uid="uid://4sx31ber6ope" path="res://Assets/Sprites/Character_walk.png" id="2_v4rts"]
 [ext_resource type="PackedScene" uid="uid://gttw8r6ysa35" path="res://src/scenes/BasisWeapon.tscn" id="3_hwyk6"]
+[ext_resource type="PackedScene" path="res://src/scenes/SniperWeapon.tscn" id="4_n5c2f"]
+[ext_resource type="PackedScene" path="res://src/scenes/ShurikenWeapon.tscn" id="5_7bqk0"]
+[ext_resource type="PackedScene" path="res://src/scenes/KnifeWeapon.tscn" id="6_2f0a1"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
 height = 42.0
@@ -68,6 +71,18 @@ zoom = Vector2(1.5, 1.5)
 
 [node name="BasisWeapon" parent="." unique_id=1560606592 instance=ExtResource("3_hwyk6")]
 position = Vector2(4, 0)
+
+[node name="SniperWeapon" parent="." instance=ExtResource("4_n5c2f")]
+position = Vector2(4, 0)
+visible = false
+
+[node name="ShurikenWeapon" parent="." instance=ExtResource("5_7bqk0")]
+position = Vector2(4, 0)
+visible = false
+
+[node name="KnifeWeapon" parent="." instance=ExtResource("6_2f0a1")]
+position = Vector2(4, 0)
+visible = false
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=2009660001]
 volume_db = -6.0
