@@ -15,13 +15,13 @@ run/main_scene="uid://cb3rly0vyph8k"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
-[dotnet]
-
-project/assembly_name="FightLab"
-
 [autoload]
 
 AudioManager="*res://Assets/Scripts/audio_manager.gd"
+
+[dotnet]
+
+project/assembly_name="FightLab"
 
 [input]
 

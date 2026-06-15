@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cy4g412qfhtjv"]
+
+[ext_resource type="Script" uid="uid://41kpf4s6d5s0" path="res://Assets/Scripts/spike.gd" id="1_kkr00"]
+[ext_resource type="Texture2D" uid="uid://b2th23yxncuqc" path="res://Assets/Sprites/tilemap/spikes.png" id="2_kkr00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kkr00"]
+size = Vector2(29, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fh0rm"]
+size = Vector2(32, 8)
+
+[node name="Spike" type="RigidBody2D" unique_id=1250274361]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1002976792]
+texture = ExtResource("2_kkr00")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=820775590]
+script = ExtResource("1_kkr00")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="Area2D" unique_id=764413420]
+position = Vector2(0.5, 4)
+shape = SubResource("RectangleShape2D_kkr00")
+debug_color = Color(0.8590739, 0.34071591, 0.3442677, 0.41960785)
+
+[node name="Timer" type="Timer" parent="Area2D" unique_id=786379481]
+
+[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=761564028]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_fh0rm")
