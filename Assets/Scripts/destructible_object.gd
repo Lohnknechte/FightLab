@@ -8,6 +8,8 @@ extends RigidBody2D
 @export var collision_masks: int = 1
 @export var respawn_delay: float = 3.0
 
+const BOX_BREAK_STREAM: AudioStream = preload("res://audio/sfx/environment/box_break_01.wav")
+
 var sprite_texture: Texture2D
 var sprite_size: Vector2
 
@@ -23,6 +25,9 @@ func _ready():
 
 func detonate():
 	var original_position = position
+	var audio_manager := get_node_or_null("/root/AudioManager")
+	if audio_manager:
+		audio_manager.play_sfx_2d(BOX_BREAK_STREAM, global_position, -26.0, 0.92, 1.04)
 	$CollisionShape2D.disabled = true
 	visible = false
 	set_process(false)
