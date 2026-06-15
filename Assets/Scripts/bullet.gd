@@ -1,9 +1,9 @@
 extends Area2D
 
-@export var speed: float = randf_range(150, 250) 
-@export var max_distance: float = randf_range(75, 100) 
-@export var rand_scale: float = randf_range(0.8, 1.4)
-@export var bullet_Damage: int = randf_range(10,15)
+@export var speed: float = 200.0
+@export var max_distance: float = 100.0
+@export var rand_scale: float = 1.0
+@export var bullet_Damage: int = 10
 var distance_traveled: float = 0.0
 var previous_position: Vector2
 
