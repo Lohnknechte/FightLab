@@ -16,12 +16,18 @@ const JUMP_STREAM: AudioStream = preload("res://audio/sfx/player/jump_01.wav")
 var current_health: int
 
 signal health_changed(new_health: int, max_health: int)
+signal weapon_changed(slot: int)
+signal weapon_hud_changed(state: Dictionary)
 
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _sprite: AnimatedSprite2D
 var originalPosX: float
-var _weaponSprite: Node2D
-var _weapon: Node2D
+var _shotgun: Node2D
+var _sniper: Node2D
+var _shuriken: Node2D
+var _knife: Node2D
+var _active_weapon: Node2D
+var _weapons: Array[Node2D] = []
 var _footstep_player: AudioStreamPlayer2D
 var _footstep_timer: float = 0.0
 var _was_moving: bool = false
@@ -34,12 +40,33 @@ func _ready() -> void:
 	add_to_group("Players")
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
-	_weaponSprite = $BasisWeapon/Sprite
-	_weapon = $BasisWeapon
+	_shotgun = $BasisWeapon
+	_sniper = $SniperWeapon
+	_shuriken = $ShurikenWeapon
+	_knife = $KnifeWeapon
+	_weapons = [_shotgun, _sniper, _shuriken, _knife]
+	for weapon in _weapons:
+		if weapon.has_signal("hud_state_changed"):
+			weapon.hud_state_changed.connect(_on_weapon_hud_changed.bind(weapon))
 	_footstep_player = $Footsteps
 	_footstep_player.stream = FOOTSTEP_STREAM
 	_footstep_player.bus = "SFX"
 	_sprite.play("idle")
+	_set_active_weapon(_shotgun)
+
+
+func _input(event: InputEvent) -> void:
+	if _is_dead:
+		return
+
+	if event.is_action_pressed("weapon_1"):
+		_set_active_weapon(_shotgun)
+	elif event.is_action_pressed("weapon_2"):
+		_set_active_weapon(_sniper)
+	elif event.is_action_pressed("weapon_3"):
+		_set_active_weapon(_shuriken)
+	elif event.is_action_pressed("weapon_4"):
+		_set_active_weapon(_knife)
 
 
 func _physics_process(delta: float) -> void:
@@ -131,9 +158,12 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	_is_dead = true
-	_weapon.set_process_input(false)
 	set_physics_process(false)
-	_weaponSprite.visible = false
+	for weapon in _weapons:
+		weapon.visible = false
+		weapon.set_process(false)
+		weapon.set_physics_process(false)
+		weapon.set_process_input(false)
 	_sprite.visible = false
 	await get_tree().create_timer(3.0).timeout
 	_respawn()
@@ -146,7 +176,6 @@ func _respawn() -> void:
 	current_health = max_health
 	health_changed.emit(current_health, max_health)
 	velocity = Vector2.ZERO
-	_weapon.set_process_input(true)
 	set_physics_process(true)
 	if _footstep_player:
 		_footstep_player.stop()
@@ -154,6 +183,69 @@ func _respawn() -> void:
 	_was_moving = false
 	await get_tree().physics_frame
 	_sprite.visible = true
-	_weaponSprite.visible = true
 	_is_dead = false
+	_set_active_weapon(_active_weapon if _active_weapon != null else _shotgun)
 	_sprite.play("idle")
+
+
+func _set_active_weapon(weapon: Node2D) -> void:
+	if weapon == null:
+		return
+
+	_active_weapon = weapon
+
+	for current_weapon in _weapons:
+		var is_active := current_weapon == weapon and not _is_dead
+		current_weapon.visible = is_active
+		current_weapon.set_process(is_active)
+		current_weapon.set_physics_process(is_active)
+		current_weapon.set_process_input(is_active)
+
+	var slot := _get_weapon_slot(weapon)
+	if slot != -1:
+		weapon_changed.emit(slot)
+	_emit_active_weapon_hud_state()
+
+
+func _get_weapon_slot(weapon: Node2D) -> int:
+	if weapon == _shotgun:
+		return 1
+	if weapon == _sniper:
+		return 2
+	if weapon == _shuriken:
+		return 3
+	if weapon == _knife:
+		return 4
+	return -1
+
+
+func _on_weapon_hud_changed(state: Dictionary, weapon: Node2D) -> void:
+	if weapon != _active_weapon:
+		return
+
+	weapon_hud_changed.emit(state)
+
+
+func _emit_active_weapon_hud_state() -> void:
+	if _active_weapon == null:
+		weapon_hud_changed.emit({
+			"visible": false,
+		})
+		return
+
+	if _active_weapon.has_method("get_hud_state"):
+		weapon_hud_changed.emit(_active_weapon.get_hud_state())
+		return
+
+	weapon_hud_changed.emit({
+		"visible": false,
+	})
+
+
+func get_active_weapon_hud_state() -> Dictionary:
+	if _active_weapon != null and _active_weapon.has_method("get_hud_state"):
+		return _active_weapon.get_hud_state()
+
+	return {
+		"visible": false,
+	}

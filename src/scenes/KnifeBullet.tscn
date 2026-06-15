@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/bullet.gd" id="1_9b7p1"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/ammo/knife/knife_full.png" id="2_5qv1u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_knife"]
+radius = 4.0
+
+[node name="KnifeBullet" type="Area2D"]
+script = ExtResource("1_9b7p1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5qv1u")
+
+[node name="BulletHitDetector" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_knife")
