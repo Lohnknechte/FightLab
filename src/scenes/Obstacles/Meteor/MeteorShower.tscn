@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c11q7tb7xvosf"]
+
+[ext_resource type="Script" uid="uid://jol5bjgu51wx" path="res://Assets/Scripts/meteor_shower.gd" id="1_1hkhw"]
+[ext_resource type="PackedScene" uid="uid://cxvkm14wm6uxh" path="res://src/scenes/Obstacles/Meteor/meteor.tscn" id="2_622vm"]
+
+[node name="MeteorShower" type="Node2D" unique_id=2028451645]
+script = ExtResource("1_1hkhw")
+shower_duration = 5.0
+min_time_between_showers = 3.0
+max_time_between_showers = 6.0
+
+[node name="Meteor" parent="." unique_id=2055957194 instance=ExtResource("2_622vm")]
+
+[node name="Meteor2" parent="." unique_id=1898888383 instance=ExtResource("2_622vm")]
+position = Vector2(378, -1)
+
+[node name="Meteor3" parent="." unique_id=1962342809 instance=ExtResource("2_622vm")]
+position = Vector2(-182, 1)
+
+[node name="Meteor4" parent="." unique_id=1248836087 instance=ExtResource("2_622vm")]
+position = Vector2(187, 2)
+
+[node name="Meteor5" parent="." unique_id=516724180 instance=ExtResource("2_622vm")]
+position = Vector2(-373, 0)

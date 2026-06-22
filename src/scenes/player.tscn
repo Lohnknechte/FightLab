@@ -72,17 +72,17 @@ zoom = Vector2(1.5, 1.5)
 [node name="BasisWeapon" parent="." unique_id=1560606592 instance=ExtResource("3_hwyk6")]
 position = Vector2(4, 0)
 
-[node name="SniperWeapon" parent="." instance=ExtResource("4_n5c2f")]
-position = Vector2(4, 0)
+[node name="SniperWeapon" parent="." unique_id=1770774370 instance=ExtResource("4_n5c2f")]
 visible = false
+position = Vector2(4, 0)
 
-[node name="ShurikenWeapon" parent="." instance=ExtResource("5_7bqk0")]
-position = Vector2(4, 0)
+[node name="ShurikenWeapon" parent="." unique_id=1639933985 instance=ExtResource("5_7bqk0")]
 visible = false
+position = Vector2(4, 0)
 
-[node name="KnifeWeapon" parent="." instance=ExtResource("6_2f0a1")]
-position = Vector2(4, 0)
+[node name="KnifeWeapon" parent="." unique_id=2086358384 instance=ExtResource("6_2f0a1")]
 visible = false
+position = Vector2(4, 0)
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=2009660001]
 volume_db = -6.0

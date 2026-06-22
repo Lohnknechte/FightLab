@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://cxvkm14wm6uxh"]
+
+[ext_resource type="Script" uid="uid://b7m2t37xspyt3" path="res://Assets/Scripts/meteor.gd" id="1_h8h0t"]
+[ext_resource type="Script" uid="uid://bbiuf0yc2bdap" path="res://Assets/Scripts/sprite_2d.gd" id="2_aelis"]
+[ext_resource type="Texture2D" uid="uid://d18dq4nycxlel" path="res://Assets/Sprites/meteor(temp).png" id="2_epuek"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aelis"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_epuek"]
+radius = 22.090721
+
+[node name="Meteor" type="RigidBody2D" unique_id=2055957194]
+mass = 0.1
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=854581502]
+texture = ExtResource("2_epuek")
+script = ExtResource("2_aelis")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1193239126]
+shape = SubResource("CircleShape2D_aelis")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1184417194]
+script = ExtResource("1_h8h0t")
+blast_radius = 250.0
+
+[node name="ExplosionTrigger" type="CollisionShape2D" parent="Area2D" unique_id=132524761]
+shape = SubResource("CircleShape2D_epuek")
+
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
