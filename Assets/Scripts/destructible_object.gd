@@ -28,19 +28,26 @@ func _ready():
 	original_position = global_position
 
 func detonate():
-	# Wenn die Kiste bereits zerstört ist und im Respawn-Modus wartet, brich ab
-	if freeze: return
-	
+	# wenn schon zerstört → KEIN zweites Mal ausführen
+	if freeze:
+		return
+
+	freeze = true
+
+	# --------------------------
+	# CLEANUP MUSS IMMER PASSIEREN
+	# --------------------------
+	visible = false
+	collision_layer = 0
+	collision_mask = 0
+	$CollisionShape2D.set_deferred("disabled", true)
+
+	# audio
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
 		audio_manager.play_sfx_2d(BOX_BREAK_STREAM, global_position, -26.0, 0.92, 1.04)
-	
-	# 1. Kiste komplett schlafen legen und unsichtbar machen
-	freeze = true
-	visible = false
-	$CollisionShape2D.disabled = true
-	
-	# 2. Trümmerteile erzeugen
+
+	# debris spawn
 	var block_width = sprite_size.x / blocks_per_side
 	var block_height = sprite_size.y / blocks_per_side
 
@@ -48,7 +55,6 @@ func detonate():
 		for y in range(blocks_per_side):
 			create_debris_block(Vector2(x * block_width, y * block_height), block_width, block_height)
 
-	# 3. Respawn-Timer starten
 	get_tree().create_timer(respawn_delay).timeout.connect(_respawn_box)
 
 func _respawn_box():
