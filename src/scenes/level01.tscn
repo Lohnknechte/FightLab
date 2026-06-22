@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
 [ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
 [ext_resource type="PackedScene" path="res://src/scenes/hud.tscn" id="4_hud"]
-[ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/spike.tscn" id="5_70q3c"]
+[ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/Obstacles/spike.tscn" id="5_70q3c"]
 [ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
+[ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkk4x"]
 texture = ExtResource("2_1ao1g")
@@ -93,10 +94,10 @@ position = Vector2(784, 400)
 position = Vector2(752, 432)
 
 [node name="CharacterBody2D" parent="TileMapLayer" unique_id=49530654 instance=ExtResource("2_ju4lv")]
-position = Vector2(518, 481)
+position = Vector2(243, 483)
 
 [node name="CharacterBody2D2" parent="TileMapLayer" unique_id=1870017603 instance=ExtResource("2_ju4lv")]
-position = Vector2(347, 481)
+position = Vector2(281, 484)
 
 [node name="Spike" parent="TileMapLayer" unique_id=1270379631 instance=ExtResource("5_70q3c")]
 position = Vector2(606, 428)
@@ -123,3 +124,8 @@ position = Vector2(518, 481)
 
 [node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" unique_id=220000005]
 position = Vector2(700, 481)
+
+[node name="MeteorShower" parent="." unique_id=2028451645 instance=ExtResource("7_jlo51")]
+position = Vector2(535, 0)
+max_time_between_showers = 60.0
+x_variance = 75.0

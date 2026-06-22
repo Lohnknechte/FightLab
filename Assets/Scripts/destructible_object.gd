@@ -12,6 +12,7 @@ const BOX_BREAK_STREAM: AudioStream = preload("res://audio/sfx/environment/box_b
 
 var sprite_texture: Texture2D
 var sprite_size: Vector2
+var original_position: Vector2
 
 func _ready():
 	add_to_group("Destructibles")
@@ -22,17 +23,24 @@ func _ready():
 	else:
 		print("No valid sprite found.")
 		return
+	
+	# Startposition direkt beim Spielstart merken
+	original_position = global_position
 
 func detonate():
-	var original_position = position
+	# Wenn die Kiste bereits zerstört ist und im Respawn-Modus wartet, brich ab
+	if freeze: return
+	
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
 		audio_manager.play_sfx_2d(BOX_BREAK_STREAM, global_position, -26.0, 0.92, 1.04)
-	$CollisionShape2D.disabled = true
+	
+	# 1. Kiste komplett schlafen legen und unsichtbar machen
+	freeze = true
 	visible = false
-	set_process(false)
-	set_physics_process(false)
-
+	$CollisionShape2D.disabled = true
+	
+	# 2. Trümmerteile erzeugen
 	var block_width = sprite_size.x / blocks_per_side
 	var block_height = sprite_size.y / blocks_per_side
 
@@ -40,18 +48,21 @@ func detonate():
 		for y in range(blocks_per_side):
 			create_debris_block(Vector2(x * block_width, y * block_height), block_width, block_height)
 
-	var timer = Timer.new()
-	timer.wait_time = respawn_delay
-	timer.one_shot = true
-	timer.timeout.connect(func():
-		position = original_position
-		$CollisionShape2D.disabled = false
-		visible = true
-		set_process(true)
-		set_physics_process(true)
-	)
-	add_child(timer)
-	timer.start()
+	# 3. Respawn-Timer starten
+	get_tree().create_timer(respawn_delay).timeout.connect(_respawn_box)
+
+func _respawn_box():
+	# 4. Geschwindigkeiten komplett nullen vor dem Teleport
+	linear_velocity = Vector2.ZERO
+	angular_velocity = 0.0
+	
+	# 5. An die exakte Startposition zurücksetzen
+	global_position = original_position
+	
+	# 6. Kiste wieder aufwecken und sichtbar machen
+	freeze = false
+	visible = true
+	$CollisionShape2D.disabled = false
 
 func create_debris_block(offset: Vector2, width: float, height: float):
 	var piece = Node2D.new()
@@ -79,4 +90,4 @@ func create_debris_block(offset: Vector2, width: float, height: float):
 	piece.add_child(timer)
 	timer.start()
 	
-	get_tree().create_timer(0.2).timeout.connect(Callable(func(): piece.queue_free()))   
+	get_tree().create_timer(0.2).timeout.connect(Callable(func(): piece.queue_free()))
