@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/sniper_old.png" id="3_sniper_icon"]
 [ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/shuriken.png" id="4_shuriken_icon"]
 [ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/knife.png" id="5_knife_icon"]
+[ext_resource type="Script" path="res://Assets/Scripts/gadget_icon.gd" id="6_gadget_icon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill_health"]
 bg_color = Color(0.2, 0.8, 0.2, 1)
@@ -30,6 +31,44 @@ corner_radius_bottom_right = 5
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_transparent"]
 bg_color = Color(0, 0, 0, 0)
 draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="sb_gadget_frame"]
+bg_color = Color(0.09, 0.1, 0.16, 0.92)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.32, 0.36, 0.45, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_left = 16
+corner_radius_bottom_right = 16
+
+[sub_resource type="StyleBoxFlat" id="sb_gadget_charge"]
+bg_color = Color(0.88, 0.28, 0.23, 0.55)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_left = 12
+corner_radius_bottom_right = 12
+
+[sub_resource type="StyleBoxFlat" id="sb_gadget_keyhint"]
+bg_color = Color(0.96, 0.74, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_gadget_badge"]
+bg_color = Color(0.09, 0.1, 0.16, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.74, 0.12, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_hud")
@@ -252,5 +291,159 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(24, 24)
 expand_mode = 1
 stretch_mode = 5
+
+[node name="GadgetWidget" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -176.0
+offset_right = -16.0
+offset_bottom = -22.0
+mouse_filter = 2
+
+[node name="Selector" type="Control" parent="GadgetWidget"]
+anchor_right = 1.0
+offset_bottom = 28.0
+mouse_filter = 2
+
+[node name="Sel0" type="Control" parent="GadgetWidget/Selector"]
+offset_left = 8.0
+offset_top = 2.0
+offset_right = 32.0
+offset_bottom = 26.0
+mouse_filter = 2
+script = ExtResource("6_gadget_icon")
+
+[node name="Sel1" type="Control" parent="GadgetWidget/Selector"]
+offset_left = 38.0
+offset_top = 2.0
+offset_right = 62.0
+offset_bottom = 26.0
+mouse_filter = 2
+script = ExtResource("6_gadget_icon")
+gadget = 1
+
+[node name="Sel2" type="Control" parent="GadgetWidget/Selector"]
+offset_left = 68.0
+offset_top = 2.0
+offset_right = 92.0
+offset_bottom = 26.0
+mouse_filter = 2
+script = ExtResource("6_gadget_icon")
+gadget = 2
+
+[node name="Frame" type="Panel" parent="GadgetWidget"]
+offset_left = 6.0
+offset_top = 34.0
+offset_right = 94.0
+offset_bottom = 122.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("sb_gadget_frame")
+
+[node name="ChargeFill" type="ProgressBar" parent="GadgetWidget/Frame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+mouse_filter = 2
+fill_mode = 3
+max_value = 100.0
+value = 0.0
+show_percentage = false
+theme_override_styles/fill = SubResource("sb_gadget_charge")
+theme_override_styles/background = SubResource("StyleBoxFlat_bg_transparent")
+
+[node name="Icon" type="Control" parent="GadgetWidget/Frame"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = -12.0
+mouse_filter = 2
+script = ExtResource("6_gadget_icon")
+
+[node name="Reel" type="Control" parent="GadgetWidget/Frame"]
+visible = false
+clip_contents = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
+mouse_filter = 2
+
+[node name="Strip" type="Control" parent="GadgetWidget/Frame/Reel"]
+mouse_filter = 2
+
+[node name="DieBadge" type="Panel" parent="GadgetWidget"]
+visible = false
+offset_left = 4.0
+offset_top = 32.0
+offset_right = 30.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("sb_gadget_badge")
+
+[node name="Icon" type="Control" parent="GadgetWidget/DieBadge"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+mouse_filter = 2
+script = ExtResource("6_gadget_icon")
+gadget = 2
+
+[node name="KeyHint" type="Panel" parent="GadgetWidget"]
+visible = false
+offset_left = 66.0
+offset_top = 94.0
+offset_right = 94.0
+offset_bottom = 122.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("sb_gadget_keyhint")
+
+[node name="KeyLabel" type="Label" parent="GadgetWidget/KeyHint"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1, 0.08, 0.02, 1)
+theme_override_font_sizes/font_size = 16
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameLabel" type="Label" parent="GadgetWidget"]
+offset_left = -8.0
+offset_top = 126.0
+offset_right = 108.0
+offset_bottom = 150.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.96, 0.97, 1, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.06, 0.1, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 15
+text = "Airstrike"
+horizontal_alignment = 1
+
+[node name="VoicelineLabel" type="Label" parent="."]
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 80.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.06, 0.1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/TakeDamageButton" to="." method="_on_take_damage_pressed"]
