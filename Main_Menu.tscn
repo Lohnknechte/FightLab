@@ -1,0 +1,101 @@
+[gd_scene format=3 uid="uid://du4vo6w3e1wmt"]
+
+[ext_resource type="Texture2D" uid="uid://b2y566ia5g345" path="res://Assets/Sprites/BG.jpg" id="1_gtid3"]
+[ext_resource type="Script" uid="uid://cw2cs5qmny1ne" path="res://bg.gd" id="2_dnfjo"]
+[ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="3_257up"]
+[ext_resource type="AudioStream" uid="uid://c0opp4fcfhv0u" path="res://audio/music/Main_Menu.mp3" id="4_dnfjo"]
+
+[node name="Control" type="Control" unique_id=251354884]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bg" type="Sprite2D" parent="." unique_id=1173283187]
+position = Vector2(574, 321.49997)
+scale = Vector2(0.46796873, 0.49097222)
+texture = ExtResource("1_gtid3")
+script = ExtResource("2_dnfjo")
+
+[node name="Create_Button" type="Button" parent="." unique_id=2017958824]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 324.0
+offset_right = 707.0
+offset_bottom = 373.0
+text = "Create Lobby"
+
+[node name="Join_Button" type="Button" parent="." unique_id=516436992]
+layout_mode = 0
+offset_left = 414.0
+offset_top = 258.0
+offset_right = 612.0
+offset_bottom = 307.0
+text = "Join Lobby"
+
+[node name="Loadout_Button" type="Button" parent="." unique_id=1297808651]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 184.0
+offset_right = 306.0
+offset_bottom = 439.0
+theme_override_colors/icon_normal_color = Color(0.4862745, 1, 1, 1)
+theme_override_colors/icon_focus_color = Color(0.5019608, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.57254905, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.5019608, 1, 1, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.5294118, 1, 1, 1)
+text = "Modify Loadout"
+
+[node name="Level_Button" type="Button" parent="." unique_id=1197081850]
+layout_mode = 0
+offset_left = 952.0
+offset_top = 44.0
+offset_right = 1104.0
+offset_bottom = 184.0
+theme_override_font_sizes/font_size = 46
+text = "LVL 17"
+
+[node name="Quit_Button" type="Button" parent="." unique_id=1841361366]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 391.0
+offset_right = 708.0
+offset_bottom = 440.0
+text = "Close Game"
+
+[node name="Quick_Button" type="Button" parent="." unique_id=924594540]
+layout_mode = 0
+offset_left = 621.0
+offset_top = 258.0
+offset_right = 707.0
+offset_bottom = 307.0
+text = "Quick Join"
+
+[node name="Label" type="Label" parent="." unique_id=1531174185]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 45.0
+offset_right = 947.0
+offset_bottom = 182.0
+theme_override_colors/font_color = Color(0.31746835, 0.2729488, 0.071577884, 1)
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 128
+text = "F I G H T L A B"
+
+[node name="Label2" type="Label" parent="." unique_id=1212895681]
+layout_mode = 0
+offset_left = 107.0
+offset_top = 52.0
+offset_right = 947.0
+offset_bottom = 189.0
+theme_override_colors/font_color = Color(0.8948859, 0.68481404, 7.70092e-07, 1)
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 128
+text = "F I G H T L A B"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=875436050]
+stream = ExtResource("4_dnfjo")
+volume_db = 8.0
+autoplay = true
