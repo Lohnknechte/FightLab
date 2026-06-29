@@ -231,13 +231,27 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	_is_dead = true
+
+	# stop movement logic
 	set_physics_process(false)
+
+	# hide visuals
+	_sprite.visible = false 
+	set_collision_layer_value(1, false)
+	set_collision_mask_value(1, false)
+
+	# disable ALL collision shapes
+	for child in get_children():
+		if child is CollisionShape2D or child is CollisionPolygon2D:
+			child.set_deferred("disabled", true)
+
+	# weapons off
 	for weapon in _weapons:
 		weapon.visible = false
 		weapon.set_process(false)
 		weapon.set_physics_process(false)
 		weapon.set_process_input(false)
-	_sprite.visible = false
+
 	await get_tree().create_timer(3.0).timeout
 	_respawn()
 
