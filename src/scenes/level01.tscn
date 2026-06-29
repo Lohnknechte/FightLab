@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
 [ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
-[ext_resource type="PackedScene" path="res://src/scenes/hud.tscn" id="4_hud"]
+[ext_resource type="PackedScene" uid="uid://cjjvtexk07bxa" path="res://src/scenes/hud.tscn" id="4_hud"]
 [ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/Obstacles/spike.tscn" id="5_70q3c"]
 [ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
@@ -127,5 +127,4 @@ position = Vector2(700, 481)
 
 [node name="MeteorShower" parent="." unique_id=2028451645 instance=ExtResource("7_jlo51")]
 position = Vector2(535, 0)
-max_time_between_showers = 60.0
 x_variance = 75.0

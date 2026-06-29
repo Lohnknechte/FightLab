@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://hjienmr1sqcl"]
+
+[ext_resource type="Script" uid="uid://diy2fkpb2myja" path="res://Assets/Scripts/avada_ulti.gd" id="1_w581h"]
+
+[node name="AvadaUlti" type="Node2D" unique_id=1457823091]
+script = ExtResource("1_w581h")
+
+[node name="BeamVisual" type="Line2D" parent="." unique_id=1971453544]
+width = 5.0
+default_color = Color(0.22352941, 1, 0.078431375, 1)
+
+[node name="Timer" type="Timer" parent="." unique_id=2117985279]
+wait_time = 0.321
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

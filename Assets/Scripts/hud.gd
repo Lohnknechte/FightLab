@@ -61,6 +61,14 @@ var _frame_style: StyleBoxFlat
 var _is_ready := false
 var _dice_result_name := ""
 var _current_name := ""
+var _ult_is_ready: bool = false  
+var _ult_pulse_tween: Tween = null # Must be declared here
+
+# --- UI References (Update paths to match your scene tree) ---
+@onready var ult_icon: Control = $UltimateIcon          # Your custom drawn icon node
+@onready var ult_key_hint: Label = $UltimateKeyHint     # The Label showing "Q"
+@onready var _ult_fill_style: Control = $ChargeFill     # The node holding the bar color/style
+@onready var _ult_frame_style: Control = $ChargeFrame   # The node holding the border style (if separate)
 
 
 func _ready() -> void:
@@ -191,6 +199,77 @@ func _clear_ammo_icons() -> void:
 		child.free()
 
 
+# ---------------------------------------------------------------------------
+# Ultimate Hud
+# ---------------------------------------------------------------------------
+func _on_ultimate_charge_updated(current: float, max: float) -> void:
+	# 1. Update the Bar (Assuming charge_bar is your UltimateChargeBar node)
+	# If charge_bar is a native ProgressBar, use .value. If custom script, use your variables.
+	if charge_bar.has_method("set_charge"): 
+		charge_bar.set_charge(current, max)
+	else:
+		# Fallback for custom script variables
+		charge_bar.current_charge = current
+		charge_bar.max_charge = max
+		charge_bar.queue_redraw()
+
+	# 2. Check Ready State
+	var full: bool = current >= max
+	if full and not _ult_is_ready:
+		_set_ultimate_ready(true)
+	elif not full and _ult_is_ready:
+		(false)
+
+# State variable (add this at the top of your script with other vars)
+	var _ult_is_ready: bool = false
+	
+func _set_ultimate_ready(ready: bool) -> void:
+	_ult_is_ready = ready
+	
+	# Kill existing tween to prevent conflicts
+	if _ult_pulse_tween:
+		_ult_pulse_tween.kill()
+
+	if ready:
+		# --- VISUALS WHEN READY ---
+		# Change Bar Color
+		if _ult_fill_style:
+			_ult_fill_style.bg_color = FILL_READY # Reuse your gadget color constant
+		
+		# Change Icon Color (if you have an ultimate icon)
+		if ult_icon and ult_icon.has_method("set_icon_color"):
+			ult_icon.set_icon_color(ICON_READY)
+		
+		# Show Key Hint (e.g., "Q")
+		if ult_key_hint:
+			ult_key_hint.visible = true
+			ult_key_hint.modulate.a = 1.0
+		
+		# Play Pulse Animation (Copy your gadget tween logic)
+		_ult_pulse_tween = create_tween().set_loops()
+		if _ult_frame_style:
+			_ult_pulse_tween.tween_property(_ult_frame_style, "border_color", BORDER_READY_HI, 0.5).set_trans(Tween.TRANS_SINE)
+			_ult_pulse_tween.parallel().tween_property(ult_key_hint, "modulate:a", 0.5, 0.5)
+		if _ult_frame_style:
+			_ult_pulse_tween.tween_property(_ult_frame_style, "border_color", BORDER_READY, 0.5).set_trans(Tween.TRANS_SINE)
+		_ult_pulse_tween.parallel().tween_property(ult_key_hint, "modulate:a", 1.0, 0.5)
+		
+		# Optional: Play a sound
+		# $AudioPlayer.play() 
+
+	else:
+		# --- VISUALS WHEN CHARGING ---
+		if _ult_fill_style:
+			_ult_fill_style.bg_color = FILL_CHARGING
+
+		if _ult_frame_style:
+			_ult_frame_style.border_color = BORDER_IDLE
+ 
+		if ult_key_hint:
+			ult_key_hint.visible = false
+			
+		if ult_icon and ult_icon.has_method("set_icon_color"):
+			ult_icon.set_icon_color(ICON_IDLE)   
 # ---------------------------------------------------------------------------
 # Gadget HUD
 # ---------------------------------------------------------------------------

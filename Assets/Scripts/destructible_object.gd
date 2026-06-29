@@ -38,8 +38,8 @@ func detonate():
 	# CLEANUP MUSS IMMER PASSIEREN
 	# --------------------------
 	visible = false
-	collision_layer = 0
-	collision_mask = 0
+	collision_layer = 1
+	collision_mask = 1
 	$CollisionShape2D.set_deferred("disabled", true)
 
 	# audio
