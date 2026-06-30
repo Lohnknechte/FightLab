@@ -79,7 +79,7 @@ var _footstep_player: AudioStreamPlayer2D
 var _footstep_timer: float = 0.0
 var _was_moving: bool = false
 
-var facing_left: bool
+var facing_left: bool = false
 var _is_dead: bool = false
 
 
@@ -119,14 +119,18 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Gadget controls (Q = use, G = cycle). Weapon slots use 1-9, reload uses R.
+	# Gadget controls (F = use, G = cycle). Weapon slots use 1-9, reload uses R.
 	if _is_dead:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.keycode == KEY_G:
 			_select_gadget((current_gadget + 1) % GADGET_NAMES.size())
-		elif event.keycode == KEY_Q:
+		elif event.keycode == KEY_F:
 			_try_use_gadget()
+		elif event.is_action_pressed("cast_ultimate"):
+			print("INPUT: Q Pressed!")
+			$UltimateManager.cast_ultimate()
+			get_viewport().set_input_as_handled()
 
 
 func _physics_process(delta: float) -> void:
@@ -154,14 +158,13 @@ func _physics_process(delta: float) -> void:
 		vel.y *= 0.5
 
 	var direction: float = Input.get_axis("ui_left", "ui_right")
-
+	_update_facing(direction)
+	
 	if direction != 0.0:
 		vel.x = move_toward(vel.x, direction * speed, acceleration * speed * delta)
-		facing_left = direction < 0.0
-		_sprite.flip_h = facing_left
 	else:
 		vel.x = move_toward(vel.x, 0.0, friction * speed * delta)
-
+ 
 	velocity = vel
 	move_and_slide()
 
@@ -180,6 +183,10 @@ func _physics_process(delta: float) -> void:
 
 	_update_gadget_charge(delta)
 
+func _update_facing(direction : float):
+	if direction != 0.0: 
+		facing_left = direction < 0.0
+		_sprite.flip_h = facing_left 
 
 func _update_animation(is_moving: bool) -> void:
 	var target_animation: StringName = &"walk" if is_moving else &"idle"
@@ -241,9 +248,9 @@ func die() -> void:
 	set_collision_mask_value(1, false)
 
 	# disable ALL collision shapes
-	for child in get_children():
-		if child is CollisionShape2D or child is CollisionPolygon2D:
-			child.set_deferred("disabled", true)
+	#for child in get_children():
+		#if child is CollisionShape2D or child is CollisionPolygon2D:
+			#child.set_deferred("disabled", true)
 
 	# weapons off
 	for weapon in _weapons:
@@ -266,6 +273,8 @@ func _respawn() -> void:
 	_dash_time_left = 0.0
 	_invulnerable = false
 	set_physics_process(true)
+	set_collision_layer_value(1, true)
+	set_collision_mask_value(1, true)
 	if _footstep_player:
 		_footstep_player.stop()
 	_footstep_timer = 0.0

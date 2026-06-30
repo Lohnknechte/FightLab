@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Ultimate_Data" format=3 uid="uid://18eubougsmip"]
+
+[ext_resource type="Script" uid="uid://bkc8osf6r7h55" path="res://Assets/Scripts/ultimate_data.gd" id="1_fntk5"]
+[ext_resource type="PackedScene" uid="uid://hjienmr1sqcl" path="res://src/scenes/Ultimates/Avada_ulti.tscn" id="1_ws5uu"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_fntk5")
+damage = 5000
+charge_rate = 50.0
+maxCharge = 1000.0
+scene = ExtResource("1_ws5uu")
+metadata/_custom_type_script = "uid://bkc8osf6r7h55"
