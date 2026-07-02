@@ -2,7 +2,7 @@ name: "Godot Build Pipeline"
 
 on:
   push:
-    branches: [ "main", "5-operations-quality-gate" ] # 5-operations-quality-gate can be removed once the PR is merged successfully
+    branches: [ "main", "5-operations-quality-gate" ]
   pull_request:
     branches: [ "main", "5-operations-quality-gate" ]
 
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         include:
           - platform: Windows
@@ -24,6 +24,8 @@ jobs:
             binary_name: game.x86_64
           - platform: Web
             binary_name: index.html
+          - platform: Android
+            binary_name: game.apk
 
     steps:
       - name: Checkout Source Code
@@ -31,11 +33,29 @@ jobs:
         with:
           lfs: true
 
+      - name: Setup Java & Android SDK (Android Only)
+        if: matrix.platform == 'Android'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK Tools (Android Only)
+        if: matrix.platform == 'Android'
+        uses: android-actions/setup-android@v3
+
+      - name: Generate Dynamic Debug Keystore (Android Only)
+        if: matrix.platform == 'Android'
+        run: |
+          mkdir -p android
+          keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore android/debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 365
+
       - name: Setup Godot Engine
         uses: chickensoft-games/setup-godot@v2
         with:
           version: 4.7.0
           use-dotnet: false
+          download-templates: true
 
       - name: Create Export Directories
         run: mkdir -v -p build/${{ matrix.platform }}
@@ -69,7 +89,12 @@ jobs:
           mkdir staging
           cd artifacts
           for dir in */; do
-            zip -r "../staging/${dir%/}.zip" "$dir"
+            # Keep APK separate instead of zipping it, making it easier to install directly on mobile devices
+            if [ "$dir" = "Android-build/" ]; then
+              cp Android-build/*.apk ../staging/
+            else
+              zip -r "../staging/${dir%/}.zip" "$dir"
+            fi
           done
 
       - name: Create GitHub Release
@@ -79,4 +104,4 @@ jobs:
           name: Release Build v${{ github.run_number }}
           draft: false
           prerelease: false
-          files: staging/*.zip
+          files: staging/*
