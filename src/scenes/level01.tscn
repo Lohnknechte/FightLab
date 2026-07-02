@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lkk4x"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jlo51"]
 texture = ExtResource("2_1ao1g")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -17,7 +17,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1ao1g"]
 load_path = "res://.godot/imported/Bloecke.png-dd1289ed442f334e02cc4fdaced0fe40.ctex"
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2leev"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_875aw"]
 texture = SubResource("CompressedTexture2D_1ao1g")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
@@ -44,8 +44,8 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_2leev"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_lkk4x")
-sources/1 = SubResource("TileSetAtlasSource_2leev")
+sources/0 = SubResource("TileSetAtlasSource_jlo51")
+sources/1 = SubResource("TileSetAtlasSource_875aw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deathzone"]
 size = Vector2(1499, 200)
