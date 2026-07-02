@@ -1,0 +1,82 @@
+name: "Godot Build Pipeline"
+
+on:
+  push:
+    branches: [ "main", "5-operations-quality-gate" ] # 5-operations-quality-gate can be removed once the PR is merged successfully
+  pull_request:
+    branches: [ "main", "5-operations-quality-gate" ]
+
+permissions:
+  contents: write
+
+jobs:
+  export_game:
+    name: Godot Export
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - platform: Windows
+            binary_name: game.exe
+          - platform: Linux
+            binary_name: game.x86_64
+          - platform: Web
+            binary_name: index.html
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Setup Godot Engine
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.0
+          use-dotnet: false
+
+      - name: Create Export Directories
+        run: mkdir -v -p build/${{ matrix.platform }}
+
+      - name: Pre-import Godot Assets
+        run: godot --headless --editor --quit
+
+      - name: Compile and Export
+        run: |
+          godot --headless --export-release "${{ matrix.platform }}" "build/${{ matrix.platform }}/${{ matrix.binary_name }}"
+          
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform }}-build
+          path: build/${{ matrix.platform }}/
+
+  publish_release:
+    name: Publish Builds to GitHub Release
+    needs: export_game
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Zip Artifacts For Distribution
+        run: |
+          mkdir staging
+          cd artifacts
+          for dir in */; do
+            zip -r "../staging/${dir%/}.zip" "$dir"
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: Release Build v${{ github.run_number }}
+          draft: false
+          prerelease: false
+          files: staging/*.zip

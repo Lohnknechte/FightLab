@@ -9,27 +9,27 @@
 
 Before submitting your changes, ensure your PR adheres to these three subjects:
 1. Atomicity: Keep PRs minimal
-    - Good: Add hitbox detection for light attacks.
-    - Bad: Fixed hitboxes, updated UI textures, and refactored player movement.
+	- Good: Add hitbox detection for light attacks.
+	- Bad: Fixed hitboxes, updated UI textures, and refactored player movement.
 2. Stability: Keep PRs functional
-    - Good: No console errors, correct code and file formatting (https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)
-    - Bad: Errors, program not executable, spaghetti code
+	- Good: No console errors, correct code and file formatting (https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html)
+	- Bad: Errors, program not executable, spaghetti code
 3. Clarity: Keep PRs comprehensible
-    - Good commit message:
-    ```
-    What does this PR do?
-    Adds a small Hitbox to the character.
+	- Good commit message:
+	```
+	What does this PR do?
+	Adds a small Hitbox to the character.
 
-    Why is this change necessary?
-    Concerns Issue #4
+	Why is this change necessary?
+	Concerns Issue #4
 
-    How was this tested?
-    Tested manually in Godot.
-    ```
-    - Bad commit message:
-    ```
-    I finally got that one thing working. Also, I changed some colors because the old ones were bothering me. I might have broken the physics engine, but I’ll fix it in the next PR. Don't look too closely at player.gd, it's a mess lol.
-    ```
+	How was this tested?
+	Tested manually in Godot.
+	```
+	- Bad commit message:
+	```
+	I finally got that one thing working. Also, I changed some colors because the old ones were bothering me. I might have broken the physics engine, but I’ll fix it in the next PR. Don't look too closely at player.gd, it's a mess lol.
+	```
 
 
 
