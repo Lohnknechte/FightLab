@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://cb3rly0vyph8k"]
 
-[ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
+[ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://assets/sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
 [ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
 [ext_resource type="PackedScene" uid="uid://cjjvtexk07bxa" path="res://src/scenes/hud.tscn" id="4_hud"]
 [ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/Obstacles/spike.tscn" id="5_70q3c"]
-[ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
+[ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://assets/Scripts/level01.gd" id="5_lv01"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jlo51"]
@@ -15,7 +15,6 @@ texture_region_size = Vector2i(32, 32)
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1ao1g"]
-load_path = "res://.godot/imported/Bloecke.png-dd1289ed442f334e02cc4fdaced0fe40.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_875aw"]
 texture = SubResource("CompressedTexture2D_1ao1g")

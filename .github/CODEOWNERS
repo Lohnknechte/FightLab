@@ -1,4 +1,6 @@
-.gitignore          @Lohnknechte/lead-devs
-.gitattributes      @Lohnknechte/lead-devs
-/.github/           @Lohnknechte/lead-devs
-LICENSE             @Lohnknechte/lead-devs
+/.gitignore             @Lohnknechte/lead-devs
+/.gitattributes         @Lohnknechte/lead-devs
+/LICENSE                @Lohnknechte/lead-devs
+
+/.github/**/*           @ThompsonA93
+export_presets.cfg   @ThompsonA93
