@@ -1,7 +1,7 @@
 name: "Godot 4.7 Build and Export Pipeline"
 
 env:
-  GODOT_VERSION: "4.7"
+  GODOT_VERSION: "4.7.0"
 
 on:
   push:
@@ -46,7 +46,7 @@ jobs:
 
       - name: Create Export Directories
         run: mkdir -v -p build/${{ matrix.folder_name }}
-        
+
       - name: Pre-import Godot Assets
         run: godot --headless --import --quit
 
