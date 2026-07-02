@@ -1,4 +1,7 @@
-name: "Godot Build Pipeline"
+name: "Godot 4.7 Build and Export Pipeline"
+
+env:
+  GODOT_VERSION: "4.7"
 
 on:
   push:
@@ -27,9 +30,6 @@ jobs:
           - platform: "Web"
             folder_name: Web
             binary_name: index.html
-          - platform: "Android"
-            folder_name: Android
-            binary_name: game.apk
 
     steps:
       - name: Checkout Source Code
@@ -37,35 +37,18 @@ jobs:
         with:
           lfs: true
 
-      - name: Setup Java & Android SDK (Android Only)
-        if: matrix.platform == 'Android'
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-
-      - name: Setup Android SDK Tools (Android Only)
-        if: matrix.platform == 'Android'
-        uses: android-actions/setup-android@v3
-
-      - name: Generate Dynamic Debug Keystore (Android Only)
-        if: matrix.platform == 'Android'
-        run: |
-          mkdir -p android
-          keytool -keyalg RSA -genkeypair -alias androiddebugkey -keypass android -keystore android/debug.keystore -storepass android -dname "CN=Android Debug,O=Android,C=US" -validity 365
-
       - name: Setup Godot Engine
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: 4.3.0
+          version: ${{ env.GODOT_VERSION }}
           use-dotnet: false
-          download-templates: true
+          include-templates: true
 
       - name: Create Export Directories
         run: mkdir -v -p build/${{ matrix.folder_name }}
-
+        
       - name: Pre-import Godot Assets
-        run: godot --headless --editor --quit
+        run: godot --headless --import --quit
 
       - name: Compile and Export
         run: |
@@ -93,11 +76,9 @@ jobs:
           mkdir staging
           cd artifacts
           for dir in */; do
-            if [ "$dir" = "Android-build/" ]; then
-              cp Android-build/*.apk ../staging/
-            else
-              zip -r "../staging/${dir%/}.zip" "$dir"
-            fi
+            cd "$dir"
+            zip -r "../../staging/${dir%/}.zip" .
+            cd ..
           done
 
       - name: Create GitHub Release
