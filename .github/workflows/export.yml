@@ -18,13 +18,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: Windows
+          - platform: "Windows Desktop"
+            folder_name: Windows
             binary_name: game.exe
-          - platform: Linux
+          - platform: "Linux"
+            folder_name: Linux
             binary_name: game.x86_64
-          - platform: Web
+          - platform: "Web"
+            folder_name: Web
             binary_name: index.html
-          - platform: Android
+          - platform: "Android"
+            folder_name: Android
             binary_name: game.apk
 
     steps:
@@ -53,25 +57,25 @@ jobs:
       - name: Setup Godot Engine
         uses: chickensoft-games/setup-godot@v2
         with:
-          version: 4.7.0
+          version: 4.3.0
           use-dotnet: false
           download-templates: true
 
       - name: Create Export Directories
-        run: mkdir -v -p build/${{ matrix.platform }}
+        run: mkdir -v -p build/${{ matrix.folder_name }}
 
       - name: Pre-import Godot Assets
         run: godot --headless --editor --quit
 
       - name: Compile and Export
         run: |
-          godot --headless --export-release "${{ matrix.platform }}" "build/${{ matrix.platform }}/${{ matrix.binary_name }}"
+          godot --headless --export-release "${{ matrix.platform }}" "build/${{ matrix.folder_name }}/${{ matrix.binary_name }}"
           
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.platform }}-build
-          path: build/${{ matrix.platform }}/
+          name: ${{ matrix.folder_name }}-build
+          path: build/${{ matrix.folder_name }}/
 
   publish_release:
     name: Publish Builds to GitHub Release
@@ -89,7 +93,6 @@ jobs:
           mkdir staging
           cd artifacts
           for dir in */; do
-            # Keep APK separate instead of zipping it, making it easier to install directly on mobile devices
             if [ "$dir" = "Android-build/" ]; then
               cp Android-build/*.apk ../staging/
             else
