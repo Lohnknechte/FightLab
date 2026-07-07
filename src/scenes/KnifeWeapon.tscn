@@ -1,15 +1,15 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bpaqhl4p3cv44"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/knife_weapon.gd" id="1_1w6n9"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/knife.png" id="2_1v7n4"]
+[ext_resource type="Script" uid="uid://v5742l221ndd" path="res://Assets/Scripts/knife_weapon.gd" id="1_1w6n9"]
+[ext_resource type="Texture2D" uid="uid://cb6a8q1osqswv" path="res://Assets/Sprites/weapons/guns/knife.png" id="2_1v7n4"]
 
-[node name="KnifeWeapon" type="Node2D"]
+[node name="KnifeWeapon" type="Node2D" unique_id=13916283]
 script = ExtResource("1_1w6n9")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=957591052]
 position = Vector2(7, 1)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_1v7n4")
 
-[node name="Muzzle" type="Marker2D" parent="."]
+[node name="Muzzle" type="Marker2D" parent="." unique_id=198766318]
 position = Vector2(25, 0)

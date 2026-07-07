@@ -80,8 +80,8 @@ var _footstep_timer: float = 0.0
 var _was_moving: bool = false
 
 var facing_left: bool = false
-var _is_dead: bool = false
-
+var _is_dead: bool = false 
+@export var equipped_effect: StatusEffect
 
 func _ready() -> void:
 	add_to_group("Players")
@@ -238,7 +238,7 @@ func take_damage(amount: int) -> void:
 
 func die() -> void:
 	_is_dead = true
-
+	$StatusManager.clear_effects()
 	# stop movement logic
 	set_physics_process(false)
 
@@ -298,7 +298,7 @@ func _set_active_weapon(weapon: Node2D) -> void:
 		current_weapon.set_process(is_active)
 		current_weapon.set_physics_process(is_active)
 		current_weapon.set_process_input(is_active)
-
+		current_weapon.attack_effect = equipped_effect
 	var slot := _get_weapon_slot(weapon)
 	if slot != -1:
 		weapon_changed.emit(slot)

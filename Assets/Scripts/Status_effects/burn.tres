@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StatusEffect" format=3 uid="uid://ddi5dn2fw0k8f"]
+
+[ext_resource type="Script" uid="uid://d1wgrrh8eblcw" path="res://Assets/Scripts/Status_effects/burn_effect.gd" id="1_ko4l2"]
+
+[resource]
+script = ExtResource("1_ko4l2")
+id = &"burn"
+duration = 10.0
+tick_rate = 0.2
+damage_per_tick = 1.0
+metadata/_custom_type_script = "uid://byfjwckuytk8n"
