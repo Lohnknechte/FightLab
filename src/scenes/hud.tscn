@@ -1,38 +1,63 @@
 [gd_scene format=3 uid="uid://cjjvtexk07bxa"]
 
 [ext_resource type="Script" uid="uid://twddkmnx22qo" path="res://Assets/Scripts/hud.gd" id="1_hud"]
-[ext_resource type="Texture2D" uid="uid://bdup06cfi6lae" path="res://Assets/Sprites/weapons/guns/shotgun.png" id="2_shotgun_icon"]
-[ext_resource type="Texture2D" uid="uid://cbnxegqfv4s3i" path="res://Assets/Sprites/weapons/guns/sniper_old.png" id="3_sniper_icon"]
-[ext_resource type="Texture2D" uid="uid://dfmhbto624ffc" path="res://Assets/Sprites/weapons/guns/shuriken.png" id="4_shuriken_icon"]
-[ext_resource type="Texture2D" uid="uid://cb6a8q1osqswv" path="res://Assets/Sprites/weapons/guns/knife.png" id="5_knife_icon"]
 [ext_resource type="Script" path="res://Assets/Scripts/gadget_icon.gd" id="6_gadget_icon"]
-[ext_resource type="Script" uid="uid://ci0wh5ckstwuf" path="res://Assets/Scripts/ultimate_hud.gd" id="7_jdqvp"]
-[ext_resource type="Script" uid="uid://bo8i5fy6o6brj" path="res://Assets/Scripts/ultimate_icon.gd" id="7_o5gas"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_dark"]
-bg_color = Color(0.15, 0.15, 0.15, 1)
+[sub_resource type="StyleBoxFlat" id="sb_hp_bg"]
+bg_color = Color(0.08, 0.09, 0.12, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.32, 0.42, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="sb_hp_fill"]
+bg_color = Color(0.18, 0.78, 0.32, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill_ghost"]
-bg_color = Color(0.9, 0.7, 0.1, 1)
+[sub_resource type="StyleBoxFlat" id="sb_ghost_fill"]
+bg_color = Color(0.9, 0.7, 0.1, 0.75)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_transparent"]
+[sub_resource type="StyleBoxFlat" id="sb_bar_bg_clear"]
 bg_color = Color(0, 0, 0, 0)
 draw_center = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill_health"]
-bg_color = Color(0.2, 0.8, 0.2, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxFlat" id="sb_ammo_bg"]
+bg_color = Color(0.08, 0.09, 0.12, 0.82)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.28, 0.32, 0.42, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="sb_status_bg"]
+bg_color = Color(0.12, 0.13, 0.18, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="sb_status_fill"]
+bg_color = Color(0.96, 0.74, 0.12, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="StyleBoxFlat" id="sb_gadget_frame"]
 bg_color = Color(0.09, 0.1, 0.16, 0.92)
@@ -75,249 +100,92 @@ corner_radius_bottom_left = 8
 [node name="HUD" type="CanvasLayer" unique_id=1206508809]
 script = ExtResource("1_hud")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2145659269]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 10.0
-offset_bottom = 10.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=473482719]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=594459890]
-layout_mode = 2
-text = "HP: "
-
-[node name="BarContainer" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1445148250]
-custom_minimum_size = Vector2(150, 24)
-layout_mode = 2
-
-[node name="GhostBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/BarContainer" unique_id=254017459]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_bg_dark")
-theme_override_styles/fill = SubResource("StyleBoxFlat_fill_ghost")
-value = 100.0
-show_percentage = false
-
-[node name="HealthBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/BarContainer" unique_id=80899022]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_bg_transparent")
-theme_override_styles/fill = SubResource("StyleBoxFlat_fill_health")
-value = 100.0
-show_percentage = false
-
-[node name="TakeDamageButton" type="Button" parent="VBoxContainer" unique_id=311745337]
-layout_mode = 2
-focus_mode = 0
-text = "Take Damage"
-
-[node name="Hotbar" type="Control" parent="." unique_id=1989756620]
+[node name="HealthWidget" type="VBoxContainer" parent="."]
 layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -170.0
-offset_top = -52.0
-offset_right = 170.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 1
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 212.0
+offset_bottom = 12.0
+grow_horizontal = 1
 
-[node name="AmmoDisplay" type="VBoxContainer" parent="Hotbar" unique_id=1738202022]
-visible = false
-z_index = 5
-layout_mode = 0
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -110.0
-offset_top = -54.0
-offset_right = 110.0
-offset_bottom = -26.0
-alignment = 1
-
-[node name="WeaponLabel" type="Label" parent="Hotbar/AmmoDisplay" unique_id=863214873]
+[node name="HPLabel" type="Label" parent="HealthWidget"]
 layout_mode = 2
-text = "Shotgun"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.85, 0.9, 1, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.05, 0.1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 15
+text = "100 / 100"
 
-[node name="AmmoIcons" type="HBoxContainer" parent="Hotbar/AmmoDisplay" unique_id=1974439327]
+[node name="BarContainer" type="Control" parent="HealthWidget"]
+custom_minimum_size = Vector2(200, 14)
 layout_mode = 2
-alignment = 1
 
-[node name="StatusBar" type="ProgressBar" parent="Hotbar/AmmoDisplay" unique_id=19506710]
-visible = false
-custom_minimum_size = Vector2(120, 10)
-layout_mode = 2
-show_percentage = false
-
-[node name="PanelContainer" type="PanelContainer" parent="Hotbar" unique_id=1120512135]
-layout_mode = 0
+[node name="GhostBar" type="ProgressBar" parent="HealthWidget/BarContainer"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("sb_hp_bg")
+theme_override_styles/fill = SubResource("sb_ghost_fill")
+value = 100.0
+show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Hotbar/PanelContainer" unique_id=12768427]
-layout_mode = 2
-alignment = 1
+[node name="HealthBar" type="ProgressBar" parent="HealthWidget/BarContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("sb_bar_bg_clear")
+theme_override_styles/fill = SubResource("sb_hp_fill")
+value = 100.0
+show_percentage = false
 
-[node name="Slot1" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=519329580]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
+[node name="AmmoWidget" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -90.0
+offset_right = 220.0
+offset_bottom = -12.0
+grow_horizontal = 1
+grow_vertical = 0
+theme_override_styles/panel = SubResource("sb_ammo_bg")
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot1" unique_id=1287615563]
+[node name="Inner" type="VBoxContainer" parent="AmmoWidget"]
 layout_mode = 2
-text = "1"
-horizontal_alignment = 1
+theme_override_constants/separation = 5
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot1" unique_id=2014028840]
-custom_minimum_size = Vector2(24, 24)
+[node name="WeaponLabel" type="Label" parent="AmmoWidget/Inner"]
 layout_mode = 2
-texture = ExtResource("2_shotgun_icon")
-expand_mode = 1
-stretch_mode = 5
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_colors/font_outline_color = Color(0.04, 0.05, 0.1, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 17
+text = "Waffe"
 
-[node name="Slot2" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=2012383554]
-custom_minimum_size = Vector2(32, 32)
+[node name="AmmoIcons" type="HBoxContainer" parent="AmmoWidget/Inner"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 2
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot2" unique_id=1835099964]
+[node name="StatusBar" type="ProgressBar" parent="AmmoWidget/Inner"]
+visible = false
+custom_minimum_size = Vector2(180, 8)
 layout_mode = 2
-text = "2"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot2" unique_id=832308062]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-texture = ExtResource("3_sniper_icon")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot3" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=1150010414]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot3" unique_id=1977028065]
-layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot3" unique_id=1187107070]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-texture = ExtResource("4_shuriken_icon")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot4" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=814656278]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot4" unique_id=1906758660]
-layout_mode = 2
-text = "4"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot4" unique_id=1268186075]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-texture = ExtResource("5_knife_icon")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot5" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=711783465]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot5" unique_id=972742543]
-layout_mode = 2
-text = "5"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot5" unique_id=1994586946]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot6" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=349021388]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot6" unique_id=1015287280]
-layout_mode = 2
-text = "6"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot6" unique_id=1468442444]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot7" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=232093060]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot7" unique_id=133778296]
-layout_mode = 2
-text = "7"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot7" unique_id=2044228579]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot8" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=1565060564]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot8" unique_id=1963163461]
-layout_mode = 2
-text = "8"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot8" unique_id=321750418]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Slot9" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=1862141385]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-alignment = 1
-
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot9" unique_id=316873962]
-layout_mode = 2
-text = "9"
-horizontal_alignment = 1
-
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot9" unique_id=1372910375]
-custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
+theme_override_styles/background = SubResource("sb_status_bg")
+theme_override_styles/fill = SubResource("sb_status_fill")
+show_percentage = false
 
 [node name="GadgetWidget" type="Control" parent="." unique_id=513459772]
 layout_mode = 3
@@ -387,26 +255,25 @@ offset_top = 4.0
 offset_right = -4.0
 offset_bottom = -4.0
 mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_bg_transparent")
+theme_override_styles/background = SubResource("sb_bar_bg_clear")
 theme_override_styles/fill = SubResource("sb_gadget_charge")
-fill_mode = 3
+orientation = 1
 show_percentage = false
 
 [node name="Icon" type="Control" parent="GadgetWidget/Frame" unique_id=100180984]
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -12.0
-offset_bottom = -12.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = -6.0
+offset_bottom = -6.0
 mouse_filter = 2
 script = ExtResource("6_gadget_icon")
 
 [node name="Reel" type="Control" parent="GadgetWidget/Frame" unique_id=1329174005]
 visible = false
-clip_contents = true
-anchors_preset = 0
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0
@@ -474,67 +341,7 @@ theme_override_font_sizes/font_size = 15
 text = "Airstrike"
 horizontal_alignment = 1
 
-[node name="Ultimate" type="Panel" parent="GadgetWidget" unique_id=303480923]
-layout_mode = 0
-offset_left = -964.0
-offset_top = 23.0
-offset_right = -876.0
-offset_bottom = 111.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("sb_gadget_frame")
-script = ExtResource("7_jdqvp")
-
-[node name="ChargeFill" type="ProgressBar" parent="GadgetWidget/Ultimate" unique_id=646396887]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = -4.0
-offset_bottom = -4.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_styles/background = SubResource("StyleBoxFlat_bg_transparent")
-theme_override_styles/fill = SubResource("sb_gadget_charge")
-fill_mode = 3
-script = ExtResource("7_o5gas")
-current_charge = null
-max_charge = null
-fill_color = null
-ready_color = null
-
-[node name="Icon" type="Control" parent="GadgetWidget/Ultimate" unique_id=1225503105]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 12.0
-offset_right = -12.0
-offset_bottom = -12.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Reel" type="Control" parent="GadgetWidget/Ultimate" unique_id=1684299209]
-visible = false
-clip_contents = true
-anchors_preset = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 6.0
-offset_right = -6.0
-offset_bottom = -6.0
-mouse_filter = 2
-
-[node name="Strip" type="Control" parent="GadgetWidget/Ultimate/Reel" unique_id=792467751]
-anchors_preset = 0
-mouse_filter = 2
-
-[node name="VoicelineLabel" type="Label" parent="." unique_id=1104695470]
+[node name="VoicelineLabel" type="Label" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
 offset_top = 40.0
@@ -545,5 +352,3 @@ theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 22
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="pressed" from="VBoxContainer/TakeDamageButton" to="." method="_on_take_damage_pressed"]

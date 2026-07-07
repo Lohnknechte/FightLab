@@ -3,7 +3,7 @@ extends Area2D
 @export var speed: float = 200.0
 @export var max_distance: float = 100.0
 @export var rand_scale: float = 1.0
-@export var bullet_Damage: int = 10
+@export var bullet_damage: int = 10
 var distance_traveled: float = 0.0
 var previous_position: Vector2
 
@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Players"):
 		if body.has_method("take_damage"):
-			body.take_damage(bullet_Damage)
+			body.take_damage(bullet_damage)
 	if body.is_in_group("Destructibles"):
 		if body.has_method("detonate"):
 			body.detonate()

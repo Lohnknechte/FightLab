@@ -1,8 +1,7 @@
-class_name Ultimate_Data
+class_name UltimateData
 extends Resource
 
-@export var damage : int;
-@export var charge_rate : float; 
-@export var maxCharge : float; 
+@export var damage: int
+@export var charge_rate: float
+@export var max_charge: float
 @export var scene: PackedScene
-# Called when the node enters the scene tree for the first time.

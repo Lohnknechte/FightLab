@@ -4,6 +4,116 @@
 [ext_resource type="Script" uid="uid://cw2cs5qmny1ne" path="res://bg.gd" id="2_dnfjo"]
 [ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="3_257up"]
 [ext_resource type="AudioStream" uid="uid://c0opp4fcfhv0u" path="res://audio/music/Main_Menu.mp3" id="4_dnfjo"]
+[ext_resource type="Script" path="res://Assets/Scripts/main_menu.gd" id="5_menu"]
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_normal"]
+bg_color = Color(0.07, 0.08, 0.12, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.4, 0.52, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_hover"]
+bg_color = Color(0.12, 0.14, 0.21, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.74, 0.12, 1.0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_pressed"]
+bg_color = Color(0.06, 0.07, 0.1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.75, 0.55, 0.08, 1.0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_btn_focus"]
+bg_color = Color(0, 0, 0, 0)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.74, 0.12, 0.5)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="sb_quit_normal"]
+bg_color = Color(0.12, 0.04, 0.04, 0.88)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.55, 0.18, 0.16, 0.9)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_quit_hover"]
+bg_color = Color(0.18, 0.06, 0.06, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9, 0.28, 0.24, 1.0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
+
+[sub_resource type="StyleBoxFlat" id="sb_quit_pressed"]
+bg_color = Color(0.08, 0.03, 0.03, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.65, 0.2, 0.18, 1.0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+content_margin_left = 14.0
+content_margin_right = 14.0
+content_margin_top = 8.0
+content_margin_bottom = 8.0
 
 [node name="Control" type="Control" unique_id=251354884]
 layout_mode = 3
@@ -12,6 +122,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_menu")
 
 [node name="Bg" type="Sprite2D" parent="." unique_id=1173283187]
 position = Vector2(574, 321.49997)
@@ -19,83 +130,192 @@ scale = Vector2(0.46796873, 0.49097222)
 texture = ExtResource("1_gtid3")
 script = ExtResource("2_dnfjo")
 
-[node name="Create_Button" type="Button" parent="." unique_id=2017958824]
-layout_mode = 0
-offset_left = 415.0
-offset_top = 324.0
-offset_right = 707.0
-offset_bottom = 373.0
-text = "Create Lobby"
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.03, 0.04, 0.08, 0.52)
+mouse_filter = 2
 
-[node name="Join_Button" type="Button" parent="." unique_id=516436992]
+[node name="TitleBg" type="ColorRect" parent="."]
 layout_mode = 0
-offset_left = 414.0
-offset_top = 258.0
-offset_right = 612.0
-offset_bottom = 307.0
-text = "Join Lobby"
-
-[node name="Loadout_Button" type="Button" parent="." unique_id=1297808651]
-layout_mode = 0
-offset_left = 105.0
-offset_top = 184.0
-offset_right = 306.0
-offset_bottom = 439.0
-theme_override_colors/icon_normal_color = Color(0.4862745, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(0.5019608, 1, 1, 1)
-theme_override_colors/icon_pressed_color = Color(0.57254905, 1, 1, 1)
-theme_override_colors/icon_hover_color = Color(0.5019608, 1, 1, 1)
-theme_override_colors/icon_hover_pressed_color = Color(0.5294118, 1, 1, 1)
-text = "Modify Loadout"
-
-[node name="Level_Button" type="Button" parent="." unique_id=1197081850]
-layout_mode = 0
-offset_left = 952.0
-offset_top = 44.0
-offset_right = 1104.0
-offset_bottom = 184.0
-theme_override_font_sizes/font_size = 46
-text = "LVL 17"
-
-[node name="Quit_Button" type="Button" parent="." unique_id=1841361366]
-layout_mode = 0
-offset_left = 416.0
-offset_top = 391.0
-offset_right = 708.0
-offset_bottom = 440.0
-text = "Close Game"
-
-[node name="Quick_Button" type="Button" parent="." unique_id=924594540]
-layout_mode = 0
-offset_left = 621.0
-offset_top = 258.0
-offset_right = 707.0
-offset_bottom = 307.0
-text = "Quick Join"
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1148.0
+offset_bottom = 130.0
+color = Color(0.03, 0.04, 0.08, 0.62)
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="." unique_id=1531174185]
 layout_mode = 0
-offset_left = 107.0
-offset_top = 45.0
-offset_right = 947.0
-offset_bottom = 182.0
-theme_override_colors/font_color = Color(0.31746835, 0.2729488, 0.071577884, 1)
+offset_left = 20.0
+offset_top = 8.0
+offset_right = 800.0
+offset_bottom = 118.0
+theme_override_colors/font_color = Color(0.12, 0.1, 0.02, 0.65)
 theme_override_fonts/font = ExtResource("3_257up")
-theme_override_font_sizes/font_size = 128
-text = "F I G H T L A B"
+theme_override_font_sizes/font_size = 96
+text = "FIGHTLAB"
 
 [node name="Label2" type="Label" parent="." unique_id=1212895681]
 layout_mode = 0
-offset_left = 107.0
-offset_top = 52.0
-offset_right = 947.0
-offset_bottom = 189.0
-theme_override_colors/font_color = Color(0.8948859, 0.68481404, 7.70092e-07, 1)
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 800.0
+offset_bottom = 124.0
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1.0)
+theme_override_colors/font_outline_color = Color(0.04, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("3_257up")
-theme_override_font_sizes/font_size = 128
-text = "F I G H T L A B"
+theme_override_font_sizes/font_size = 96
+text = "FIGHTLAB"
+
+[node name="Subtitle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 104.0
+offset_right = 400.0
+offset_bottom = 128.0
+theme_override_colors/font_color = Color(0.65, 0.68, 0.78, 0.7)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 18
+text = "ARENA COMBAT"
+
+[node name="Level_Button" type="Button" parent="." unique_id=1197081850]
+layout_mode = 0
+offset_left = 880.0
+offset_top = 10.0
+offset_right = 1130.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.92, 0.55, 1.0)
+theme_override_colors/font_pressed_color = Color(0.75, 0.55, 0.08, 1.0)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 46
+theme_override_styles/normal = SubResource("sb_btn_normal")
+theme_override_styles/hover = SubResource("sb_btn_hover")
+theme_override_styles/pressed = SubResource("sb_btn_pressed")
+theme_override_styles/focus = SubResource("sb_btn_focus")
+text = "LVL 17"
+
+[node name="Loadout_Button" type="Button" parent="." unique_id=1297808651]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 148.0
+offset_right = 260.0
+offset_bottom = 430.0
+theme_override_colors/font_color = Color(0.75, 0.8, 0.95, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.9, 0.5, 1.0)
+theme_override_colors/font_pressed_color = Color(0.75, 0.65, 0.3, 1.0)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 22
+theme_override_styles/normal = SubResource("sb_btn_normal")
+theme_override_styles/hover = SubResource("sb_btn_hover")
+theme_override_styles/pressed = SubResource("sb_btn_pressed")
+theme_override_styles/focus = SubResource("sb_btn_focus")
+text = "Modify Loadout"
+
+[node name="Join_Button" type="Button" parent="." unique_id=516436992]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 180.0
+offset_right = 560.0
+offset_bottom = 232.0
+theme_override_colors/font_color = Color(0.9, 0.92, 1.0, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.9, 0.5, 1.0)
+theme_override_colors/font_pressed_color = Color(0.75, 0.65, 0.3, 1.0)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("sb_btn_normal")
+theme_override_styles/hover = SubResource("sb_btn_hover")
+theme_override_styles/pressed = SubResource("sb_btn_pressed")
+theme_override_styles/focus = SubResource("sb_btn_focus")
+text = "Join Lobby"
+
+[node name="Quick_Button" type="Button" parent="." unique_id=924594540]
+layout_mode = 0
+offset_left = 578.0
+offset_top = 180.0
+offset_right = 760.0
+offset_bottom = 232.0
+theme_override_colors/font_color = Color(0.9, 0.92, 1.0, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.9, 0.5, 1.0)
+theme_override_colors/font_pressed_color = Color(0.75, 0.65, 0.3, 1.0)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("sb_btn_normal")
+theme_override_styles/hover = SubResource("sb_btn_hover")
+theme_override_styles/pressed = SubResource("sb_btn_pressed")
+theme_override_styles/focus = SubResource("sb_btn_focus")
+text = "Quick Join"
+
+[node name="Create_Button" type="Button" parent="." unique_id=2017958824]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 252.0
+offset_right = 760.0
+offset_bottom = 304.0
+theme_override_colors/font_color = Color(0.9, 0.92, 1.0, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.9, 0.5, 1.0)
+theme_override_colors/font_pressed_color = Color(0.75, 0.65, 0.3, 1.0)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("sb_btn_normal")
+theme_override_styles/hover = SubResource("sb_btn_hover")
+theme_override_styles/pressed = SubResource("sb_btn_pressed")
+theme_override_styles/focus = SubResource("sb_btn_focus")
+text = "Create Lobby"
+
+[node name="Quit_Button" type="Button" parent="." unique_id=1841361366]
+layout_mode = 0
+offset_left = 340.0
+offset_top = 324.0
+offset_right = 760.0
+offset_bottom = 376.0
+theme_override_colors/font_color = Color(0.95, 0.7, 0.68, 1.0)
+theme_override_colors/font_hover_color = Color(1.0, 0.5, 0.45, 1.0)
+theme_override_colors/font_pressed_color = Color(0.8, 0.35, 0.3, 1.0)
+theme_override_colors/font_outline_color = Color(0.03, 0.04, 0.08, 1.0)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("sb_quit_normal")
+theme_override_styles/hover = SubResource("sb_quit_hover")
+theme_override_styles/pressed = SubResource("sb_quit_pressed")
+theme_override_styles/focus = SubResource("sb_btn_focus")
+text = "Close Game"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=875436050]
 stream = ExtResource("4_dnfjo")
 volume_db = 8.0
 autoplay = true
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 3
+anchors_preset = 4
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -28.0
+offset_right = -10.0
+offset_bottom = -8.0
+theme_override_colors/font_color = Color(0.45, 0.48, 0.58, 0.6)
+theme_override_fonts/font = ExtResource("3_257up")
+theme_override_font_sizes/font_size = 14
+text = "v0.1 alpha"
+horizontal_alignment = 2

@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://Assets/Scripts/sniper_weapon.gd" id="1_qyjw0"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/sniper_old.png" id="2_3q0u1"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/weapons/guns/sniper.png" id="2_3q0u1"]
 
 [node name="SniperWeapon" type="Node2D"]
 script = ExtResource("1_qyjw0")
@@ -12,4 +12,4 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_3q0u1")
 
 [node name="Muzzle" type="Marker2D" parent="."]
-position = Vector2(22, 0)
+position = Vector2(17, 0)

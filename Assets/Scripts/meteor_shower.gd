@@ -27,8 +27,6 @@ func _ready():
 			meteors.append(node)
 			_sleep(node)
 
-	print("Meteors found:", meteors.size())
-
 	_schedule_next_shower()
 
 

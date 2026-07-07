@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://gttw8r6ysa35"]
 
-[ext_resource type="Script" uid="uid://b10t8885xwwap" path="res://Assets/Scripts/basis_weapon.gd" id="1_phect"]
+[ext_resource type="Script" uid="uid://b10t8885xwwap" path="res://Assets/Scripts/shotgun_weapon.gd" id="1_phect"]
 [ext_resource type="Texture2D" uid="uid://bdup06cfi6lae" path="res://Assets/Sprites/weapons/guns/shotgun.png" id="2_phect"]
 
 [node name="BasisWeapon" type="Node2D" unique_id=1560606592]
@@ -12,4 +12,4 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_phect")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=128665943]
-position = Vector2(27, 0)
+position = Vector2(16, 0)

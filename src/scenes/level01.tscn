@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
 [ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
 [ext_resource type="PackedScene" uid="uid://cjjvtexk07bxa" path="res://src/scenes/hud.tscn" id="4_hud"]
+[ext_resource type="PackedScene" uid="uid://d3q8gp6sbe8q" path="res://src/scenes/class_selection.tscn" id="4_cls"]
 [ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/Obstacles/spike.tscn" id="5_70q3c"]
 [ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://assets/Scripts/level01.gd" id="5_lv01"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
@@ -102,6 +103,8 @@ position = Vector2(281, 484)
 position = Vector2(606, 428)
 
 [node name="HUD" parent="." unique_id=111111111 instance=ExtResource("4_hud")]
+
+[node name="ClassSelection" parent="." unique_id=111111112 instance=ExtResource("4_cls")]
 
 [node name="DeathZone" type="Area2D" parent="." unique_id=330000001]
 position = Vector2(500, 700)

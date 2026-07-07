@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://4sx31ber6ope" path="res://Assets/Sprites/Character_walk.png" id="2_v4rts"]
 [ext_resource type="PackedScene" uid="uid://gttw8r6ysa35" path="res://src/scenes/BasisWeapon.tscn" id="3_hwyk6"]
 [ext_resource type="PackedScene" path="res://src/scenes/SniperWeapon.tscn" id="4_n5c2f"]
-[ext_resource type="PackedScene" path="res://src/scenes/ShurikenWeapon.tscn" id="5_7bqk0"]
-[ext_resource type="PackedScene" path="res://src/scenes/KnifeWeapon.tscn" id="6_2f0a1"]
+[ext_resource type="PackedScene" path="res://src/scenes/KnifeWeapon.tscn" id="5_7bqk0"]
+[ext_resource type="PackedScene" path="res://src/scenes/AssaultRifle.tscn" id="6_ar"]
 [ext_resource type="Script" uid="uid://djewv3mnxxndk" path="res://Assets/Scripts/ultimate_manager.gd" id="7_8v6aa"]
 [ext_resource type="Script" uid="uid://bkc8osf6r7h55" path="res://Assets/Scripts/ultimate_data.gd" id="8_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://hjienmr1sqcl" path="res://src/scenes/Ultimates/Avada_ulti.tscn" id="9_0hlw3"]
@@ -58,7 +58,7 @@ animations = [{
 script = ExtResource("8_xvyn7")
 damage = 5000
 charge_rate = 50.0
-maxCharge = 1000.0
+max_charge = 1000.0
 scene = ExtResource("9_0hlw3")
 metadata/_custom_type_script = "uid://bkc8osf6r7h55"
 
@@ -87,11 +87,11 @@ position = Vector2(4, 0)
 visible = false
 position = Vector2(4, 0)
 
-[node name="ShurikenWeapon" parent="." unique_id=1639933985 instance=ExtResource("5_7bqk0")]
+[node name="KnifeWeapon" parent="." unique_id=2086358384 instance=ExtResource("5_7bqk0")]
 visible = false
 position = Vector2(4, 0)
 
-[node name="KnifeWeapon" parent="." unique_id=2086358384 instance=ExtResource("6_2f0a1")]
+[node name="AssaultRifle" parent="." instance=ExtResource("6_ar")]
 visible = false
 position = Vector2(4, 0)
 

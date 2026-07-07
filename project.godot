@@ -11,17 +11,24 @@ config_version=5
 [application]
 
 config/name="FightLab"
-run/main_scene="uid://cb3rly0vyph8k"
+run/main_scene="uid://du4vo6w3e1wmt"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 AudioManager="*res://Assets/Scripts/audio_manager.gd"
+DebugAPI="*res://addons/debug_api/DebugAPI.gd"
+LimboConsole="*res://addons/limbo_console/limbo_console.gd"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dotnet]
 
 project/assembly_name="FightLab"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 
@@ -115,3 +122,7 @@ cast_ultimate={
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 textures/vram_compression/import_etc2_astc=true
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/debug_api/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/limbo_console/plugin.cfg")

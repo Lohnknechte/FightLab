@@ -15,6 +15,3 @@ func _on_manager_charge_updated(current: float, max: float):
 		charge_bar.current_charge = current
 		charge_bar.max_charge = max
 		charge_bar.queue_redraw()
-		
-		# Debug print to confirm data flow
-		# print("Charge Updated: ", current, " / ", max)   

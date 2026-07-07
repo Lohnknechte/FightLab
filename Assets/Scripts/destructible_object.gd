@@ -9,6 +9,7 @@ extends RigidBody2D
 @export var respawn_delay: float = 3.0
 
 const BOX_BREAK_STREAM: AudioStream = preload("res://audio/sfx/environment/box_break_01.wav")
+const DEBRIS_PIECE_SCRIPT: Script = preload("res://Assets/Scripts/debris_piece.gd")
 
 var sprite_texture: Texture2D
 var sprite_size: Vector2
@@ -21,7 +22,7 @@ func _ready():
 		sprite_texture = sprite.texture
 		sprite_size = sprite.texture.get_size()
 	else:
-		print("No valid sprite found.")
+		push_warning("DestructibleObject: no valid sprite found on %s." % name)
 		return
 	
 	# Startposition direkt beim Spielstart merken
@@ -53,7 +54,11 @@ func detonate():
 
 	for x in range(blocks_per_side):
 		for y in range(blocks_per_side):
-			create_debris_block(Vector2(x * block_width, y * block_height), block_width, block_height)
+			create_debris_block(
+				Vector2(x * block_width, y * block_height),
+				block_width,
+				block_height
+			)
 
 	get_tree().create_timer(respawn_delay).timeout.connect(_respawn_box)
 
@@ -70,30 +75,20 @@ func _respawn_box():
 	visible = true
 	$CollisionShape2D.disabled = false
 
-func create_debris_block(offset: Vector2, width: float, height: float):
-	var piece = Node2D.new()
-	
-	var sprite = Sprite2D.new()
+func create_debris_block(offset: Vector2, width: float, height: float) -> void:
+	var piece = DEBRIS_PIECE_SCRIPT.new()
+
+	var sprite := Sprite2D.new()
 	sprite.texture = sprite_texture
 	sprite.region_enabled = true
 	sprite.region_rect = Rect2(offset, Vector2(width, height))
 	piece.add_child(sprite)
-	
+
 	get_parent().add_child(piece)
 	piece.global_position = global_position
-	
-	var piece_center_offset = offset + Vector2(width/2, height/2)
-	var direction = (piece_center_offset - Vector2(sprite_size.x/2, sprite_size.y/2)).normalized()
-	var velocity = direction * randf_range(100, 300)
-	
-	var timer = Timer.new()
-	timer.wait_time = 0.016
-	timer.one_shot = false
-	timer.connect("timeout", Callable(func():
-		velocity.y += 500 * 0.016
-		piece.global_position += velocity * 0.016
-	))
-	piece.add_child(timer)
-	timer.start()
-	
-	get_tree().create_timer(0.2).timeout.connect(Callable(func(): piece.queue_free()))
+
+	var piece_center_offset := offset + Vector2(width / 2, height / 2)
+	var sprite_center := Vector2(sprite_size.x / 2, sprite_size.y / 2)
+	var direction := (piece_center_offset - sprite_center).normalized()
+	piece.velocity = direction * randf_range(100, 300)
+	piece.lifetime = debris_max_time
