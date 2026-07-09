@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var hud = $HUD # The HUD node
 @export var speed: float = 200.0
 @export var jump_velocity: float = -500.0
 @export var acceleration: float = 15.0
@@ -13,12 +14,12 @@ const FOOTSTEP_STREAM: AudioStream = preload("res://audio/sfx/footsteps/footstep
 const JUMP_STREAM: AudioStream = preload("res://audio/sfx/player/jump_01.wav")
 
 @export var max_health: int = 100
-var current_health: int
+var current_health: int = max_health
 
 signal health_changed(new_health: int, max_health: int)
 signal weapon_changed(slot: int)
 signal weapon_hud_changed(state: Dictionary)
-
+signal ultimate_charge_updated(current: float, max_val: float)
 # --- Gadgets (chargeable abilities, separate from the weapon hotbar) ---
 const GADGET_AIRSTRIKE: int = 0
 const GADGET_DASH: int = 1
@@ -87,6 +88,7 @@ var can_move = true
 var has_effect:StringName = "none"
 
 func _ready() -> void:
+	hud.initialize(self)
 	add_to_group("Players")
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
@@ -296,6 +298,7 @@ func _respawn() -> void:
 	_sprite.play("idle")
 
 
+
 func _set_active_weapon(weapon: Node2D) -> void:
 	if weapon == null:
 		return
@@ -335,6 +338,9 @@ func _on_weapon_hud_changed(state: Dictionary, weapon: Node2D) -> void:
 
 
 func _emit_active_weapon_hud_state() -> void:
+	var state = _active_weapon.get_hud_state() if (_active_weapon and _active_weapon.has_method("get_hud_state")) else {"visible": false}
+	print("DEBUG: Emitting HUD state for ", _active_weapon.name, ": ", state) # ADD THIS
+	weapon_hud_changed.emit(state)
 	if _active_weapon == null:
 		weapon_hud_changed.emit({
 			"visible": false,

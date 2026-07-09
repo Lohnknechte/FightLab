@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bkc8osf6r7h55" path="res://Assets/Scripts/ultimate_data.gd" id="8_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://hjienmr1sqcl" path="res://src/scenes/Ultimates/Avada_ulti.tscn" id="9_0hlw3"]
 [ext_resource type="PackedScene" uid="uid://bcgd2hob71u1g" path="res://src/scenes/Status effects/StatusManager.tscn" id="10_0hlw3"]
+[ext_resource type="PackedScene" uid="uid://cjjvtexk07bxa" path="res://src/scenes/hud.tscn" id="13_lsi8j"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
 height = 42.0
@@ -161,3 +162,5 @@ ultimates = Array[ExtResource("8_xvyn7")]([SubResource("Resource_xvyn7")])
 position = Vector2(-0.5, 0.5)
 shape = SubResource("CapsuleShape2D_4vu8n")
 debug_color = Color(0.77892977, 0.42224157, 0.32757378, 0.41960785)
+
+[node name="HUD" parent="." unique_id=1206508809 instance=ExtResource("13_lsi8j")]
