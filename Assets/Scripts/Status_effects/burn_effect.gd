@@ -3,6 +3,7 @@ extends StatusEffect
  
 func apply(target):
 	print(target.name, "is burning")
+	target.speed_multiplier *= 1.1
 
 func tick(target, delta, active_effect):
 	active_effect.tick_timer -= delta
@@ -27,3 +28,5 @@ func spread(target):
 			
 func remove(target):
 	print(target.name, "is no longer burning")
+	
+	target.speed_multiplier *= 0.90909

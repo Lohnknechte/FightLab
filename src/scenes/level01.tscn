@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
 [ext_resource type="PackedScene" uid="uid://cjjvtexk07bxa" path="res://src/scenes/hud.tscn" id="4_hud"]
 [ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/Obstacles/spike.tscn" id="5_70q3c"]
+[ext_resource type="Resource" uid="uid://ddi5dn2fw0k8f" path="res://Assets/Scripts/Status_effects/burn.tres" id="5_875aw"]
 [ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
 
@@ -97,6 +98,7 @@ position = Vector2(243, 483)
 
 [node name="CharacterBody2D2" parent="TileMapLayer" unique_id=1870017603 instance=ExtResource("2_ju4lv")]
 position = Vector2(281, 484)
+equipped_effect = ExtResource("5_875aw")
 
 [node name="Spike" parent="TileMapLayer" unique_id=1270379631 instance=ExtResource("5_70q3c")]
 position = Vector2(606, 428)

@@ -8,8 +8,7 @@ var active_effects: Array[ActiveEffect] = []
 @onready var poison_sprite = $PoisonSprite
 @onready var shock_sprite = $ShockSprite
 
-func _ready():
-	freeze_sprite.hide()
+func _ready(): 
 	burn_sprite.hide()
 	poison_sprite.hide()
 	shock_sprite.hide()
@@ -55,10 +54,6 @@ func remove_effect(active: ActiveEffect):
 func start_effect_visual(effect: StatusEffect):
 	print("START VISUAL:", effect.id)
 	match effect.id:
-		"freeze":
-			freeze_sprite.show()
-			freeze_sprite.play("freeze")
-
 		"burn":
 			burn_sprite.show()
 			burn_sprite.z_index = 100
@@ -66,18 +61,17 @@ func start_effect_visual(effect: StatusEffect):
 
 		"poison":
 			poison_sprite.show()
+			burn_sprite.z_index = 100
 			poison_sprite.play("poison")
 
 		"shock":
 			shock_sprite.show()
+			burn_sprite.z_index = 100
 			shock_sprite.play("shock")
 
 
 func stop_effect_visual(effect: StatusEffect):
 	match effect.id:
-		"freeze":
-			freeze_sprite.hide()
-
 		"burn":
 			burn_sprite.hide()
 

@@ -1,15 +1,9 @@
 [gd_scene format=3 uid="uid://bcgd2hob71u1g"]
 
 [ext_resource type="Script" uid="uid://0tj6t7h8qhnu" path="res://Assets/Scripts/Status_effects/status_manager.gd" id="1_2as2y"]
-[ext_resource type="Texture2D" uid="uid://dof2ug1uf8g3c" path="res://Assets/Sprites/Group 5 - 1.png" id="2_61iq8"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_2as2y"]
-animations = [{
-"frames": [],
-"loop": true,
-"name": &"freeze",
-"speed": 5.0
-}]
+[ext_resource type="Texture2D" uid="uid://qpq2w12rpysf" path="res://Assets/Sprites/Group 5 - 1.png" id="2_61iq8"]
+[ext_resource type="Texture2D" uid="uid://bmsqea1guoqmp" path="res://Assets/Sprites/poison.png" id="3_sl1eb"]
+[ext_resource type="Texture2D" uid="uid://c4ftf0qf3h177" path="res://Assets/Sprites/shock.png" id="4_c83jm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_61iq8"]
 atlas = ExtResource("2_61iq8")
@@ -117,39 +111,86 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_10vsl"]
+atlas = ExtResource("3_sl1eb")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ki3jb"]
+atlas = ExtResource("3_sl1eb")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pavee"]
+atlas = ExtResource("3_sl1eb")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njca1"]
+atlas = ExtResource("3_sl1eb")
+region = Rect2(192, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_sl1eb"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_10vsl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ki3jb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pavee")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njca1")
+}],
 "loop": true,
 "name": &"poison",
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hs367"]
+atlas = ExtResource("4_c83jm")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8iexc"]
+atlas = ExtResource("4_c83jm")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f2cph"]
+atlas = ExtResource("4_c83jm")
+region = Rect2(128, 0, 64, 64)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_c83jm"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hs367")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8iexc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f2cph")
+}],
 "loop": true,
 "name": &"shock",
 "speed": 5.0
 }]
 
 [node name="StatusManager" type="Node2D" unique_id=478146570]
-visible = false
 script = ExtResource("1_2as2y")
 
-[node name="FreezeSprite" type="AnimatedSprite2D" parent="." unique_id=1241647796]
-sprite_frames = SubResource("SpriteFrames_2as2y")
-animation = &"freeze"
-
 [node name="BurnSprite" type="AnimatedSprite2D" parent="." unique_id=1648136405]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_61iq8")
 animation = &"burn"
 frame_progress = 0.4321703
 
 [node name="PoisonSprite" type="AnimatedSprite2D" parent="." unique_id=167103587]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_sl1eb")
 animation = &"poison"
 
 [node name="ShockSprite" type="AnimatedSprite2D" parent="." unique_id=1329927182]
+z_index = 2
 sprite_frames = SubResource("SpriteFrames_c83jm")
 animation = &"shock"

@@ -82,6 +82,9 @@ var _was_moving: bool = false
 var facing_left: bool = false
 var _is_dead: bool = false 
 @export var equipped_effect: StatusEffect
+var speed_multiplier = 1.0  # Für "Freeze" (Verlangsamung)
+var can_move = true
+var has_effect:StringName = "none"
 
 func _ready() -> void:
 	add_to_group("Players")
@@ -135,7 +138,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	var vel: Vector2 = velocity
-
+	if not can_move:
+		vel.x = 0.0          # Horizontale Bewegung stoppen
+		velocity = vel       # Die (fallende) Geschwindigkeit an Godot übergeben
+		move_and_slide()     # Physik ausführen, damit er fällt
+		return               # Jetzt erst abbrechen, da die Physik für diesen Frame durch ist!
 	# Dash gadget: brief invulnerable horizontal burst that dodges shots.
 	if _dash_time_left > 0.0:
 		_dash_time_left -= delta
@@ -161,9 +168,9 @@ func _physics_process(delta: float) -> void:
 	_update_facing(direction)
 	
 	if direction != 0.0:
-		vel.x = move_toward(vel.x, direction * speed, acceleration * speed * delta)
+		vel.x = move_toward(vel.x, direction * (speed * speed_multiplier), acceleration * (speed * speed_multiplier) * delta)
 	else:
-		vel.x = move_toward(vel.x, 0.0, friction * speed * delta)
+		vel.x = move_toward(vel.x, 0.0, friction * (speed * speed_multiplier) * delta)
  
 	velocity = vel
 	move_and_slide()
@@ -190,6 +197,8 @@ func _update_facing(direction : float):
 
 func _update_animation(is_moving: bool) -> void:
 	var target_animation: StringName = &"walk" if is_moving else &"idle"
+	if has_effect == "freeze":
+		target_animation= &"frozen_walk" if is_moving else &"frozen_idle"
 	if _sprite.animation != target_animation:
 		_sprite.play(target_animation)
 
@@ -230,6 +239,7 @@ func _play_jump_sound() -> void:
 func take_damage(amount: int) -> void:
 	if _is_dead or _invulnerable:
 		return
+	print(amount)
 	current_health = clamp(current_health - amount, 0, max_health)
 	health_changed.emit(current_health, max_health)
 	if current_health == 0:
