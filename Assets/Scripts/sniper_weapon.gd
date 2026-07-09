@@ -23,8 +23,8 @@ var can_shoot: bool = true
 var current_ammo: int = 3
 var is_reloading: bool = false
 var reload_elapsed: float = 0.0
-var _reload_cycle: int = 0
-
+var _reload_cycle: int = 0 
+var attack_effect: StatusEffect
 
 func _ready() -> void:
 	_sprite = $Sprite
@@ -67,6 +67,7 @@ func shoot() -> void:
 	bullet.max_distance = bullet_max_distance
 	bullet.bullet_Damage = bullet_damage
 	bullet.rand_scale = 1.0
+	bullet.effect = attack_effect
 
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:

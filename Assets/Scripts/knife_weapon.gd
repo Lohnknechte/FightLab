@@ -14,8 +14,8 @@ var _sprite: Sprite2D
 @export var bullet_damage: int = 34
 
 var can_shoot: bool = true
-var cooldown_elapsed: float = 0.85
-
+var cooldown_elapsed: float = 0.85 
+var attack_effect: StatusEffect
 
 func _ready() -> void:
 	_sprite = $Sprite
@@ -53,7 +53,7 @@ func shoot() -> void:
 	bullet.max_distance = bullet_max_distance
 	bullet.bullet_Damage = bullet_damage
 	bullet.rand_scale = 1.0
-
+	bullet.effect = attack_effect
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
 		audio_manager.play_sfx_2d(THROW_STREAM, muzzle.global_position, -8.0, 0.98, 1.04)

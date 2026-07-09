@@ -19,8 +19,8 @@ var _sprite: Sprite2D
 var current_ammo: int = 5
 var is_reloading: bool = false
 var reload_elapsed: float = 0.0
-var _reload_cycle: int = 0
-
+var _reload_cycle: int = 0 
+var attack_effect: StatusEffect
 
 func _ready() -> void:
 	_sprite = $Sprite
@@ -67,8 +67,8 @@ func shoot() -> void:
 		bullet.speed = randf_range(180.0, 260.0)
 		bullet.max_distance = randf_range(90.0, 125.0)
 		bullet.rand_scale = randf_range(0.9, 1.2)
-		bullet.bullet_Damage = pellet_damage
-
+		bullet.bullet_Damage = pellet_damage 
+		bullet.effect = attack_effect
 		var rotation_offset = (i - (bullet_count - 1) / 2.0) * randf_range(-spread_angle, spread_angle)
 		bullet.rotation = global_rotation + rotation_offset
 		get_tree().root.add_child(bullet)
