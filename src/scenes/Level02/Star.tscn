@@ -1,0 +1,114 @@
+[gd_scene format=3 uid="uid://b6c1tmu6jil2o"]
+
+[ext_resource type="Texture2D" uid="uid://pwiq5pb6tu7m" path="res://Assets/Sprites/background/Star_Sheet.png" id="1_l7ugm"]
+[ext_resource type="Script" uid="uid://dbvs0d0mmgeii" path="res://src/scenes/Level02/Star1.gd" id="2_8l4jy"]
+[ext_resource type="Script" uid="uid://cgeiyix3uq5sl" path="res://src/scenes/Level02/Star2.gd" id="3_ecerx"]
+[ext_resource type="Script" uid="uid://dn41h4hu7cnsw" path="res://src/scenes/Level02/Star3.gd" id="4_8l4jy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5penk"]
+atlas = ExtResource("1_l7ugm")
+region = Rect2(6, 12, 3, 3)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecerx"]
+atlas = ExtResource("1_l7ugm")
+region = Rect2(9, 12, 3, 3)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8l4jy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5penk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecerx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[node name="Node2D" type="Node2D" unique_id=1028946971]
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="." unique_id=571385714]
+position = Vector2(2017, 1129)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("2_8l4jy")
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="." unique_id=1895762722]
+position = Vector2(1625, 1400)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("2_8l4jy")
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="." unique_id=94092953]
+position = Vector2(1309, 439)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("2_8l4jy")
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="." unique_id=1928476543]
+position = Vector2(1849, 738)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("2_8l4jy")
+
+[node name="AnimatedSprite2D8" type="AnimatedSprite2D" parent="." unique_id=1721576345]
+position = Vector2(511, 1055)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("3_ecerx")
+
+[node name="AnimatedSprite2D9" type="AnimatedSprite2D" parent="." unique_id=755210389]
+position = Vector2(2263, 1455)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("3_ecerx")
+
+[node name="AnimatedSprite2D10" type="AnimatedSprite2D" parent="." unique_id=1630062496]
+position = Vector2(2078, 135)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("3_ecerx")
+
+[node name="AnimatedSprite2D11" type="AnimatedSprite2D" parent="." unique_id=1143633407]
+position = Vector2(589, 578)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("3_ecerx")
+
+[node name="AnimatedSprite2D12" type="AnimatedSprite2D" parent="." unique_id=77995122]
+position = Vector2(1546, 938)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("4_8l4jy")
+
+[node name="AnimatedSprite2D13" type="AnimatedSprite2D" parent="." unique_id=1656773733]
+position = Vector2(1844, 423)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("4_8l4jy")
+
+[node name="AnimatedSprite2D14" type="AnimatedSprite2D" parent="." unique_id=1689321097]
+position = Vector2(996, 1130)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("4_8l4jy")
+
+[node name="AnimatedSprite2D15" type="AnimatedSprite2D" parent="." unique_id=191014859]
+position = Vector2(959, 775)
+scale = Vector2(32, 32)
+sprite_frames = SubResource("SpriteFrames_8l4jy")
+frame_progress = 0.8493805
+script = ExtResource("4_8l4jy")

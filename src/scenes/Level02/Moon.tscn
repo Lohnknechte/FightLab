@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://dyots63etxq7x"]
+
+[ext_resource type="Texture2D" uid="uid://dlmw3do4hvqyw" path="res://Assets/Sprites/background/New_Moon.png" id="1_ra4hv"]
+[ext_resource type="Texture2D" uid="uid://chesf6f4y10uk" path="res://Assets/Sprites/background/Crescent_Moon.png" id="2_bqx5r"]
+[ext_resource type="Texture2D" uid="uid://dar5er74rvaue" path="res://Assets/Sprites/background/Half_Moon.png" id="3_4vd8s"]
+[ext_resource type="Texture2D" uid="uid://dfrwtbn4kx5n3" path="res://Assets/Sprites/background/Gibbous_Moon.png" id="4_ajk6k"]
+[ext_resource type="Texture2D" uid="uid://pnmf7fb6rdm3" path="res://Assets/Sprites/background/Full_Moon.png" id="5_vo3df"]
+[ext_resource type="Texture2D" uid="uid://c5djfk41pmj4p" path="res://Assets/Sprites/background/Gibbous_Moon_Reversed.png" id="6_hnvum"]
+[ext_resource type="Texture2D" uid="uid://cqiklqtbmsyvm" path="res://Assets/Sprites/background/Half_Moon_Reverse.png" id="7_vhjs4"]
+[ext_resource type="Texture2D" uid="uid://cec1kvxg3pqfd" path="res://Assets/Sprites/background/Crescent_Moon_Reverse.png" id="8_t5v41"]
+[ext_resource type="Script" uid="uid://chj77jjp8bfat" path="res://src/scenes/Level02/moon.gd" id="9_bqx5r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qy6i4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ra4hv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bqx5r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4vd8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ajk6k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vo3df")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_hnvum")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_vhjs4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_t5v41")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Node2D" type="AnimatedSprite2D" unique_id=1521720417]
+scale = Vector2(16, 16)
+sprite_frames = SubResource("SpriteFrames_qy6i4")
+script = ExtResource("9_bqx5r")

@@ -78,7 +78,6 @@ sprite_frames = SubResource("SpriteFrames_0hlw3")
 animation = &"idle"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2128611471]
-zoom = Vector2(1.5, 1.5)
 
 [node name="BasisWeapon" parent="." unique_id=1560606592 instance=ExtResource("3_hwyk6")]
 position = Vector2(4, 0)
