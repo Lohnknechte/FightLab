@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="FreezeEffect" format=3 uid="uid://b464mockmi460"]
+
+[ext_resource type="Script" uid="uid://byqnq21smop81" path="res://Assets/Scripts/Status_effects/freeze_effect.gd" id="1_28erg"]
+
+[resource]
+script = ExtResource("1_28erg")
+id = &"freeze"
+duration = 20.0
+damage_per_tick = 0.2
+metadata/_custom_type_script = "uid://byqnq21smop81"

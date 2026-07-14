@@ -5,7 +5,8 @@ extends Area2D
 @export var rand_scale: float = 1.0
 @export var bullet_damage: int = 10
 var distance_traveled: float = 0.0
-var previous_position: Vector2
+var previous_position: Vector2 
+var effect: StatusEffect
 
 func _ready() -> void:
 	self.scale = Vector2(rand_scale,rand_scale)
@@ -43,7 +44,9 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("Players"):
 		if body.has_method("take_damage"):
-			body.take_damage(bullet_damage)
+			body.take_damage(bullet_Damage)
+		if effect:
+			body.get_node("StatusManager").apply_effect(effect)
 	if body.is_in_group("Destructibles"):
 		if body.has_method("detonate"):
 			body.detonate()

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ShockEffect" format=3 uid="uid://bfdukp1rjatax"]
+
+[ext_resource type="Script" uid="uid://bldwr8pg5iblp" path="res://Assets/Scripts/Status_effects/shock_effect.gd" id="1_qj8xn"]
+
+[resource]
+script = ExtResource("1_qj8xn")
+id = &"shock"
+duration = 4.0
+metadata/_custom_type_script = "uid://bldwr8pg5iblp"

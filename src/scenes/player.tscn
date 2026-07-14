@@ -1,17 +1,36 @@
 [gd_scene format=3 uid="uid://2wp52upgfki3"]
 
 [ext_resource type="Script" uid="uid://dbd8b2nnu5mx8" path="res://Assets/Scripts/character.gd" id="1_v4rts"]
+[ext_resource type="Resource" uid="uid://bfdukp1rjatax" path="res://Assets/Scripts/Status_effects/shock.tres" id="2_kc20y"]
 [ext_resource type="Texture2D" uid="uid://4sx31ber6ope" path="res://Assets/Sprites/Character_walk.png" id="2_v4rts"]
 [ext_resource type="PackedScene" uid="uid://gttw8r6ysa35" path="res://src/scenes/BasisWeapon.tscn" id="3_hwyk6"]
-[ext_resource type="PackedScene" path="res://src/scenes/SniperWeapon.tscn" id="4_n5c2f"]
-[ext_resource type="PackedScene" path="res://src/scenes/KnifeWeapon.tscn" id="5_7bqk0"]
-[ext_resource type="PackedScene" path="res://src/scenes/AssaultRifle.tscn" id="6_ar"]
+[ext_resource type="Texture2D" uid="uid://dldwdjwpxw2et" path="res://Assets/Sprites/freeze_walk.png" id="4_kc20y"]
+[ext_resource type="PackedScene" uid="uid://cjqvo6g8wyu01" path="res://src/scenes/SniperWeapon.tscn" id="4_n5c2f"]
+[ext_resource type="PackedScene" uid="uid://b2teyouwiqvm3" path="res://src/scenes/KnifeWeapon.tscn" id="5_7bqk0"]
+[ext_resource type="PackedScene" uid="uid://bpaqhl4p3cv44" path="res://src/scenes/AssaultRifle.tscn" id="6_ar"]
 [ext_resource type="Script" uid="uid://djewv3mnxxndk" path="res://Assets/Scripts/ultimate_manager.gd" id="7_8v6aa"]
 [ext_resource type="Script" uid="uid://bkc8osf6r7h55" path="res://Assets/Scripts/ultimate_data.gd" id="8_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://hjienmr1sqcl" path="res://src/scenes/Ultimates/Avada_ulti.tscn" id="9_0hlw3"]
+[ext_resource type="PackedScene" uid="uid://bcgd2hob71u1g" path="res://src/scenes/Status effects/StatusManager.tscn" id="10_0hlw3"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
 height = 42.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsi8j"]
+atlas = ExtResource("4_kc20y")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hhiii"]
+atlas = ExtResource("4_kc20y")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wpkk7"]
+atlas = ExtResource("4_kc20y")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_myy50"]
+atlas = ExtResource("4_kc20y")
+region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v4rts"]
 atlas = ExtResource("2_v4rts")
@@ -31,6 +50,28 @@ region = Rect2(128, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0hlw3"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsi8j")
+}],
+"loop": true,
+"name": &"frozen_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hhiii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wpkk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_myy50")
+}],
+"loop": true,
+"name": &"frozen_walk",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v4rts")
@@ -62,37 +103,49 @@ max_charge = 1000.0
 scene = ExtResource("9_0hlw3")
 metadata/_custom_type_script = "uid://bkc8osf6r7h55"
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4vu8n"]
+radius = 11.5
+height = 47.0
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=49530654]
 script = ExtResource("1_v4rts")
+equipped_effect = ExtResource("2_kc20y")
 
 [node name="BlockCollision" type="CollisionShape2D" parent="." unique_id=1703754211]
 shape = SubResource("CapsuleShape2D_hwyk6")
+
+[node name="StatusManager" parent="." unique_id=478146570 instance=ExtResource("10_0hlw3")]
 
 [node name="HeadHitDetector" type="RayCast2D" parent="." unique_id=864207704]
 position = Vector2(0, -21)
 target_position = Vector2(0, -10)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1356898955]
+z_index = 1
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_0hlw3")
-animation = &"idle"
+animation = &"frozen_walk"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2128611471]
 zoom = Vector2(1.5, 1.5)
 
 [node name="BasisWeapon" parent="." unique_id=1560606592 instance=ExtResource("3_hwyk6")]
+z_index = 3
 position = Vector2(4, 0)
 
 [node name="SniperWeapon" parent="." unique_id=1770774370 instance=ExtResource("4_n5c2f")]
 visible = false
+z_index = 3
 position = Vector2(4, 0)
 
 [node name="KnifeWeapon" parent="." unique_id=2086358384 instance=ExtResource("5_7bqk0")]
 visible = false
+z_index = 3
 position = Vector2(4, 0)
 
 [node name="AssaultRifle" parent="." instance=ExtResource("6_ar")]
 visible = false
+z_index = 3
 position = Vector2(4, 0)
 
 [node name="Footsteps" type="AudioStreamPlayer2D" parent="." unique_id=2009660001]
@@ -101,3 +154,10 @@ volume_db = -6.0
 [node name="UltimateManager" type="Node" parent="." unique_id=25174822]
 script = ExtResource("7_8v6aa")
 ultimates = Array[ExtResource("8_xvyn7")]([SubResource("Resource_xvyn7")])
+
+[node name="BurnArea" type="Area2D" parent="." unique_id=1516464319]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BurnArea" unique_id=199307268]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("CapsuleShape2D_4vu8n")
+debug_color = Color(0.77892977, 0.42224157, 0.32757378, 0.41960785)
