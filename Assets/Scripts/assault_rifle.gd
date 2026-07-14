@@ -8,6 +8,7 @@ const RELOAD_STREAM = preload("res://audio/reload.wav")
 
 const SPREAD_ANGLE := 0.04  # ~2.3° — tight burst, still readable spread
 
+var attack_effect: StatusEffect
 
 func _setup() -> void:
 	fire_cooldown = 0.1          # 10 rounds/sec — smooth full-auto
@@ -31,6 +32,7 @@ func _fire() -> void:
 	bullet.max_distance = bullet_max_distance
 	bullet.bullet_damage = bullet_damage
 	bullet.rand_scale = bullet_rand_scale
+	bullet.effect = attack_effect
 	get_tree().root.add_child(bullet)
 
 

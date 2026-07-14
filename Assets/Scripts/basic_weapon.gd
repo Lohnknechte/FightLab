@@ -166,7 +166,7 @@ func get_weapon_summary() -> String:
 func get_weapon_status_text() -> String:
 	if magazine_size > 0:
 		if is_reloading:
-			var reload_remaining := max(reload_time - reload_elapsed, 0.0)
+			var reload_remaining: float = max(reload_time - reload_elapsed, 0.0)
 			return "Nachladen %.1fs" % reload_remaining
 		return "%d / %d" % [current_ammo, magazine_size]
 
@@ -176,7 +176,7 @@ func get_weapon_status_text() -> String:
 	if can_shoot:
 		return "Bereit"
 
-	var cooldown_remaining := max(fire_cooldown - cooldown_elapsed, 0.0)
+	var cooldown_remaining: float = max(fire_cooldown - cooldown_elapsed, 0.0)
 	return "Cooldown %.1fs" % cooldown_remaining
 
 

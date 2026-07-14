@@ -9,6 +9,7 @@ const SHELL_EMPTY = preload("res://Assets/Sprites/weapons/ammo/shotgun/shell_emp
 const PELLET_COUNT := 5
 const SPREAD_ANGLE := 0.26
 
+var attack_effect: StatusEffect
 
 func _setup() -> void:
 	fire_cooldown = 0.0
