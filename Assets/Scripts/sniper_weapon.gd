@@ -23,29 +23,15 @@ func _setup() -> void:
 	empty_icon = ROUND_EMPTY
 	
 func _ready() -> void:
-	_sprite = $Sprite
-	current_ammo = magazine_size
-	_emit_hud_state()
+	super._ready()
 
 
 func _process(delta: float) -> void:
-	var mouse_pos = get_global_mouse_position()
-	var to_mouse = mouse_pos - global_position
-
-	$Sprite.flip_v = to_mouse.x < 0
-	look_at(mouse_pos)
-
-	if is_reloading:
-		reload_elapsed = min(reload_elapsed + delta, reload_time)
-		_emit_hud_state()
+	super._process(delta)
 
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_LEFT and can_shoot and not is_reloading:
-			shoot()
-	elif event.is_action_pressed("reload_weapon"):
-		reload()
+	super._input(event)
 
 
 func _fire() -> void:

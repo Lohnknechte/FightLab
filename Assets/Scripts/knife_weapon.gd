@@ -17,21 +17,11 @@ func _setup() -> void:
 	weapon_label = "Knife"
 
 func _ready() -> void:
-	_sprite = $Sprite
-	cooldown_elapsed = fire_cooldown
-	_emit_hud_state()
+	super._ready()
 
 
 func _process(delta: float) -> void:
-	var mouse_pos = get_global_mouse_position()
-	var to_mouse = mouse_pos - global_position
-
-	$Sprite.flip_v = to_mouse.x < 0
-	look_at(mouse_pos)
-
-	if not can_shoot:
-		cooldown_elapsed = min(cooldown_elapsed + delta, fire_cooldown)
-		_emit_hud_state()
+	super._process(delta)
 
 
 func _fire() -> void:
@@ -49,5 +39,4 @@ func _fire() -> void:
 func _play_fire_sound() -> void:
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
-		audio_manager.play_sfx_2d(THROW_STREAM, muzzle.global_position, -8.0, 0.98, 1.04)
 		audio_manager.play_sfx_2d(THROW_STREAM, muzzle.global_position, -8.0, 0.98, 1.04)

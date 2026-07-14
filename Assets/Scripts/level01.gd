@@ -3,9 +3,9 @@ extends Node2D
 const CLASS_SELECTION_SCENE = preload("res://src/scenes/class_selection.tscn")
 const MAIN_MENU_SCENE := "res://Main_Menu.tscn"
 
-@onready var _player: CharacterBody2D = $TileMapLayer/CharacterBody2D
-@onready var _hud: CanvasLayer = $HUD
-@onready var _class_selection: CanvasLayer = $ClassSelection
+@onready var _player: Character = $TileMapLayer/CharacterBody2D
+@onready var _hud = $HUD
+@onready var _class_selection = $ClassSelection
 
 
 func _ready() -> void:
@@ -13,9 +13,7 @@ func _ready() -> void:
 		point.add_to_group("SpawnPoints")
 	$DeathZone.body_entered.connect(_on_death_zone_entered)
 
-	_player.set_process_input(false)
-	_player.set_process_unhandled_input(false)
-	_player.set_physics_process(false)
+	_player.process_mode = Node.PROCESS_MODE_DISABLED
 	_hud.set_hotbar_enabled(false)
 
 	# Dummy-Spieler bekommt eine Standard-Klasse
@@ -36,15 +34,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _open_class_selection() -> void:
-	# Spieler einfrieren und Hotbar verstecken
-	_player.set_process_input(false)
-	_player.set_process_unhandled_input(false)
-	_player.set_physics_process(false)
-	_hud.set_hotbar_enabled(false)
-
-	# Alten Screen entfernen falls noch vorhanden
 	if _class_selection and is_instance_valid(_class_selection):
-		_class_selection.queue_free()
+		return
+
+	# Spieler einfrieren und Hotbar verstecken
+	_player.process_mode = Node.PROCESS_MODE_DISABLED
+	_hud.set_hotbar_enabled(false)
 
 	# Neuen Klassenauswahl-Screen instanziieren
 	var new_selection := CLASS_SELECTION_SCENE.instantiate()
@@ -58,9 +53,7 @@ func _open_class_selection() -> void:
 func _on_class_selected(class_id: String) -> void:
 	_hud.connect_to_player(_player)
 	_player.set_class(class_id)
-	_player.set_process_input(true)
-	_player.set_process_unhandled_input(true)
-	_player.set_physics_process(true)
+	_player.process_mode = Node.PROCESS_MODE_INHERIT
 	_hud.set_hotbar_enabled(true)
 
 	# Dummy bekommt dieselbe Klasse

@@ -17,23 +17,15 @@ func _setup() -> void:
 	weapon_label = "Shuriken"
 
 func _ready() -> void:
-	_sprite = $Sprite
-	cooldown_elapsed = fire_cooldown
-	_emit_hud_state()
+	super._ready()
 
 
 func _process(delta: float) -> void:
-	var mouse_pos = get_global_mouse_position()
-	var to_mouse = mouse_pos - global_position
-
-	$Sprite.flip_v = to_mouse.x < 0
-	look_at(mouse_pos)
+	super._process(delta)
 
 
 func _input(event):
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_LEFT and can_shoot:
-			shoot()
+	super._input(event)
 
 
 func _fire() -> void:
@@ -52,8 +44,3 @@ func _play_fire_sound() -> void:
 	var audio_manager := get_node_or_null("/root/AudioManager")
 	if audio_manager:
 		audio_manager.play_sfx_2d(THROW_STREAM, muzzle.global_position, -8.0, 0.98, 1.04)
-
-	await get_tree().create_timer(fire_cooldown).timeout
-	can_shoot = true
-	cooldown_elapsed = fire_cooldown
-	_emit_hud_state()

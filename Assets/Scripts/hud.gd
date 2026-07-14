@@ -63,6 +63,7 @@ var weapon_stats_label: Label
 var _is_ready := false
 var _dice_result_name := ""
 var _current_name := ""
+var _hotbar_enabled := true
 
 
 func _ready() -> void:
@@ -104,22 +105,43 @@ func _ready() -> void:
 
 
 func set_hotbar_enabled(enabled: bool) -> void:
-	# Kein Hotbar mehr — ammo_widget wird über weapon_hud_changed gesteuert
-	pass
+	_hotbar_enabled = enabled
+	gadget_widget.visible = enabled
+	if not enabled:
+		_on_weapon_hud_changed({"visible": false})
+	elif is_instance_valid(_player) and _player.has_method("get_active_weapon_hud_state"):
+		_on_weapon_hud_changed(_player.get_active_weapon_hud_state())
 
 
 func connect_to_player(player: Character) -> void:
+	if player == null:
+		return
+	if _player == player:
+		_refresh_player_state(player)
+		return
+	if is_instance_valid(_player):
+		_disconnect_from_player(_player)
 	_player = player
-	health_bar.max_value = player.max_health
-	health_bar.value = player.current_health
-	ghost_bar.max_value = player.max_health
-	ghost_bar.value = player.current_health
-	_update_hp_label(player.current_health, player.max_health)
+	_refresh_player_state(player)
 	player.health_changed.connect(_on_health_changed)
 	if player.has_signal("weapon_changed"):
 		player.weapon_changed.connect(_on_weapon_changed)
 	if player.has_signal("weapon_hud_changed"):
 		player.weapon_hud_changed.connect(_on_weapon_hud_changed)
+	if player.has_signal("gadget_charge_changed"):
+		player.gadget_charge_changed.connect(_on_gadget_charge_changed)
+		player.gadget_selected.connect(_on_gadget_selected)
+		player.gadget_used.connect(_on_gadget_used)
+		player.gadget_use_denied.connect(_on_gadget_use_denied)
+		player.dice_rolled.connect(_on_dice_rolled)
+
+
+func _refresh_player_state(player: Character) -> void:
+	health_bar.max_value = player.max_health
+	health_bar.value = player.current_health
+	ghost_bar.max_value = player.max_health
+	ghost_bar.value = player.current_health
+	_update_hp_label(player.current_health, player.max_health)
 	if player.has_method("get_active_weapon_hud_state"):
 		_on_weapon_hud_changed(player.get_active_weapon_hud_state())
 
@@ -127,11 +149,26 @@ func connect_to_player(player: Character) -> void:
 		charge_bar.max_value = player.gadget_max_charge
 		charge_bar.value = player.gadget_charge
 		_apply_gadget(player.get_gadget_name())
-		player.gadget_charge_changed.connect(_on_gadget_charge_changed)
-		player.gadget_selected.connect(_on_gadget_selected)
-		player.gadget_used.connect(_on_gadget_used)
-		player.gadget_use_denied.connect(_on_gadget_use_denied)
-		player.dice_rolled.connect(_on_dice_rolled)
+		_on_gadget_charge_changed(player.gadget_charge, player.gadget_max_charge)
+
+
+func _disconnect_from_player(player: Character) -> void:
+	if player.health_changed.is_connected(_on_health_changed):
+		player.health_changed.disconnect(_on_health_changed)
+	if player.weapon_changed.is_connected(_on_weapon_changed):
+		player.weapon_changed.disconnect(_on_weapon_changed)
+	if player.weapon_hud_changed.is_connected(_on_weapon_hud_changed):
+		player.weapon_hud_changed.disconnect(_on_weapon_hud_changed)
+	if player.gadget_charge_changed.is_connected(_on_gadget_charge_changed):
+		player.gadget_charge_changed.disconnect(_on_gadget_charge_changed)
+	if player.gadget_selected.is_connected(_on_gadget_selected):
+		player.gadget_selected.disconnect(_on_gadget_selected)
+	if player.gadget_used.is_connected(_on_gadget_used):
+		player.gadget_used.disconnect(_on_gadget_used)
+	if player.gadget_use_denied.is_connected(_on_gadget_use_denied):
+		player.gadget_use_denied.disconnect(_on_gadget_use_denied)
+	if player.dice_rolled.is_connected(_on_dice_rolled):
+		player.dice_rolled.disconnect(_on_dice_rolled)
 
 
 # ---------------------------------------------------------------------------
@@ -177,7 +214,7 @@ func _on_weapon_changed(_slot: int) -> void:
 
 
 func _on_weapon_hud_changed(state: Dictionary) -> void:
-	var is_visible := bool(state.get("visible", false))
+	var is_visible := _hotbar_enabled and bool(state.get("visible", false))
 	ammo_widget.visible = is_visible
 	weapon_stats_label.visible = is_visible
 	if not is_visible:

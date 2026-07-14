@@ -7,6 +7,7 @@ extends Area2D
 var distance_traveled: float = 0.0
 var previous_position: Vector2 
 var effect: StatusEffect
+var _has_hit: bool = false
 
 func _ready() -> void:
 	self.scale = Vector2(rand_scale,rand_scale)
@@ -29,9 +30,11 @@ func _physics_process(delta: float) -> void:
 	var result = space_state.intersect_ray(query)
 	if result:
 		var collider = result.collider
-		if collider and collider.is_in_group("Destructibles"):
-			if collider.has_method("detonate"):
-				collider.detonate()
+		if _try_hit(collider):
+			queue_free()
+			return
+		if collider is TileMap or collider is TileMapLayer:
+			_has_hit = true
 			queue_free()
 			return
 
@@ -42,12 +45,28 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_body_entered(body: Node) -> void:
+	if _try_hit(body):
+		queue_free()
+
+
+func _try_hit(body: Node) -> bool:
+	if _has_hit or body == null:
+		return false
+
 	if body.is_in_group("Players"):
+		_has_hit = true
 		if body.has_method("take_damage"):
 			body.take_damage(bullet_damage)
 		if effect:
-			body.get_node("StatusManager").apply_effect(effect)
+			var status_manager := body.get_node_or_null("StatusManager")
+			if status_manager and status_manager.has_method("apply_effect"):
+				status_manager.apply_effect(effect)
+		return true
+
 	if body.is_in_group("Destructibles"):
+		_has_hit = true
 		if body.has_method("detonate"):
 			body.detonate()
-		queue_free()
+		return true
+
+	return false

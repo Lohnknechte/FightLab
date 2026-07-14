@@ -18,8 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 AudioManager="*res://Assets/Scripts/audio_manager.gd"
-DebugAPI="*res://addons/debug_api/DebugAPI.gd"
-LimboConsole="*res://addons/limbo_console/limbo_console.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [dotnet]
@@ -125,4 +123,4 @@ textures/vram_compression/import_etc2_astc=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/debug_api/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/limbo_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
