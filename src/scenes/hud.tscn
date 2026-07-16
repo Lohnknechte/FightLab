@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://cjjvtexk07bxa"]
 
-[ext_resource type="Script" uid="uid://twddkmnx22qo" path="res://Assets/Scripts/hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://twddkmnx22qo" path="res://Assets/Scripts/UI/hud.gd" id="1_hud"]
 [ext_resource type="Texture2D" uid="uid://bdup06cfi6lae" path="res://Assets/Sprites/weapons/guns/shotgun.png" id="2_shotgun_icon"]
+[ext_resource type="Script" uid="uid://1hdhaekivsbw" path="res://Assets/Scripts/UI/HealthModule.gd" id="2_tmyus"]
+[ext_resource type="Script" uid="uid://gntevwmj17bc" path="res://Assets/Scripts/UI/WeaponModule.gd" id="3_jdqvp"]
 [ext_resource type="Texture2D" uid="uid://cbnxegqfv4s3i" path="res://Assets/Sprites/weapons/guns/sniper_old.png" id="3_sniper_icon"]
 [ext_resource type="Texture2D" uid="uid://dfmhbto624ffc" path="res://Assets/Sprites/weapons/guns/shuriken.png" id="4_shuriken_icon"]
 [ext_resource type="Texture2D" uid="uid://cb6a8q1osqswv" path="res://Assets/Sprites/weapons/guns/knife.png" id="5_knife_icon"]
-[ext_resource type="Script" path="res://Assets/Scripts/gadget_icon.gd" id="6_gadget_icon"]
-[ext_resource type="Script" uid="uid://ci0wh5ckstwuf" path="res://Assets/Scripts/ultimate_hud.gd" id="7_jdqvp"]
-[ext_resource type="Script" uid="uid://bo8i5fy6o6brj" path="res://Assets/Scripts/ultimate_icon.gd" id="7_o5gas"]
+[ext_resource type="Script" uid="uid://dm85eiusvgbyf" path="res://Assets/Scripts/UI/GadgetModule.gd" id="8_g8pub"]
+[ext_resource type="Script" uid="uid://m1m02kehenhy" path="res://Assets/Scripts/UI/UltModule.gd" id="9_g8pub"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg_dark"]
 bg_color = Color(0.15, 0.15, 0.15, 1)
@@ -91,6 +92,7 @@ text = "HP: "
 [node name="BarContainer" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1445148250]
 custom_minimum_size = Vector2(150, 24)
 layout_mode = 2
+script = ExtResource("2_tmyus")
 
 [node name="GhostBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/BarContainer" unique_id=254017459]
 layout_mode = 1
@@ -116,12 +118,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_fill_health")
 value = 100.0
 show_percentage = false
 
-[node name="TakeDamageButton" type="Button" parent="VBoxContainer" unique_id=311745337]
-layout_mode = 2
-focus_mode = 0
-text = "Take Damage"
-
-[node name="Hotbar" type="Control" parent="." unique_id=1989756620]
+[node name="WeaponModule" type="Control" parent="." unique_id=1989756620]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -134,9 +131,9 @@ offset_right = 170.0
 offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("3_jdqvp")
 
-[node name="AmmoDisplay" type="VBoxContainer" parent="Hotbar" unique_id=1738202022]
-visible = false
+[node name="AmmoDisplay" type="VBoxContainer" parent="WeaponModule" unique_id=1738202022]
 z_index = 5
 layout_mode = 0
 anchor_left = 0.5
@@ -147,179 +144,179 @@ offset_right = 110.0
 offset_bottom = -26.0
 alignment = 1
 
-[node name="WeaponLabel" type="Label" parent="Hotbar/AmmoDisplay" unique_id=863214873]
+[node name="WeaponLabel" type="Label" parent="WeaponModule/AmmoDisplay" unique_id=863214873]
 layout_mode = 2
 text = "Shotgun"
 horizontal_alignment = 1
 
-[node name="AmmoIcons" type="HBoxContainer" parent="Hotbar/AmmoDisplay" unique_id=1974439327]
+[node name="AmmoIcons" type="HBoxContainer" parent="WeaponModule/AmmoDisplay" unique_id=1974439327]
 layout_mode = 2
 alignment = 1
 
-[node name="StatusBar" type="ProgressBar" parent="Hotbar/AmmoDisplay" unique_id=19506710]
+[node name="StatusBar" type="ProgressBar" parent="WeaponModule/AmmoDisplay" unique_id=19506710]
 visible = false
 custom_minimum_size = Vector2(120, 10)
 layout_mode = 2
 show_percentage = false
 
-[node name="PanelContainer" type="PanelContainer" parent="Hotbar" unique_id=1120512135]
+[node name="PanelContainer" type="PanelContainer" parent="WeaponModule" unique_id=1120512135]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Hotbar/PanelContainer" unique_id=12768427]
+[node name="HBoxContainer" type="HBoxContainer" parent="WeaponModule/PanelContainer" unique_id=12768427]
 layout_mode = 2
 alignment = 1
 
-[node name="Slot1" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=519329580]
+[node name="Slot1" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=519329580]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot1" unique_id=1287615563]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot1" unique_id=1287615563]
 layout_mode = 2
 text = "1"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot1" unique_id=2014028840]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot1" unique_id=2014028840]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("2_shotgun_icon")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot2" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=2012383554]
+[node name="Slot2" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=2012383554]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot2" unique_id=1835099964]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot2" unique_id=1835099964]
 layout_mode = 2
 text = "2"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot2" unique_id=832308062]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot2" unique_id=832308062]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("3_sniper_icon")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot3" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=1150010414]
+[node name="Slot3" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=1150010414]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot3" unique_id=1977028065]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot3" unique_id=1977028065]
 layout_mode = 2
 text = "3"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot3" unique_id=1187107070]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot3" unique_id=1187107070]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("4_shuriken_icon")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot4" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=814656278]
+[node name="Slot4" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=814656278]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot4" unique_id=1906758660]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot4" unique_id=1906758660]
 layout_mode = 2
 text = "4"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot4" unique_id=1268186075]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot4" unique_id=1268186075]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("5_knife_icon")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot5" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=711783465]
+[node name="Slot5" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=711783465]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot5" unique_id=972742543]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot5" unique_id=972742543]
 layout_mode = 2
 text = "5"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot5" unique_id=1994586946]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot5" unique_id=1994586946]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot6" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=349021388]
+[node name="Slot6" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=349021388]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot6" unique_id=1015287280]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot6" unique_id=1015287280]
 layout_mode = 2
 text = "6"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot6" unique_id=1468442444]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot6" unique_id=1468442444]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot7" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=232093060]
+[node name="Slot7" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=232093060]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot7" unique_id=133778296]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot7" unique_id=133778296]
 layout_mode = 2
 text = "7"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot7" unique_id=2044228579]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot7" unique_id=2044228579]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot8" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=1565060564]
+[node name="Slot8" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=1565060564]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot8" unique_id=1963163461]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot8" unique_id=1963163461]
 layout_mode = 2
 text = "8"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot8" unique_id=321750418]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot8" unique_id=321750418]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Slot9" type="VBoxContainer" parent="Hotbar/PanelContainer/HBoxContainer" unique_id=1862141385]
+[node name="Slot9" type="VBoxContainer" parent="WeaponModule/PanelContainer/HBoxContainer" unique_id=1862141385]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 alignment = 1
 
-[node name="Key" type="Label" parent="Hotbar/PanelContainer/HBoxContainer/Slot9" unique_id=316873962]
+[node name="Key" type="Label" parent="WeaponModule/PanelContainer/HBoxContainer/Slot9" unique_id=316873962]
 layout_mode = 2
 text = "9"
 horizontal_alignment = 1
 
-[node name="Icon" type="TextureRect" parent="Hotbar/PanelContainer/HBoxContainer/Slot9" unique_id=1372910375]
+[node name="Icon" type="TextureRect" parent="WeaponModule/PanelContainer/HBoxContainer/Slot9" unique_id=1372910375]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="GadgetWidget" type="Control" parent="." unique_id=513459772]
+[node name="GadgetModule" type="Control" parent="." unique_id=513459772]
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -333,43 +330,39 @@ offset_bottom = -22.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
+script = ExtResource("8_g8pub")
 
-[node name="Selector" type="Control" parent="GadgetWidget" unique_id=1759209041]
+[node name="Selector" type="Control" parent="GadgetModule" unique_id=1759209041]
 anchors_preset = 0
 anchor_right = 1.0
 offset_bottom = 28.0
 mouse_filter = 2
 
-[node name="Sel0" type="Control" parent="GadgetWidget/Selector" unique_id=224346850]
+[node name="Sel0" type="Control" parent="GadgetModule/Selector" unique_id=224346850]
 anchors_preset = 0
 offset_left = 8.0
 offset_top = 2.0
 offset_right = 32.0
 offset_bottom = 26.0
 mouse_filter = 2
-script = ExtResource("6_gadget_icon")
 
-[node name="Sel1" type="Control" parent="GadgetWidget/Selector" unique_id=1492607102]
+[node name="Sel1" type="Control" parent="GadgetModule/Selector" unique_id=1492607102]
 anchors_preset = 0
 offset_left = 38.0
 offset_top = 2.0
 offset_right = 62.0
 offset_bottom = 26.0
 mouse_filter = 2
-script = ExtResource("6_gadget_icon")
-gadget = 1
 
-[node name="Sel2" type="Control" parent="GadgetWidget/Selector" unique_id=2002513124]
+[node name="Sel2" type="Control" parent="GadgetModule/Selector" unique_id=2002513124]
 anchors_preset = 0
 offset_left = 68.0
 offset_top = 2.0
 offset_right = 92.0
 offset_bottom = 26.0
 mouse_filter = 2
-script = ExtResource("6_gadget_icon")
-gadget = 2
 
-[node name="Frame" type="Panel" parent="GadgetWidget" unique_id=805327283]
+[node name="Frame" type="Panel" parent="GadgetModule" unique_id=805327283]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 34.0
@@ -378,7 +371,7 @@ offset_bottom = 122.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("sb_gadget_frame")
 
-[node name="ChargeFill" type="ProgressBar" parent="GadgetWidget/Frame" unique_id=1934068809]
+[node name="ChargeFill" type="ProgressBar" parent="GadgetModule/Frame" unique_id=1934068809]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -392,7 +385,7 @@ theme_override_styles/fill = SubResource("sb_gadget_charge")
 fill_mode = 3
 show_percentage = false
 
-[node name="Icon" type="Control" parent="GadgetWidget/Frame" unique_id=100180984]
+[node name="Icon" type="Control" parent="GadgetModule/Frame" unique_id=100180984]
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -401,9 +394,8 @@ offset_top = 12.0
 offset_right = -12.0
 offset_bottom = -12.0
 mouse_filter = 2
-script = ExtResource("6_gadget_icon")
 
-[node name="Reel" type="Control" parent="GadgetWidget/Frame" unique_id=1329174005]
+[node name="Reel" type="Control" parent="GadgetModule/Frame" unique_id=1329174005]
 visible = false
 clip_contents = true
 anchors_preset = 0
@@ -415,11 +407,11 @@ offset_right = -6.0
 offset_bottom = -6.0
 mouse_filter = 2
 
-[node name="Strip" type="Control" parent="GadgetWidget/Frame/Reel" unique_id=138826940]
+[node name="Strip" type="Control" parent="GadgetModule/Frame/Reel" unique_id=138826940]
 anchors_preset = 0
 mouse_filter = 2
 
-[node name="DieBadge" type="Panel" parent="GadgetWidget" unique_id=489065606]
+[node name="DieBadge" type="Panel" parent="GadgetModule" unique_id=489065606]
 visible = false
 layout_mode = 0
 offset_left = 4.0
@@ -429,7 +421,7 @@ offset_bottom = 58.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("sb_gadget_badge")
 
-[node name="Icon" type="Control" parent="GadgetWidget/DieBadge" unique_id=1205338351]
+[node name="Icon" type="Control" parent="GadgetModule/DieBadge" unique_id=1205338351]
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -438,10 +430,8 @@ offset_top = 4.0
 offset_right = -4.0
 offset_bottom = -4.0
 mouse_filter = 2
-script = ExtResource("6_gadget_icon")
-gadget = 2
 
-[node name="KeyHint" type="Panel" parent="GadgetWidget" unique_id=1173874926]
+[node name="KeyHint" type="Panel" parent="GadgetModule" unique_id=1173874926]
 visible = false
 layout_mode = 0
 offset_left = 66.0
@@ -451,7 +441,7 @@ offset_bottom = 122.0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("sb_gadget_keyhint")
 
-[node name="KeyLabel" type="Label" parent="GadgetWidget/KeyHint" unique_id=395621031]
+[node name="KeyLabel" type="Label" parent="GadgetModule/KeyHint" unique_id=395621031]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -461,7 +451,7 @@ text = "Q"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NameLabel" type="Label" parent="GadgetWidget" unique_id=629817361]
+[node name="NameLabel" type="Label" parent="GadgetModule" unique_id=629817361]
 layout_mode = 0
 offset_left = -8.0
 offset_top = 126.0
@@ -474,17 +464,88 @@ theme_override_font_sizes/font_size = 15
 text = "Airstrike"
 horizontal_alignment = 1
 
-[node name="Ultimate" type="Panel" parent="GadgetWidget" unique_id=303480923]
+[node name="VoicelineLabel" type="Label" parent="." unique_id=1104695470]
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 40.0
+offset_bottom = 80.0
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_colors/font_outline_color = Color(0.05, 0.06, 0.1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UltModule" type="Control" parent="." unique_id=2024897585]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1084.0
+offset_top = -170.0
+offset_right = -984.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("9_g8pub")
+
+[node name="DieBadge" type="Panel" parent="UltModule" unique_id=737012940]
+visible = false
 layout_mode = 0
-offset_left = -964.0
-offset_top = 23.0
-offset_right = -876.0
-offset_bottom = 111.0
+offset_left = 4.0
+offset_top = 32.0
+offset_right = 30.0
+offset_bottom = 58.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("sb_gadget_badge")
+
+[node name="Icon" type="Control" parent="UltModule/DieBadge" unique_id=1924429614]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+mouse_filter = 2
+
+[node name="KeyHint" type="Panel" parent="UltModule" unique_id=781747456]
+visible = false
+layout_mode = 0
+offset_left = 66.0
+offset_top = 94.0
+offset_right = 94.0
+offset_bottom = 122.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("sb_gadget_keyhint")
+
+[node name="KeyLabel" type="Label" parent="UltModule/KeyHint" unique_id=736278001]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(0.1, 0.08, 0.02, 1)
+theme_override_font_sizes/font_size = 16
+text = "Q"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ultimate" type="Panel" parent="UltModule" unique_id=1972867640]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.080000006
+anchor_top = 0.18200001
+anchor_right = 0.080000006
+anchor_bottom = 0.18200001
+offset_top = -0.028001785
+offset_right = 88.0
+offset_bottom = 87.972
 mouse_filter = 2
 theme_override_styles/panel = SubResource("sb_gadget_frame")
-script = ExtResource("7_jdqvp")
 
-[node name="ChargeFill" type="ProgressBar" parent="GadgetWidget/Ultimate" unique_id=646396887]
+[node name="ChargeFill" type="ProgressBar" parent="UltModule/Ultimate" unique_id=1702508024]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -499,13 +560,8 @@ mouse_filter = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bg_transparent")
 theme_override_styles/fill = SubResource("sb_gadget_charge")
 fill_mode = 3
-script = ExtResource("7_o5gas")
-current_charge = null
-max_charge = null
-fill_color = null
-ready_color = null
 
-[node name="Icon" type="Control" parent="GadgetWidget/Ultimate" unique_id=1225503105]
+[node name="Icon" type="Control" parent="UltModule/Ultimate" unique_id=581251650]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -518,7 +574,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Reel" type="Control" parent="GadgetWidget/Ultimate" unique_id=1684299209]
+[node name="Reel" type="Control" parent="UltModule/Ultimate" unique_id=975242640]
 visible = false
 clip_contents = true
 anchors_preset = 0
@@ -530,20 +586,6 @@ offset_right = -6.0
 offset_bottom = -6.0
 mouse_filter = 2
 
-[node name="Strip" type="Control" parent="GadgetWidget/Ultimate/Reel" unique_id=792467751]
+[node name="Strip" type="Control" parent="UltModule/Ultimate/Reel" unique_id=1703277737]
 anchors_preset = 0
 mouse_filter = 2
-
-[node name="VoicelineLabel" type="Label" parent="." unique_id=1104695470]
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 40.0
-offset_bottom = 80.0
-theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
-theme_override_colors/font_outline_color = Color(0.05, 0.06, 0.1, 1)
-theme_override_constants/outline_size = 6
-theme_override_font_sizes/font_size = 22
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[connection signal="pressed" from="VBoxContainer/TakeDamageButton" to="." method="_on_take_damage_pressed"]

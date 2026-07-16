@@ -3,7 +3,6 @@ extends Node
 
 var active_effects: Array[ActiveEffect] = []
 
-@onready var freeze_sprite = $FreezeSprite
 @onready var burn_sprite = $BurnSprite
 @onready var poison_sprite = $PoisonSprite
 @onready var shock_sprite = $ShockSprite
