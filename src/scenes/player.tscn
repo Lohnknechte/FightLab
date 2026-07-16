@@ -8,11 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://cjqvo6g8wyu01" path="res://src/scenes/SniperWeapon.tscn" id="4_n5c2f"]
 [ext_resource type="PackedScene" uid="uid://b2teyouwiqvm3" path="res://src/scenes/ShurikenWeapon.tscn" id="5_7bqk0"]
 [ext_resource type="PackedScene" uid="uid://bpaqhl4p3cv44" path="res://src/scenes/KnifeWeapon.tscn" id="6_2f0a1"]
-[ext_resource type="Script" uid="uid://djewv3mnxxndk" path="res://Assets/Scripts/ultimate_manager.gd" id="7_8v6aa"]
-[ext_resource type="Script" uid="uid://bkc8osf6r7h55" path="res://Assets/Scripts/ultimate_data.gd" id="8_xvyn7"]
+[ext_resource type="Script" path="res://Assets/Scripts/ultimate_manager.gd" id="7_8v6aa"]
+[ext_resource type="Script" path="res://Assets/Scripts/ultimate_data.gd" id="8_xvyn7"]
 [ext_resource type="PackedScene" uid="uid://hjienmr1sqcl" path="res://src/scenes/Ultimates/Avada_ulti.tscn" id="9_0hlw3"]
 [ext_resource type="PackedScene" uid="uid://bcgd2hob71u1g" path="res://src/scenes/Status effects/StatusManager.tscn" id="10_0hlw3"]
 [ext_resource type="PackedScene" uid="uid://cjjvtexk07bxa" path="res://src/scenes/hud.tscn" id="13_lsi8j"]
+[ext_resource type="Script" uid="uid://boipihv4ycvlq" path="res://Assets/Scripts/Gadgets/gadget_manager.gd" id="14_hhiii"]
+[ext_resource type="Script" uid="uid://j2yh8cbw8uy0" path="res://Assets/Scripts/Gadgets/Gadged_source/gadget_data.gd" id="14_wpkk7"]
+[ext_resource type="Resource" uid="uid://cpwnpaf51re1g" path="res://Assets/Scripts/Gadgets/Instances/Dash/dash_data.tres" id="15_myy50"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hwyk6"]
 height = 42.0
@@ -102,7 +105,6 @@ damage = 5000
 charge_rate = 50.0
 maxCharge = 1000.0
 scene = ExtResource("9_0hlw3")
-metadata/_custom_type_script = "uid://bkc8osf6r7h55"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4vu8n"]
 radius = 11.5
@@ -155,6 +157,10 @@ volume_db = -6.0
 [node name="UltimateManager" type="Node" parent="." unique_id=25174822]
 script = ExtResource("7_8v6aa")
 ultimates = Array[ExtResource("8_xvyn7")]([SubResource("Resource_xvyn7")])
+
+[node name="GadgetManager" type="Node" parent="." unique_id=594784591]
+script = ExtResource("14_hhiii")
+gadgets = Array[ExtResource("14_wpkk7")]([ExtResource("15_myy50")])
 
 [node name="BurnArea" type="Area2D" parent="." unique_id=1516464319]
 

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="DashData" format=3 uid="uid://cpwnpaf51re1g"]
+
+[ext_resource type="Script" uid="uid://c5xl80g7osbft" path="res://Assets/Scripts/Gadgets/Instances/Dash/dash_data.gd" id="1_atkee"]
+[ext_resource type="PackedScene" uid="uid://b4yevok5ebwi2" path="res://src/scenes/Gadgeds/Dash.tscn" id="2_fig46"]
+
+[resource]
+script = ExtResource("1_atkee")
+dash_speed = 500.0
+dash_duration = 0.3
+gadget_name = "Dash"
+max_charge = 100.0
+gadget_charge_rate = 25.0
+cooldown = 1.0
+visual_scene = ExtResource("2_fig46")
+metadata/_custom_type_script = "uid://c5xl80g7osbft"

@@ -9,64 +9,19 @@ extends CharacterBody2D
 @export var footstep_interval: float = 0.28
 @export var footstep_pitch_min: float = 0.96
 @export var footstep_pitch_max: float = 1.04
+@export var max_health: int = 100
+@export var equipped_effect: StatusEffect
 
 const FOOTSTEP_STREAM: AudioStream = preload("res://audio/sfx/footsteps/footstep_light_01.wav")
 const JUMP_STREAM: AudioStream = preload("res://audio/sfx/player/jump_01.wav")
-
-@export var max_health: int = 100
-var current_health: int = max_health
 
 signal health_changed(new_health: int, max_health: int)
 signal weapon_changed(slot: int)
 signal weapon_hud_changed(state: Dictionary)
 signal ultimate_charge_updated(current: float, max_val: float)
-# --- Gadgets (chargeable abilities, separate from the weapon hotbar) ---
-const GADGET_AIRSTRIKE: int = 0
-const GADGET_DASH: int = 1
-const GADGET_DICE: int = 2
-const GADGET_NAMES: Array[String] = ["Airstrike", "Dash", "Dice"]
-const GADGET_VOICELINES: Dictionary = {
-	"Airstrike": "The Missile Knows where it is because it knows where it isn't",
-	"Dash": "Weeeeeeeeeeee",
-	"Dice": "Surprise! You're Dead.",
-}
-# Dice has its OWN pool of effects. Weighted so strong outcomes are rarer.
-const DICE_OUTCOMES: Array[String] = ["Heal", "Teleport", "Shockwave", "Swap", "Jackpot", "Snake Eyes"]
-const DICE_WEIGHTS: Array[int] = [2, 3, 3, 4, 1, 6]
-const DICE_VOICELINES: Dictionary = {
-	"Heal": "Patched up!",
-	"Teleport": "Now you see me...",
-	"Shockwave": "Get baaack!",
-	"Swap": "Let's trade places!",
-	"Jackpot": "Surprise! You're Dead.",
-	"Snake Eyes": "Ouch... bad luck.",
-}
+signal gadget_charge_changed(charge: int, max_charge: int) # remove 
 
-@export var gadget_max_charge: int = 100
-@export var gadget_charge_rate: float = 8.0
-@export var airstrike_bomb_count: int = 6
-@export var airstrike_spread: float = 150.0
-@export var dash_speed: float = 900.0
-@export var dash_duration: float = 0.18
-@export var shockwave_radius: float = 160.0
-@export var shockwave_damage: int = 30
-@export var shockwave_force: float = 650.0
-@export var snake_eyes_damage: int = 25
-
-var gadget_charge: int = 0
-var _charge_accum: float = 0.0
-var current_gadget: int = GADGET_AIRSTRIKE
-var _dice_result: int = -1
-var _dash_time_left: float = 0.0
-var _dash_dir: float = 1.0
-var _invulnerable: bool = false
-
-signal gadget_charge_changed(charge: int, max_charge: int)
-signal gadget_selected(gadget_name: String)
-signal gadget_used(gadget_name: String, voiceline: String)
-signal gadget_use_denied()
-signal dice_rolled(result_name: String)
-
+var current_health: int = max_health
 var _gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _sprite: AnimatedSprite2D
 var originalPosX: float
@@ -79,13 +34,12 @@ var _weapons: Array[Node2D] = []
 var _footstep_player: AudioStreamPlayer2D
 var _footstep_timer: float = 0.0
 var _was_moving: bool = false
-
 var facing_left: bool = false
 var _is_dead: bool = false 
-@export var equipped_effect: StatusEffect
 var speed_multiplier = 1.0  # Für "Freeze" (Verlangsamung)
 var can_move = true
 var has_effect:StringName = "none"
+var is_dashing: bool = false
 
 func _ready() -> void:
 	hud.initialize(self)
@@ -104,9 +58,7 @@ func _ready() -> void:
 	_footstep_player.stream = FOOTSTEP_STREAM
 	_footstep_player.bus = "SFX"
 	_sprite.play("idle")
-	_set_active_weapon(_shotgun)
-	gadget_charge_changed.emit(gadget_charge, gadget_max_charge)
-	gadget_selected.emit(get_gadget_name())
+	_set_active_weapon(_shotgun) 
 
 
 func _input(event: InputEvent) -> void:
@@ -128,16 +80,19 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _is_dead:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
-		if event.keycode == KEY_G:
-			_select_gadget((current_gadget + 1) % GADGET_NAMES.size())
-		elif event.keycode == KEY_F:
-			_try_use_gadget()
+		if event.is_action_pressed("cast_gadget"):
+			print("GADGET USED")
+			$GadgetManager.cast_gadget()
+			get_viewport().set_input_as_handled()
 		elif event.is_action_pressed("cast_ultimate"):
 			print("INPUT: Q Pressed!")
 			$UltimateManager.cast_ultimate()
 			get_viewport().set_input_as_handled()
 
-
+func is_facing_left() -> bool:
+	# Gib den Wert deines Sprites zurück
+	return _sprite.flip_h
+	
 func _physics_process(delta: float) -> void:
 	var vel: Vector2 = velocity
 	if not can_move:
@@ -146,14 +101,10 @@ func _physics_process(delta: float) -> void:
 		move_and_slide()     # Physik ausführen, damit er fällt
 		return               # Jetzt erst abbrechen, da die Physik für diesen Frame durch ist!
 	# Dash gadget: brief invulnerable horizontal burst that dodges shots.
-	if _dash_time_left > 0.0:
-		_dash_time_left -= delta
-		vel.x = _dash_dir * dash_speed
-		vel.y = 0.0
-		velocity = vel
+	if is_dashing:
+		if not is_on_floor():
+			velocity.y += _gravity * delta
 		move_and_slide()
-		if _dash_time_left <= 0.0:
-			_invulnerable = false
 		return
 
 	if not is_on_floor():
@@ -190,7 +141,6 @@ func _physics_process(delta: float) -> void:
 			collider.detonate()
 			velocity.y = bounce_impulse
 
-	_update_gadget_charge(delta)
 
 func _update_facing(direction : float):
 	if direction != 0.0: 
@@ -239,7 +189,7 @@ func _play_jump_sound() -> void:
 
 
 func take_damage(amount: int) -> void:
-	if _is_dead or _invulnerable:
+	if _is_dead:
 		return
 	print(amount)
 	current_health = clamp(current_health - amount, 0, max_health)
@@ -282,8 +232,6 @@ func _respawn() -> void:
 	current_health = max_health
 	health_changed.emit(current_health, max_health)
 	velocity = Vector2.ZERO
-	_dash_time_left = 0.0
-	_invulnerable = false
 	set_physics_process(true)
 	set_collision_layer_value(1, true)
 	set_collision_mask_value(1, true)
@@ -363,180 +311,3 @@ func get_active_weapon_hud_state() -> Dictionary:
 	return {
 		"visible": false,
 	}
-
-
-# ---------------------------------------------------------------------------
-# Gadgets
-# ---------------------------------------------------------------------------
-
-func get_gadget_name() -> String:
-	return GADGET_NAMES[current_gadget]
-
-
-func _update_gadget_charge(delta: float) -> void:
-	if gadget_charge >= gadget_max_charge:
-		return
-	_charge_accum += gadget_charge_rate * delta
-	var new_charge: int = min(gadget_max_charge, int(_charge_accum))
-	if new_charge != gadget_charge:
-		gadget_charge = new_charge
-		gadget_charge_changed.emit(gadget_charge, gadget_max_charge)
-		if gadget_charge >= gadget_max_charge and current_gadget == GADGET_DICE and _dice_result == -1:
-			_roll_dice()
-
-
-func _select_gadget(index: int) -> void:
-	if index == current_gadget:
-		return
-	current_gadget = index
-	gadget_selected.emit(get_gadget_name())
-	# Roll Dice once when selected-while-charged; a previous roll is kept
-	# (you can't re-roll by switching away and back — only using clears it).
-	if current_gadget == GADGET_DICE and gadget_charge >= gadget_max_charge and _dice_result == -1:
-		_roll_dice()
-
-
-func _roll_dice() -> void:
-	_dice_result = _weighted_dice()
-	dice_rolled.emit(DICE_OUTCOMES[_dice_result])
-
-
-func _weighted_dice() -> int:
-	var total: int = 0
-	for w in DICE_WEIGHTS:
-		total += w
-	var pick: int = randi() % total
-	var acc: int = 0
-	for i in DICE_WEIGHTS.size():
-		acc += DICE_WEIGHTS[i]
-		if pick < acc:
-			return i
-	return DICE_WEIGHTS.size() - 1
-
-
-func _try_use_gadget() -> void:
-	if gadget_charge < gadget_max_charge:
-		gadget_use_denied.emit()
-		return
-
-	match current_gadget:
-		GADGET_AIRSTRIKE:
-			_gadget_airstrike(get_global_mouse_position())
-			gadget_used.emit("Airstrike", GADGET_VOICELINES["Airstrike"])
-		GADGET_DASH:
-			_gadget_dash()
-			gadget_used.emit("Dash", GADGET_VOICELINES["Dash"])
-		GADGET_DICE:
-			_use_dice()
-
-	gadget_charge = 0
-	_charge_accum = 0.0
-	_dice_result = -1
-	gadget_charge_changed.emit(gadget_charge, gadget_max_charge)
-
-
-func _spawn_vfx(pos: Vector2, color: Color, radius: float, dur: float = 0.35) -> void:
-	var scene := get_tree().current_scene
-	if scene == null:
-		return
-	var v := VfxBurst.new()
-	v.setup(color, radius, dur)
-	scene.add_child(v)
-	v.global_position = pos
-
-
-func _gadget_dash() -> void:
-	_dash_dir = -1.0 if facing_left else 1.0
-	_dash_time_left = dash_duration
-	_invulnerable = true
-	_spawn_vfx(global_position, Color(0.85, 0.92, 1.0), 38.0, 0.3)
-
-
-func _gadget_airstrike(center: Vector2) -> void:
-	for i in range(airstrike_bomb_count):
-		var t: float = float(i) / float(max(1, airstrike_bomb_count - 1))
-		var x: float = center.x - airstrike_spread * 0.5 + airstrike_spread * t
-		await get_tree().create_timer(0.08 * i).timeout
-		if not is_inside_tree():
-			return
-		var bomb := AirstrikeBomb.new()
-		bomb.target_y = center.y
-		get_tree().current_scene.add_child(bomb)
-		bomb.global_position = Vector2(x, center.y - 360.0)
-
-
-func _other_players() -> Array:
-	var list: Array = []
-	for player in get_tree().get_nodes_in_group("Players"):
-		if player != self and is_instance_valid(player) and not player._is_dead:
-			list.append(player)
-	return list
-
-
-func _use_dice() -> void:
-	var idx: int = _dice_result if _dice_result != -1 else _weighted_dice()
-	var outcome: String = DICE_OUTCOMES[idx]
-	match idx:
-		0:
-			_dice_heal()
-		1:
-			_dice_teleport()
-		2:
-			_dice_shockwave()
-		3:
-			_dice_swap()
-		4:
-			_dice_jackpot()
-		5:
-			_dice_snake_eyes()
-	gadget_used.emit("Dice → %s" % outcome, DICE_VOICELINES.get(outcome, GADGET_VOICELINES["Dice"]))
-
-
-func _dice_heal() -> void:
-	current_health = max_health
-	health_changed.emit(current_health, max_health)
-	_spawn_vfx(global_position, Color(0.3, 0.85, 0.4), 44.0, 0.45)
-
-
-func _dice_teleport() -> void:
-	_spawn_vfx(global_position, Color(0.6, 0.45, 0.95), 40.0, 0.35)
-	global_position = get_global_mouse_position()
-	velocity = Vector2.ZERO
-	_spawn_vfx(global_position, Color(0.6, 0.45, 0.95), 40.0, 0.35)
-
-
-func _dice_shockwave() -> void:
-	_spawn_vfx(global_position, Color(0.4, 0.85, 1.0), shockwave_radius, 0.4)
-	for other in _other_players():
-		if global_position.distance_to(other.global_position) <= shockwave_radius:
-			var dir: Vector2 = (other.global_position - global_position).normalized()
-			if dir == Vector2.ZERO:
-				dir = Vector2.RIGHT
-			other.velocity = dir * shockwave_force + Vector2.UP * shockwave_force * 0.4
-			if other.has_method("take_damage"):
-				other.take_damage(shockwave_damage)
-
-
-func _dice_swap() -> void:
-	var others := _other_players()
-	if others.size() > 0:
-		var target = others[randi() % others.size()]
-		var tmp := global_position
-		_spawn_vfx(global_position, Color(0.95, 0.6, 0.2), 38.0, 0.35)
-		global_position = target.global_position
-		target.global_position = tmp
-		_spawn_vfx(global_position, Color(0.95, 0.6, 0.2), 38.0, 0.35)
-		_spawn_vfx(tmp, Color(0.95, 0.6, 0.2), 38.0, 0.35)
-
-
-func _dice_jackpot() -> void:
-	var others := _other_players()
-	if others.size() > 0:
-		var victim = others[randi() % others.size()]
-		_spawn_vfx(victim.global_position, Color(0.95, 0.25, 0.22), 50.0, 0.45)
-		victim.die()
-
-
-func _dice_snake_eyes() -> void:
-	_spawn_vfx(global_position, Color(0.9, 0.3, 0.28), 34.0, 0.35)
-	take_damage(snake_eyes_damage)
