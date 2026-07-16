@@ -50,6 +50,7 @@ const SEL_INACTIVE   := Color(0.55, 0.6, 0.7)
 # State
 # ---------------------------------------------------------------------------
 var _player: Character
+var _gadget_controller: GadgetController
 var _ghost_tween: Tween
 var _pulse_tween: Tween
 var _voiceline_tween: Tween
@@ -138,12 +139,15 @@ func connect_to_player(player: Character) -> void:
 		player.weapon_changed.connect(_on_weapon_changed)
 	if player.has_signal("weapon_hud_changed"):
 		player.weapon_hud_changed.connect(_on_weapon_hud_changed)
-	if player.has_signal("gadget_charge_changed"):
-		player.gadget_charge_changed.connect(_on_gadget_charge_changed)
-		player.gadget_selected.connect(_on_gadget_selected)
-		player.gadget_used.connect(_on_gadget_used)
-		player.gadget_use_denied.connect(_on_gadget_use_denied)
-		player.dice_rolled.connect(_on_dice_rolled)
+	# Gadgets are owned by the player's GadgetController; connect directly
+	# so Character doesn't have to forward any gadget signals.
+	_gadget_controller = player.get_gadget_controller() if player.has_method("get_gadget_controller") else null
+	if _gadget_controller:
+		_gadget_controller.gadget_charge_changed.connect(_on_gadget_charge_changed)
+		_gadget_controller.gadget_selected.connect(_on_gadget_selected)
+		_gadget_controller.gadget_used.connect(_on_gadget_used)
+		_gadget_controller.gadget_use_denied.connect(_on_gadget_use_denied)
+		_gadget_controller.dice_rolled.connect(_on_dice_rolled)
 
 
 func _refresh_player_state(player: Character) -> void:
@@ -155,11 +159,11 @@ func _refresh_player_state(player: Character) -> void:
 	if player.has_method("get_active_weapon_hud_state"):
 		_on_weapon_hud_changed(player.get_active_weapon_hud_state())
 
-	if player.has_signal("gadget_charge_changed"):
-		charge_bar.max_value = player.gadget_max_charge
-		charge_bar.value = player.gadget_charge
-		_apply_gadget(player.get_gadget_name())
-		_on_gadget_charge_changed(player.gadget_charge, player.gadget_max_charge)
+	if _gadget_controller:
+		charge_bar.max_value = _gadget_controller.max_charge
+		charge_bar.value = _gadget_controller.charge
+		_apply_gadget(_gadget_controller.current_gadget_name())
+		_on_gadget_charge_changed(_gadget_controller.charge, _gadget_controller.max_charge)
 
 
 func _disconnect_from_player(player: Character) -> void:
@@ -169,16 +173,18 @@ func _disconnect_from_player(player: Character) -> void:
 		player.weapon_changed.disconnect(_on_weapon_changed)
 	if player.weapon_hud_changed.is_connected(_on_weapon_hud_changed):
 		player.weapon_hud_changed.disconnect(_on_weapon_hud_changed)
-	if player.gadget_charge_changed.is_connected(_on_gadget_charge_changed):
-		player.gadget_charge_changed.disconnect(_on_gadget_charge_changed)
-	if player.gadget_selected.is_connected(_on_gadget_selected):
-		player.gadget_selected.disconnect(_on_gadget_selected)
-	if player.gadget_used.is_connected(_on_gadget_used):
-		player.gadget_used.disconnect(_on_gadget_used)
-	if player.gadget_use_denied.is_connected(_on_gadget_use_denied):
-		player.gadget_use_denied.disconnect(_on_gadget_use_denied)
-	if player.dice_rolled.is_connected(_on_dice_rolled):
-		player.dice_rolled.disconnect(_on_dice_rolled)
+	if _gadget_controller:
+		if _gadget_controller.gadget_charge_changed.is_connected(_on_gadget_charge_changed):
+			_gadget_controller.gadget_charge_changed.disconnect(_on_gadget_charge_changed)
+		if _gadget_controller.gadget_selected.is_connected(_on_gadget_selected):
+			_gadget_controller.gadget_selected.disconnect(_on_gadget_selected)
+		if _gadget_controller.gadget_used.is_connected(_on_gadget_used):
+			_gadget_controller.gadget_used.disconnect(_on_gadget_used)
+		if _gadget_controller.gadget_use_denied.is_connected(_on_gadget_use_denied):
+			_gadget_controller.gadget_use_denied.disconnect(_on_gadget_use_denied)
+		if _gadget_controller.dice_rolled.is_connected(_on_dice_rolled):
+			_gadget_controller.dice_rolled.disconnect(_on_dice_rolled)
+		_gadget_controller = null
 
 
 # ---------------------------------------------------------------------------

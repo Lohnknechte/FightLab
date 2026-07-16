@@ -6,7 +6,7 @@ extends Node
 ## triggered by the "G" key). Extracted out of Character so gadget rules
 ## don't have to live inside the movement/weapon god-object.
 
-signal charge_changed(charge: int, max_charge: int)
+signal gadget_charge_changed(charge: int, max_charge: int)
 signal gadget_selected(gadget_name: String)
 signal gadget_used(gadget_name: String, voiceline: String)
 signal gadget_use_denied()
@@ -32,7 +32,7 @@ func setup(character) -> void:
 			if child.has_signal("rolled"):
 				child.rolled.connect(dice_rolled.emit)
 
-	charge_changed.emit(charge, max_charge)
+	gadget_charge_changed.emit(charge, max_charge)
 	if not _gadgets.is_empty():
 		gadget_selected.emit(_current_gadget().gadget_name)
 
@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 		return
 
 	charge = new_charge
-	charge_changed.emit(charge, max_charge)
+	gadget_charge_changed.emit(charge, max_charge)
 	if charge >= max_charge:
 		_current_gadget().on_charge_full()
 
@@ -73,7 +73,7 @@ func try_use() -> void:
 	var result := _current_gadget().activate(_character)
 	charge = 0
 	_charge_accum = 0.0
-	charge_changed.emit(charge, max_charge)
+	gadget_charge_changed.emit(charge, max_charge)
 	gadget_used.emit(result.get("name", ""), result.get("voiceline", ""))
 
 

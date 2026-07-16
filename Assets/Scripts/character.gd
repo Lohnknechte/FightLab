@@ -21,31 +21,17 @@ signal weapon_changed(slot: int)
 signal weapon_hud_changed(state: Dictionary)
 
 # --- Gadgets (chargeable abilities, separate from the weapon hotbar) ---
-# Actual gadget rules live in GadgetController + Gadget subclasses; these
-# signals/exports are forwarded/passed through so existing HUD code keeps
-# working against the Character API.
+# All gadget rules + per-gadget tuning live in GadgetController /
+# Gadget subclasses. Character only owns the generic controller config
+# (the controller is created at runtime, so its @exports aren't editable
+# in the scene) and the minimal integration hooks (input dispatch, dash
+# physics state, helper API used by gadgets).
 @export var gadget_max_charge: int = 100
 @export var gadget_charge_rate: float = 8.0
-@export var airstrike_bomb_count: int = 6
-@export var airstrike_spread: float = 150.0
-@export var dash_speed: float = 900.0
-@export var dash_duration: float = 0.18
-@export var shockwave_radius: float = 160.0
-@export var shockwave_damage: int = 30
-@export var shockwave_force: float = 650.0
-@export var snake_eyes_damage: int = 25
-
-signal gadget_charge_changed(charge: int, max_charge: int)
-signal gadget_selected(gadget_name: String)
-signal gadget_used(gadget_name: String, voiceline: String)
-signal gadget_use_denied()
-signal dice_rolled(result_name: String)
-
-var gadget_charge: int:
-	get: return _gadget_controller.charge if _gadget_controller else 0
 
 var _gadget_controller: GadgetController
 var _dash_time_left: float = 0.0
+var _dash_speed: float = 900.0
 var _dash_dir: float = 1.0
 var _invulnerable: bool = false
 
@@ -99,32 +85,20 @@ func _setup_gadgets() -> void:
 	_gadget_controller.max_charge = gadget_max_charge
 	_gadget_controller.charge_rate = gadget_charge_rate
 
-	var airstrike := AirstrikeGadget.new()
-	airstrike.bomb_count = airstrike_bomb_count
-	airstrike.spread = airstrike_spread
-
-	var dash := DashGadget.new()
-
-	var dice := DiceGadget.new()
-	dice.shockwave_radius = shockwave_radius
-	dice.shockwave_damage = shockwave_damage
-	dice.shockwave_force = shockwave_force
-	dice.snake_eyes_damage = snake_eyes_damage
-
-	for gadget in [airstrike, dash, dice]:
+	# Gadgets carry their own @export tuning (bomb count, dash speed,
+	# shockwave params, ...); Character doesn't know or copy any of it.
+	for gadget in [AirstrikeGadget.new(), DashGadget.new(), DiceGadget.new()]:
 		_gadget_controller.add_child(gadget)
 	add_child(_gadget_controller)
-
-	_gadget_controller.charge_changed.connect(func(c, m): gadget_charge_changed.emit(c, m))
-	_gadget_controller.gadget_selected.connect(func(n): gadget_selected.emit(n))
-	_gadget_controller.gadget_used.connect(func(n, v): gadget_used.emit(n, v))
-	_gadget_controller.gadget_use_denied.connect(func(): gadget_use_denied.emit())
-	_gadget_controller.dice_rolled.connect(func(n): dice_rolled.emit(n))
 
 	_gadget_controller.setup(self)
 	# Gadgets shouldn't charge before a class has been chosen (mirrors the
 	# weapons, which are also fully disabled in _ready() until set_class()).
 	_gadget_controller.set_process(false)
+
+
+func get_gadget_controller() -> GadgetController:
+	return _gadget_controller
 
 
 func set_class(class_id: String) -> void:
@@ -168,7 +142,7 @@ func _physics_process(delta: float) -> void:
 	# Dash gadget: brief invulnerable horizontal burst that dodges shots.
 	if _dash_time_left > 0.0:
 		_dash_time_left -= delta
-		vel.x = _dash_dir * dash_speed
+		vel.x = _dash_dir * _dash_speed
 		vel.y = 0.0
 		velocity = vel
 		move_and_slide()
@@ -265,7 +239,6 @@ func _play_jump_sound() -> void:
 func take_damage(amount: int) -> void:
 	if _is_dead or _invulnerable:
 		return
-	print(amount)
 	current_health = clamp(current_health - amount, 0, max_health)
 	health_changed.emit(current_health, max_health)
 	if current_health == 0:
@@ -387,17 +360,22 @@ func get_active_weapon_hud_state() -> Dictionary:
 	}
 
 
+func set_weapon_input_enabled(enabled: bool) -> void:
+	if enabled:
+		_set_active_weapon(_active_weapon if _active_weapon != null else _shotgun)
+		return
+	for weapon in _weapons:
+		weapon.set_process_input(false)
+
+
 # ---------------------------------------------------------------------------
 # Gadgets — public API used by GadgetController / Gadget subclasses
 # ---------------------------------------------------------------------------
 
-func get_gadget_name() -> String:
-	return _gadget_controller.current_gadget_name() if _gadget_controller else ""
-
-
-func start_dash() -> void:
+func start_dash(speed: float, duration: float) -> void:
 	_dash_dir = -1.0 if facing_left else 1.0
-	_dash_time_left = dash_duration
+	_dash_speed = speed
+	_dash_time_left = duration
 	_invulnerable = true
 
 

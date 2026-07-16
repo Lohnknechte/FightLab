@@ -8,6 +8,6 @@ func apply(target):
 
 
 func remove(target):
-	print(target.name, "is no longer frozen") 
+	print(target.name, "is no longer frozen")
 	target.speed_multiplier /= damage_per_tick
 	target.has_effect = "none"

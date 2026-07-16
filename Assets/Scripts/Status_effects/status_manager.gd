@@ -3,7 +3,6 @@ extends Node
 
 var active_effects: Array[ActiveEffect] = []
 
-@onready var freeze_sprite = $FreezeSprite
 @onready var burn_sprite = $BurnSprite
 @onready var poison_sprite = $PoisonSprite
 @onready var shock_sprite = $ShockSprite
@@ -24,7 +23,7 @@ func _process(delta):
 
 
 func apply_effect(effect: StatusEffect): 
-	if get_parent()._is_dead:
+	if get_parent().is_dead():
 		return
 		
 	for active in active_effects:
@@ -61,12 +60,12 @@ func start_effect_visual(effect: StatusEffect):
 
 		"poison":
 			poison_sprite.show()
-			burn_sprite.z_index = 100
+			poison_sprite.z_index = 100
 			poison_sprite.play("poison")
 
 		"shock":
 			shock_sprite.show()
-			burn_sprite.z_index = 100
+			shock_sprite.z_index = 100
 			shock_sprite.play("shock")
 
 
@@ -83,7 +82,6 @@ func stop_effect_visual(effect: StatusEffect):
 			
 func clear_effects():
 	print("CLEARING EFFECTS")
-
 	for active in active_effects.duplicate():
 		remove_effect(active)
 

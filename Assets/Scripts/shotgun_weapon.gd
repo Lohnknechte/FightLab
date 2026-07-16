@@ -29,6 +29,7 @@ func _fire() -> void:
 		bullet.max_distance = randf_range(90.0, 125.0)
 		bullet.rand_scale = randf_range(0.9, 1.2)
 		bullet.bullet_damage = bullet_damage
+		bullet.effect = attack_effect
 
 		var rotation_offset = (i - (PELLET_COUNT - 1) / 2.0) * randf_range(-SPREAD_ANGLE, SPREAD_ANGLE)
 		bullet.rotation = global_rotation + rotation_offset

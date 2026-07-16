@@ -28,5 +28,4 @@ func spread(target):
 			
 func remove(target):
 	print(target.name, "is no longer burning")
-	
 	target.speed_multiplier *= 0.90909
