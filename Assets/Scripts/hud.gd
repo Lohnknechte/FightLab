@@ -64,6 +64,16 @@ var _is_ready := false
 var _dice_result_name := ""
 var _current_name := ""
 var _hotbar_enabled := true
+var _ult_is_ready: bool = false  
+var _ult_pulse_tween: Tween = null # Must be declared here
+
+# --- UI References (Update paths to match your scene tree) ---
+# These nodes do not exist in hud.tscn; the live ultimate display is
+# ultimate_hud.gd. get_node_or_null avoids engine errors on instantiation.
+@onready var ult_icon: Control = get_node_or_null("UltimateIcon")
+@onready var ult_key_hint: Label = get_node_or_null("UltimateKeyHint")
+@onready var _ult_fill_style: Control = get_node_or_null("ChargeFill")
+@onready var _ult_frame_style: Control = get_node_or_null("ChargeFrame")
 
 
 func _ready() -> void:

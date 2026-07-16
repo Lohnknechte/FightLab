@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 AudioManager="*res://Assets/Scripts/audio_manager.gd"
 
+[debug]
+
+gdscript/warnings/enable=false
+
 [dotnet]
 
 project/assembly_name="FightLab"
@@ -26,6 +30,9 @@ project/assembly_name="FightLab"
 [filesystem]
 
 import/blender/enabled=false
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 
