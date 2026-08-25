@@ -10,6 +10,11 @@ extends CharacterBody2D
 @export var footstep_pitch_min: float = 0.96
 @export var footstep_pitch_max: float = 1.04
 @export var max_health: int = 100
+## Default status effect applied to this character's weapons when no
+## LoadoutState autoload is present (e.g. isolated scene tests). During
+## normal play, _apply_loadout() overwrites this with the player's
+## confirmed loadout selection (including "None", which clears it to null)
+## so every spawned player uses the same menu-selected effect.
 @export var equipped_effect: StatusEffect
 
 const FOOTSTEP_STREAM: AudioStream = preload("res://audio/sfx/footsteps/footstep_light_01.wav")
@@ -42,7 +47,6 @@ var has_effect:StringName = "none"
 var is_dashing: bool = false
 
 func _ready() -> void:
-	hud.initialize(self)
 	add_to_group("Players")
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
@@ -58,7 +62,35 @@ func _ready() -> void:
 	_footstep_player.stream = FOOTSTEP_STREAM
 	_footstep_player.bus = "SFX"
 	_sprite.play("idle")
-	_set_active_weapon(_shotgun) 
+	_set_active_weapon(_apply_loadout())
+	hud.initialize(self)
+
+
+## Reads the confirmed selection from the LoadoutState autoload (if present)
+## and applies it to this character: sets the Ultimate/Gadget manager
+## indices, overrides equipped_effect (see its doc comment above), and
+## returns the weapon node that should become the active weapon. Falls back
+## to the Shotgun and the scene-configured equipped_effect when the
+## autoload is unavailable, e.g. in isolated unit tests.
+func _apply_loadout() -> Node2D:
+	var state := get_node_or_null("/root/LoadoutState")
+	if state == null:
+		return _shotgun
+
+	var ultimate_option: Dictionary = state.get_selected_option(&"ultimate")
+	var gadget_option: Dictionary = state.get_selected_option(&"gadget")
+	if not $UltimateManager.ultimates.is_empty():
+		$UltimateManager.current_index = clampi(int(ultimate_option.get("manager_index", 0)), 0, $UltimateManager.ultimates.size() - 1)
+	if not $GadgetManager.gadgets.is_empty():
+		$GadgetManager.current_index = clampi(int(gadget_option.get("manager_index", 0)), 0, $GadgetManager.gadgets.size() - 1)
+
+	var effect_option: Dictionary = state.get_selected_option(&"effect")
+	var effect_path := str(effect_option.get("resource_path", ""))
+	equipped_effect = load(effect_path) as StatusEffect if not effect_path.is_empty() else null
+
+	var weapon_option: Dictionary = state.get_selected_option(&"weapon")
+	var weapon_index := clampi(int(weapon_option.get("weapon_index", 0)), 0, _weapons.size() - 1)
+	return _weapons[weapon_index]
 
 
 func _input(event: InputEvent) -> void:
