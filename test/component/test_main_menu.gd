@@ -1,7 +1,8 @@
 extends GutTest
 
 const MainMenuScene = preload("res://Main_Menu.tscn")
-const LevelScript = preload("res://Assets/Scripts/level01.gd")
+# Returning to the menu moved into BaseLevel so every arena shares it.
+const LevelScript = preload("res://Assets/Scripts/Levels/base_level.gd")
 
 
 func test_quick_join_is_connected_to_existing_level() -> void:
