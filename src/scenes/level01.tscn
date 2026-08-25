@@ -1,50 +1,10 @@
 [gd_scene format=4 uid="uid://cb3rly0vyph8k"]
 
-[ext_resource type="Texture2D" uid="uid://lj6ouuw237of" path="res://Assets/Sprites/tilemap/temp-tilemap.png" id="2_1ao1g"]
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
-[ext_resource type="PackedScene" uid="uid://b3il3nssyiulc" path="res://src/scenes/destructible_block.tscn" id="3_1ao1g"]
-[ext_resource type="PackedScene" uid="uid://cy4g412qfhtjv" path="res://src/scenes/Obstacles/spike.tscn" id="5_70q3c"]
 [ext_resource type="Resource" uid="uid://ddi5dn2fw0k8f" path="res://Assets/Scripts/Status_effects/burn.tres" id="5_875aw"]
 [ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
+[ext_resource type="PackedScene" uid="uid://bu2t6avjf6485" path="res://src/scenes/Tilemap.tscn" id="6_875aw"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jlo51"]
-texture = ExtResource("2_1ao1g")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1ao1g"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_875aw"]
-texture = SubResource("CompressedTexture2D_1ao1g")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, 1.2745209, 13.063862, -6.372616, 7.0098763, -16, -16)
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 0.63726044, 0, 5.7353554, -16, 0.95589066)
-3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 13.382492, -16, -5.4167233)
-4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 0.31863022, -0.9558945, 5.4167213, -16, 0.63726044)
-6:0/0 = 0
-6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, 3.186306, 11.152077, -16, -6.691246)
-7:0/0 = 0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -2.5490456, -1.593153)
-8:0/0 = 0
-8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-9:0/0 = 0
-9:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-
-[sub_resource type="TileSet" id="TileSet_2leev"]
-tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_jlo51")
-sources/1 = SubResource("TileSetAtlasSource_875aw")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_deathzone"]
 size = Vector2(1499, 200)
@@ -52,55 +12,8 @@ size = Vector2(1499, 200)
 [node name="Level01" type="Node2D" unique_id=1613936254]
 script = ExtResource("5_lv01")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=316140590]
-tile_map_data = PackedByteArray("AAAAABAAAQADAAAAAAABABAAAQABAAAAAAACABAAAQABAAAAAAADABAAAQABAAAAAAAEABAAAQABAAAAAAAFABAAAQABAAAAAAAHABAAAQABAAAAAAAIABAAAQABAAAAAAAJABAAAQABAAAAAAAKABAAAQABAAAAAAALABAAAQABAAAAAAAMABAAAQABAAAAAAANABAAAQABAAAAAAABABEAAQAHAAAAAAACABEAAQAEAAAAAAADABEAAQAEAAAAAAAEABEAAQAEAAAAAAAFABEAAQAEAAAAAAAGABEAAQAEAAAAAAAHABEAAQAEAAAAAAAIABEAAQAEAAAAAAAJABEAAQAEAAAAAAAKABEAAQAEAAAAAAALABEAAQAEAAAAAAAMABEAAQAEAAAAAAACABIAAQAHAAAAAAAEABQAAQAHAAAAAAANABEAAQAHAAAAABAMABIAAQAHAAAAABALABMAAQAHAAAAABAKABQAAQAHAAAAABAFABIAAQAEAAAAAAAFABMAAQAEAAAAAAAFABQAAQAEAAAAAAAGABIAAQAEAAAAAAAGABMAAQAEAAAAAAAGABQAAQAEAAAAAAAHABIAAQAEAAAAAAAHABMAAQAEAAAAAAAHABQAAQAEAAAAAAAIABIAAQAEAAAAAAAIABMAAQAEAAAAAAAIABQAAQAEAAAAAAAJABIAAQAEAAAAAAAJABMAAQAEAAAAAAAJABQAAQAEAAAAAAAKABIAAQAEAAAAAAALABIAAQAEAAAAAAAKABMAAQAEAAAAAAADABIAAQAEAAAAAAAEABIAAQAEAAAAAAAEABMAAQAEAAAAAAAOABAAAQADAAAAABARAA8AAQADAAAAAAASABAAAQAHAAAAAAATABEAAQAHAAAAAAAXABEAAQAHAAAAABAYABAAAQAHAAAAABAZAA8AAQADAAAAABAUABEAAQAEAAAAAAAVABEAAQAEAAAAAAAWABEAAQAEAAAAAAATABAAAQAEAAAAAAAUABAAAQAEAAAAAAAVABAAAQAEAAAAAAAWABAAAQAEAAAAAAAXABAAAQAEAAAAAAASAA8AAQABAAAAAAATAA8AAQABAAAAAAAUAA8AAQABAAAAAAAVAA8AAQABAAAAAAAWAA8AAQABAAAAAAAXAA8AAQABAAAAAAAYAA8AAQABAAAAAAAEAA0AAQAJAAAAAAAFAA0AAQAJAAAAAAAGAA0AAQAJAAAAAAAHAA0AAQAJAAAAAAAIAA0AAQAJAAAAAAAOABIAAQADAAAAAAASABIAAQADAAAAABAPABIAAQABAAAAAAAQABIAAQABAAAAAAARABIAAQABAAAAAAAPABMAAQAHAAAAAAARABMAAQAHAAAAABAQABMAAQAEAAAAAAAdAAkAAQABAAAAAAAcAAkAAQAAAAAAAAAeAAkAAQAAAAAAABAGABAAAQABAAAAAAA=")
-tile_set = SubResource("TileSet_2leev")
-
-[node name="WallTile1" parent="TileMapLayer" unique_id=2079456990 instance=ExtResource("3_1ao1g")]
-position = Vector2(272, 399)
-
-[node name="WallTile2" parent="TileMapLayer" unique_id=562641980 instance=ExtResource("3_1ao1g")]
-position = Vector2(272, 367)
-
-[node name="StairTile1" parent="TileMapLayer" unique_id=751206964 instance=ExtResource("3_1ao1g")]
-position = Vector2(816, 464)
-
-[node name="StairTile2" parent="TileMapLayer" unique_id=1928265963 instance=ExtResource("3_1ao1g")]
-position = Vector2(784, 464)
-
-[node name="StairTile3" parent="TileMapLayer" unique_id=1087557008 instance=ExtResource("3_1ao1g")]
-position = Vector2(752, 464)
-
-[node name="StairTile4" parent="TileMapLayer" unique_id=1069963819 instance=ExtResource("3_1ao1g")]
-position = Vector2(816, 400)
-
-[node name="StairTile5" parent="TileMapLayer" unique_id=185124899 instance=ExtResource("3_1ao1g")]
-position = Vector2(816, 432)
-
-[node name="StairTile6" parent="TileMapLayer" unique_id=1106766935 instance=ExtResource("3_1ao1g")]
-position = Vector2(784, 432)
-
-[node name="StairTile7" parent="TileMapLayer" unique_id=553078270 instance=ExtResource("3_1ao1g")]
-position = Vector2(720, 464)
-
-[node name="StairTile8" parent="TileMapLayer" unique_id=154830540 instance=ExtResource("3_1ao1g")]
-position = Vector2(816, 368)
-
-[node name="StairTile9" parent="TileMapLayer" unique_id=963168099 instance=ExtResource("3_1ao1g")]
-position = Vector2(784, 400)
-
-[node name="StairTile10" parent="TileMapLayer" unique_id=1902640302 instance=ExtResource("3_1ao1g")]
-position = Vector2(752, 432)
-
-[node name="CharacterBody2D" parent="TileMapLayer" unique_id=49530654 instance=ExtResource("2_ju4lv")]
-position = Vector2(243, 483)
-
-[node name="CharacterBody2D2" parent="TileMapLayer" unique_id=1870017603 instance=ExtResource("2_ju4lv")]
-position = Vector2(281, 484)
-equipped_effect = ExtResource("5_875aw")
-
-[node name="Spike" parent="TileMapLayer" unique_id=1270379631 instance=ExtResource("5_70q3c")]
-position = Vector2(606, 428)
+[node name="TileMapLayer" parent="." unique_id=547437705 instance=ExtResource("6_875aw")]
+tile_map_data = PackedByteArray("AAAAABAAAQAAAAAAAAARAA8AAQAAAAAAAAAOABIAAQAAAAAAAAAcAAoAAQAAAAAAAAABABAAAQABAAAAAAACABAAAQABAAAAAAADABAAAQABAAAAAAAEABAAAQABAAAAAAAFABAAAQABAAAAAAAGABAAAQABAAAAAAAHABAAAQABAAAAAAAIABAAAQABAAAAAAAJABAAAQABAAAAAAAKABAAAQABAAAAAAALABAAAQABAAAAAAAMABAAAQABAAAAAAANABAAAQABAAAAAAASAA8AAQABAAAAAAATAA8AAQABAAAAAAAUAA8AAQABAAAAAAAVAA8AAQABAAAAAAAWAA8AAQABAAAAAAAXAA8AAQABAAAAAAAYAA8AAQABAAAAAAAdAAoAAQABAAAAAAAEAA0AAQAJAAAAAAAFAA0AAQAJAAAAAAAGAA0AAQAJAAAAAAAHAA0AAQAJAAAAAAAIAA0AAQAJAAAAAAAeAAoAAQAAAAAAABAOABAAAQADAAAAABAZAA8AAQADAAAAABASABIAAQADAAAAABAPABIAAQABAAAAAAAQABIAAQABAAAAAAARABIAAQABAAAAAAAQABMAAQAEAAAAAAATABAAAQAEAAAAAAAUABAAAQAEAAAAAAAVABAAAQAEAAAAAAAWABAAAQAEAAAAAAAXABAAAQAEAAAAAAAWABEAAQAEAAAAAAAVABEAAQAEAAAAAAAUABEAAQAEAAAAAAAMABEAAQAEAAAAAAALABEAAQAEAAAAAAAKABEAAQAEAAAAAAAJABEAAQAEAAAAAAAIABEAAQAEAAAAAAAHABEAAQAEAAAAAAAGABEAAQAEAAAAAAAFABEAAQAEAAAAAAAEABEAAQAEAAAAAAADABEAAQAEAAAAAAACABEAAQAEAAAAAAAEABIAAQAEAAAAAAADABIAAQAEAAAAAAAFABIAAQAEAAAAAAAGABIAAQAEAAAAAAAHABIAAQAEAAAAAAAIABIAAQAEAAAAAAAJABIAAQAEAAAAAAAKABIAAQAEAAAAAAALABIAAQAEAAAAAAAKABMAAQAEAAAAAAAJABMAAQAEAAAAAAAIABMAAQAEAAAAAAAHABMAAQAEAAAAAAAGABMAAQAEAAAAAAAFABMAAQAEAAAAAAAEABMAAQAEAAAAAAAFABQAAQAEAAAAAAAGABQAAQAEAAAAAAAHABQAAQAEAAAAAAAIABQAAQAEAAAAAAAJABQAAQAEAAAAAAABABEAAQAHAAAAAAACABIAAQAHAAAAAAADABMAAQAGAAAAAAAEABQAAQAHAAAAAAASABAAAQAHAAAAAAATABEAAQAHAAAAAAAKABQAAQAHAAAAABALABMAAQAHAAAAABAMABIAAQAHAAAAABANABEAAQAHAAAAABARABMAAQAHAAAAABAXABEAAQAHAAAAABAYABAAAQAHAAAAABAPABMAAQAHAAAAAAATAA4AAgAAAAAAAQAIAAwAAgAAAAAAAgAIAAsAAgAAAAAAAgAWAA4AAgAAAAAAAgAYAA4AAgAAAAAAAgAXAA0AAgAAAAAAAgAXAA4AAgAAAAAAAgAYAA0AAgAAAAAAAgAYAAwAAgAAAAAAAgAZAAwAAgAAAAAAAgAZAAsAAgAAAAAAAgAZAA0AAgAAAAAAAgAZAA4AAgAAAAAAAgA=")
 
 [node name="DeathZone" type="Area2D" parent="." unique_id=330000001]
 position = Vector2(500, 700)
@@ -126,3 +39,10 @@ position = Vector2(700, 481)
 [node name="MeteorShower" parent="." unique_id=2028451645 instance=ExtResource("7_jlo51")]
 position = Vector2(535, 0)
 x_variance = 75.0
+
+[node name="CharacterBody2D" parent="." unique_id=49530654 instance=ExtResource("2_ju4lv")]
+position = Vector2(347, 485)
+
+[node name="CharacterBody2D2" parent="." unique_id=1870017603 instance=ExtResource("2_ju4lv")]
+position = Vector2(451, 472)
+equipped_effect = ExtResource("5_875aw")
