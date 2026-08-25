@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://7bxsuwa7urcg"]
+
+[ext_resource type="Script" uid="uid://cfjev5nm4ml67" path="res://Assets/Scripts/Levels/level03_generated.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://bu2t6avjf6485" path="res://src/scenes/Tilemap.tscn" id="2_tilemap"]
+[ext_resource type="Script" uid="uid://drfiaqmf27nqo" path="res://Assets/Scripts/WFC/wfc_level_generator.gd" id="3_generator"]
+[ext_resource type="Resource" path="res://Assets/Scripts/WFC/RuleSets/arena_rule_set.tres" id="4_rules"]
+[ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="5_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_deathzone"]
+size = Vector2(1500, 200)
+
+[node name="Level03" type="Node2D" unique_id=1011871893]
+script = ExtResource("1_level")
+
+[node name="TileMapLayer" parent="." unique_id=1081855417 instance=ExtResource("2_tilemap")]
+
+[node name="WFCGenerator" type="Node" parent="." unique_id=1295513875]
+script = ExtResource("3_generator")
+rule_set = ExtResource("4_rules")
+ground_row = 3
+hazard_chance = 0.08
+
+[node name="DeathZone" type="Area2D" parent="." unique_id=746099696]
+position = Vector2(592, 752)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathZone" unique_id=24576346]
+shape = SubResource("RectangleShape2D_deathzone")
+
+[node name="SpawnPoints" type="Node2D" parent="." unique_id=853496527]
+
+[node name="CharacterBody2D" parent="." unique_id=2117831534 instance=ExtResource("5_player")]
+position = Vector2(300, 400)
+
+[node name="CharacterBody2D2" parent="." unique_id=620513820 instance=ExtResource("5_player")]
+position = Vector2(800, 400)

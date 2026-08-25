@@ -1,0 +1,232 @@
+[gd_resource type="Resource" script_class="WFCRuleSet" format=3 uid="uid://cchr1o1vrm8el"]
+
+[ext_resource type="Script" uid="uid://c7uf8ewtmwnf3" path="res://Assets/Scripts/WFC/wfc_chunk.gd" id="1_cyssn"]
+[ext_resource type="Resource" path="res://Assets/Scripts/WFC/RuleSets/bloecke_palette.tres" id="2_ee014"]
+[ext_resource type="Script" uid="uid://o2x4g0m2grlf" path="res://Assets/Scripts/WFC/wfc_rule_set.gd" id="3_24l2p"]
+
+[sub_resource type="Resource" id="Resource_fvdvf"]
+resource_name = "air"
+script = ExtResource("1_cyssn")
+id = &"air"
+pattern = "....
+....
+....
+...."
+weight = 5.0
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_b8tok"]
+resource_name = "plat_high"
+script = ExtResource("1_cyssn")
+id = &"plat_high"
+pattern = "....
+GGGG
+....
+...."
+weight = 0.9
+row_min = 1
+row_max = 2
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_rnwdi"]
+resource_name = "plat_high_end"
+script = ExtResource("1_cyssn")
+id = &"plat_high_end"
+pattern = "....
+.GGG
+....
+...."
+weight = 1.6
+allow_flip_h = true
+row_min = 1
+row_max = 2
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_8vr5q"]
+resource_name = "plat_mid"
+script = ExtResource("1_cyssn")
+id = &"plat_mid"
+pattern = "....
+....
+GGGG
+...."
+row_min = 1
+row_max = 3
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_wo36p"]
+resource_name = "plat_mid_end"
+script = ExtResource("1_cyssn")
+id = &"plat_mid_end"
+pattern = "....
+....
+.GGG
+...."
+weight = 1.8
+allow_flip_h = true
+row_min = 1
+row_max = 3
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_vwjl5"]
+resource_name = "island"
+script = ExtResource("1_cyssn")
+id = &"island"
+pattern = "....
+GGGG
+DDDD
+...."
+weight = 1.6
+row_min = 2
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_7dpsp"]
+resource_name = "island_end"
+script = ExtResource("1_cyssn")
+id = &"island_end"
+pattern = "....
+.GGG
+.DDD
+...."
+weight = 2.2
+allow_flip_h = true
+row_min = 2
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_davdq"]
+resource_name = "island_gap"
+script = ExtResource("1_cyssn")
+id = &"island_gap"
+pattern = "....
+GG.G
+DD.D
+...."
+weight = 0.7
+row_min = 2
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_52qwn"]
+resource_name = "island_gap_wide"
+script = ExtResource("1_cyssn")
+id = &"island_gap_wide"
+pattern = "....
+G..G
+D..D
+...."
+weight = 0.5
+row_min = 2
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_cwh1e"]
+resource_name = "island_thick"
+script = ExtResource("1_cyssn")
+id = &"island_thick"
+pattern = "....
+....
+GGGG
+DDDD"
+weight = 0.9
+row_min = 2
+row_max = 2
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_cg4u3"]
+resource_name = "island_thick_end"
+script = ExtResource("1_cyssn")
+id = &"island_thick_end"
+pattern = "....
+....
+.GGG
+.DDD"
+weight = 1.2
+allow_flip_h = true
+row_min = 2
+row_max = 2
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_pkmo6"]
+resource_name = "island_thick_base"
+script = ExtResource("1_cyssn")
+id = &"island_thick_base"
+pattern = "DDDD
+DSSD
+DDDD
+...."
+row_min = 3
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_spkw7"]
+resource_name = "island_thick_base_crystal"
+script = ExtResource("1_cyssn")
+id = &"island_thick_base_crystal"
+pattern = "DDDD
+DCCD
+DDDD
+...."
+weight = 0.4
+row_min = 3
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_gmy5n"]
+resource_name = "island_thick_base_end"
+script = ExtResource("1_cyssn")
+id = &"island_thick_base_end"
+pattern = ".DDD
+.DDD
+.DDD
+...."
+allow_flip_h = true
+row_min = 3
+row_max = 3
+tags = PackedStringArray("ground")
+
+[sub_resource type="Resource" id="Resource_xr4mf"]
+resource_name = "pillar_top"
+script = ExtResource("1_cyssn")
+id = &"pillar_top"
+pattern = "....
+.GG.
+.DD.
+.DD."
+weight = 1.4
+row_min = 1
+row_max = 2
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_f2rba"]
+resource_name = "pillar_body"
+script = ExtResource("1_cyssn")
+id = &"pillar_body"
+pattern = ".DD.
+.DD.
+.DD.
+.DD."
+weight = 0.9
+row_min = 2
+row_max = 2
+tags = PackedStringArray()
+
+[sub_resource type="Resource" id="Resource_nf8al"]
+resource_name = "pillar_foot"
+script = ExtResource("1_cyssn")
+id = &"pillar_foot"
+pattern = ".DD.
+.SS.
+.DD.
+...."
+weight = 1.5
+row_min = 2
+row_max = 3
+tags = PackedStringArray("ground")
+
+[resource]
+resource_name = "ArenaRuleSet"
+script = ExtResource("3_24l2p")
+chunks = Array[ExtResource("1_cyssn")]([SubResource("Resource_fvdvf"), SubResource("Resource_b8tok"), SubResource("Resource_rnwdi"), SubResource("Resource_8vr5q"), SubResource("Resource_wo36p"), SubResource("Resource_vwjl5"), SubResource("Resource_7dpsp"), SubResource("Resource_davdq"), SubResource("Resource_52qwn"), SubResource("Resource_cwh1e"), SubResource("Resource_cg4u3"), SubResource("Resource_pkmo6"), SubResource("Resource_spkw7"), SubResource("Resource_gmy5n"), SubResource("Resource_xr4mf"), SubResource("Resource_f2rba"), SubResource("Resource_nf8al")])
+palette = ExtResource("2_ee014")
