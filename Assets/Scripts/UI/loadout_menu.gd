@@ -2,6 +2,7 @@ extends Control
 
 signal confirmed
 signal cancelled
+signal profile_requested
 
 const CATEGORY_TITLES := {
 	&"weapon": "Weapon",
@@ -31,6 +32,7 @@ func _ready() -> void:
 	effect_button.pressed.connect(_show_category.bind(&"effect"))
 	gadget_button.pressed.connect(_show_category.bind(&"gadget"))
 	ultimate_button.pressed.connect(_show_category.bind(&"ultimate"))
+	$Center/Panel/Margin/Layout/Footer/Profile.pressed.connect(_open_profile)
 	$Center/Panel/Margin/Layout/Footer/Cancel.pressed.connect(_cancel)
 	$Center/Panel/Margin/Layout/Footer/Confirm.pressed.connect(_confirm)
 
@@ -147,3 +149,8 @@ func _confirm() -> void:
 
 func _cancel() -> void:
 	cancelled.emit()
+
+
+func _open_profile() -> void:
+	visible = false
+	profile_requested.emit()

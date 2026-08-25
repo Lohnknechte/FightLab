@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FightLab"
-run/main_scene="uid://cb3rly0vyph8k"
+run/main_scene="uid://du4vo6w3e1wmt"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 

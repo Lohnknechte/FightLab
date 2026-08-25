@@ -1,0 +1,431 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/UI/profile_menu.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+bg_color = Color(0.08, 0.09, 0.13, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.78, 0.31, 0.56, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="SectionStyle"]
+bg_color = Color(0.055, 0.062, 0.09, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.27, 0.4, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="ItemStyle"]
+bg_color = Color(0.09, 0.1, 0.15, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ProfileMenu" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.018, 0.03, 0.82)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(920, 540)
+layout_mode = 2
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 36
+text = "PROFILE"
+horizontal_alignment = 1
+
+[node name="Header" type="PanelContainer" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Header"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="Avatar" type="Label" parent="Center/Panel/Margin/Layout/Header/Row"]
+custom_minimum_size = Vector2(58, 58)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 32
+text = "P"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Identity" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Header/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Caption" type="Label" parent="Center/Panel/Margin/Layout/Header/Row/Identity"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+theme_override_font_sizes/font_size = 13
+text = "PLAYER NAME"
+
+[node name="NameValue" type="Label" parent="Center/Panel/Margin/Layout/Header/Row/Identity"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 27
+text = "Player"
+
+[node name="Loadout" type="Button" parent="Center/Panel/Margin/Layout/Header/Row"]
+custom_minimum_size = Vector2(170, 46)
+layout_mode = 2
+text = "EDIT LOADOUT"
+
+[node name="LevelBadge" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Header/Row"]
+custom_minimum_size = Vector2(92, 58)
+layout_mode = 2
+alignment = 1
+
+[node name="Caption" type="Label" parent="Center/Panel/Margin/Layout/Header/Row/LevelBadge"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+theme_override_font_sizes/font_size = 13
+text = "LEVEL"
+horizontal_alignment = 1
+
+[node name="LevelValue" type="Label" parent="Center/Panel/Margin/Layout/Header/Row/LevelBadge"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 27
+text = "17"
+horizontal_alignment = 1
+
+[node name="Content" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="Progression" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("SectionStyle")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel/Margin/Layout/Content/Progression"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+text = "PROGRESSION & UNLOCKS"
+horizontal_alignment = 1
+
+[node name="LevelRow" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/LevelRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Current Level"
+
+[node name="Value" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/LevelRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+text = "17"
+
+[node name="Experience" type="ProgressBar" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+value = 65.0
+show_percentage = false
+
+[node name="ExperienceText" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
+text = "650 / 1000 XP until Level 18"
+horizontal_alignment = 1
+
+[node name="NextUnlocks" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 18
+text = "NEXT UNLOCKS"
+
+[node name="UnlockList" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="UnlockLevel18" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel18"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Level" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel18/Row"]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+text = "LVL 18"
+
+[node name="Item" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel18/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Plasma Blade"
+
+[node name="Type" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel18/Row"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Weapon"
+
+[node name="UnlockLevel20" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel20"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Level" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel20/Row"]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+text = "LVL 20"
+
+[node name="Item" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel20/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Dash Mk II"
+
+[node name="Type" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel20/Row"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Gadget"
+
+[node name="UnlockLevel25" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel25"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Level" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel25/Row"]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+text = "LVL 25"
+
+[node name="Item" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel25/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Neon Armor"
+
+[node name="Type" type="Label" parent="Center/Panel/Margin/Layout/Content/Progression/Margin/Layout/UnlockList/UnlockLevel25/Row"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Cosmetic"
+
+[node name="Shop" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("SectionStyle")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel/Margin/Layout/Content/Shop"]
+layout_mode = 2
+theme_override_constants/margin_left = 14
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 12
+
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 22
+text = "SHOP"
+
+[node name="Currency" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+text = "Coins: 2,450"
+
+[node name="Hint" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Example offers - replace with real items later"
+
+[node name="ItemList" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="WeaponOffer" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/WeaponOffer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Info" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/WeaponOffer/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/WeaponOffer/Row/Info"]
+layout_mode = 2
+text = "Frost Rifle"
+
+[node name="Type" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/WeaponOffer/Row/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Weapon"
+
+[node name="Price" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/WeaponOffer/Row"]
+layout_mode = 2
+text = "1,200"
+vertical_alignment = 1
+
+[node name="Buy" type="Button" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/WeaponOffer/Row"]
+custom_minimum_size = Vector2(64, 36)
+layout_mode = 2
+tooltip_text = "Placeholder"
+disabled = true
+text = "Buy"
+
+[node name="GadgetOffer" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/GadgetOffer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Info" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/GadgetOffer/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/GadgetOffer/Row/Info"]
+layout_mode = 2
+text = "Shield Drone"
+
+[node name="Type" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/GadgetOffer/Row/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Gadget"
+
+[node name="Price" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/GadgetOffer/Row"]
+layout_mode = 2
+text = "850"
+vertical_alignment = 1
+
+[node name="Buy" type="Button" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/GadgetOffer/Row"]
+custom_minimum_size = Vector2(64, 36)
+layout_mode = 2
+tooltip_text = "Placeholder"
+disabled = true
+text = "Buy"
+
+[node name="CosmeticOffer" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("ItemStyle")
+
+[node name="Row" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/CosmeticOffer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Info" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/CosmeticOffer/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Name" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/CosmeticOffer/Row/Info"]
+layout_mode = 2
+text = "Golden Trail"
+
+[node name="Type" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/CosmeticOffer/Row/Info"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
+text = "Cosmetic"
+
+[node name="Price" type="Label" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/CosmeticOffer/Row"]
+layout_mode = 2
+text = "500"
+vertical_alignment = 1
+
+[node name="Buy" type="Button" parent="Center/Panel/Margin/Layout/Content/Shop/Margin/Layout/ItemList/CosmeticOffer/Row"]
+custom_minimum_size = Vector2(64, 36)
+layout_mode = 2
+tooltip_text = "Placeholder"
+disabled = true
+text = "Buy"
+
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+alignment = 2
+
+[node name="Back" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+custom_minimum_size = Vector2(140, 42)
+layout_mode = 2
+text = "BACK TO MENU"
