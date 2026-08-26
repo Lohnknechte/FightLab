@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://c0opp4fcfhv0u" path="res://audio/music/Main_Menu.mp3" id="4_dnfjo"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/main_menu.gd" id="5_main"]
 [ext_resource type="PackedScene" path="res://src/scenes/ui/loadout_menu.tscn" id="6_loadout"]
+[ext_resource type="PackedScene" path="res://src/scenes/ui/profile_menu.tscn" id="7_profile"]
+[ext_resource type="PackedScene" path="res://src/scenes/ui/lobby_list.tscn" id="8_lobby"]
 
 [node name="Control" type="Control" unique_id=251354884]
 layout_mode = 3
@@ -104,3 +106,7 @@ volume_db = 8.0
 autoplay = true
 
 [node name="LoadoutMenu" parent="." instance=ExtResource("6_loadout")]
+
+[node name="ProfileMenu" parent="." instance=ExtResource("7_profile")]
+
+[node name="LobbyList" parent="." instance=ExtResource("8_lobby")]

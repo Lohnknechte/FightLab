@@ -1,0 +1,139 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Assets/Scripts/UI/lobby_list.gd" id="1_script"]
+[ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="PanelStyle"]
+bg_color = Color(0.055, 0.062, 0.09, 0.98)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.12, 0.63, 0.58, 1)
+corner_radius_top_left = 18
+corner_radius_top_right = 18
+corner_radius_bottom_right = 18
+corner_radius_bottom_left = 18
+
+[sub_resource type="StyleBoxFlat" id="ListStyle"]
+bg_color = Color(0.075, 0.085, 0.13, 0.8)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="LobbyList" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("1_script")
+
+[node name="Dim" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.015, 0.018, 0.03, 0.82)
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 32.0
+offset_top = 28.0
+offset_right = -32.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(820, 520)
+layout_mode = 2
+theme_override_styles/panel = SubResource("PanelStyle")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 28
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 28
+theme_override_constants/margin_bottom = 22
+
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
+theme_override_fonts/font = ExtResource("2_font")
+theme_override_font_sizes/font_size = 36
+text = "LOBBY LIST"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
+text = "Placeholder servers - select a lobby to join Arena 01"
+horizontal_alignment = 1
+
+[node name="Columns" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Lobby" type="Label" parent="Center/Panel/Margin/Layout/Columns"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_font")
+text = "LOBBY / SERVER DETAILS"
+
+[node name="Status" type="Label" parent="Center/Panel/Margin/Layout/Columns"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.12, 0.75, 0.57, 1)
+text = "3 SERVERS ONLINE"
+
+[node name="ServerScroll" type="ScrollContainer" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("ListStyle")
+horizontal_scroll_mode = 0
+
+[node name="ServerList" type="VBoxContainer" parent="Center/Panel/Margin/Layout/ServerScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Selection" type="Label" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
+text = "Select a server"
+
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="Host" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+custom_minimum_size = Vector2(140, 42)
+layout_mode = 2
+tooltip_text = "Available when the server backend is connected"
+disabled = true
+text = "HOST (SOON)"
+
+[node name="Join" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+custom_minimum_size = Vector2(140, 42)
+layout_mode = 2
+disabled = true
+text = "JOIN LOBBY"
+
+[node name="Back" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+custom_minimum_size = Vector2(120, 42)
+layout_mode = 2
+text = "BACK"
