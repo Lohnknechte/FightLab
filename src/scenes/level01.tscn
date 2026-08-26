@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="2_ju4lv"]
 [ext_resource type="Resource" uid="uid://ddi5dn2fw0k8f" path="res://Assets/Scripts/Status_effects/burn.tres" id="5_875aw"]
-[ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/level01.gd" id="5_lv01"]
+[ext_resource type="Script" uid="uid://dd55a3oxja5mm" path="res://Assets/Scripts/Levels/level01.gd" id="5_lv01"]
 [ext_resource type="PackedScene" uid="uid://bu2t6avjf6485" path="res://src/scenes/Tilemap.tscn" id="6_875aw"]
 [ext_resource type="PackedScene" uid="uid://c11q7tb7xvosf" path="res://src/scenes/Obstacles/Meteor/MeteorShower.tscn" id="7_jlo51"]
 
