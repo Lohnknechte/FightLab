@@ -24,6 +24,7 @@ func _ready() -> void:
 	_prepare_level()
 	_register_spawn_points()
 	_connect_death_zone()
+	_assign_local_player()
 
 
 ## Leaving a match works the same way from every arena, so it lives here rather
@@ -98,3 +99,17 @@ func _connect_death_zone() -> void:
 func _on_death_zone_body_entered(body: Node2D) -> void:
 	if body.has_method("die") and not body.get("_is_dead"):
 		body.die()
+
+
+## Marks the first character in the scene as the one the local player sees
+## and controls; every other character stops reacting to input until
+## something else drives it (AI, or eventually a remote peer). This is a
+## placeholder for real multiplayer authority: once networking exists,
+## replace the spawn-order check below with each character's
+## [code]is_multiplayer_authority()[/code].
+func _assign_local_player() -> void:
+	var assigned := false
+	for child in get_children():
+		if child is CharacterBody2D and child.has_method("set_is_local_player"):
+			child.set_is_local_player(not assigned)
+			assigned = true

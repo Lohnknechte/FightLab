@@ -1,6 +1,15 @@
 extends CharacterBody2D
 
 @onready var hud = $HUD # The HUD node
+@onready var _camera: Camera2D = $Camera2D
+## Whether this instance is the one the local player sees and controls.
+## Non-local instances (currently: every character after the first one
+## BaseLevel finds) keep their camera off, their HUD hidden and ignore
+## input, so only one character reacts to the keyboard at a time. This is a
+## placeholder for real multiplayer authority - once networking exists,
+## BaseLevel should assign this from is_multiplayer_authority() instead of
+## spawn order. Defaults to true so isolated scenes/tests behave normally.
+@export var is_local_player: bool = true
 @export var speed: float = 200.0
 @export var jump_velocity: float = -500.0
 @export var acceleration: float = 15.0
@@ -64,6 +73,23 @@ func _ready() -> void:
 	_sprite.play("idle")
 	_set_active_weapon(_apply_loadout())
 	hud.initialize(self)
+	_apply_local_player_state()
+
+
+## Toggles camera, HUD and weapon input for whichever local-player state was
+## last assigned via [method set_is_local_player].
+func _apply_local_player_state() -> void:
+	_camera.set_deferred("current", is_local_player)
+	hud.visible = is_local_player
+	if _active_weapon != null:
+		_set_active_weapon(_active_weapon)
+
+
+## Called by BaseLevel to designate which character instance the local
+## player controls.
+func set_is_local_player(value: bool) -> void:
+	is_local_player = value
+	_apply_local_player_state()
 
 
 ## Reads the confirmed selection from the LoadoutState autoload (if present)
@@ -94,7 +120,7 @@ func _apply_loadout() -> Node2D:
 
 
 func _input(event: InputEvent) -> void:
-	if _is_dead:
+	if _is_dead or not is_local_player:
 		return
 
 	if event.is_action_pressed("weapon_1"):
@@ -109,7 +135,7 @@ func _input(event: InputEvent) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Gadget controls (F = use, G = cycle). Weapon slots use 1-9, reload uses R.
-	if _is_dead:
+	if _is_dead or not is_local_player:
 		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if event.is_action_pressed("cast_gadget"):
@@ -142,14 +168,14 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		vel.y += _gravity * delta
 
-	if Input.is_action_just_pressed("ui_up") and is_on_floor():
+	if is_local_player and Input.is_action_just_pressed("ui_up") and is_on_floor():
 		vel.y = jump_velocity
 		_play_jump_sound()
 
-	if Input.is_action_just_released("ui_up") and vel.y < 0.0:
+	if is_local_player and Input.is_action_just_released("ui_up") and vel.y < 0.0:
 		vel.y *= 0.5
 
-	var direction: float = Input.get_axis("ui_left", "ui_right")
+	var direction: float = Input.get_axis("ui_left", "ui_right") if is_local_player else 0.0
 	_update_facing(direction)
 	
 	if direction != 0.0:
@@ -290,7 +316,7 @@ func _set_active_weapon(weapon: Node2D) -> void:
 		current_weapon.visible = is_active
 		current_weapon.set_process(is_active)
 		current_weapon.set_physics_process(is_active)
-		current_weapon.set_process_input(is_active)
+		current_weapon.set_process_input(is_active and is_local_player)
 		current_weapon.attack_effect = equipped_effect
 	var slot := _get_weapon_slot(weapon)
 	if slot != -1:
