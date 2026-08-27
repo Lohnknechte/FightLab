@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene format=3 uid="uid://cj8gl3aq1eldb"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/UI/loadout_menu.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bvnrda74dxv4f" path="res://Assets/Scripts/UI/loadout_menu.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="2_font"]
+[ext_resource type="Texture2D" uid="uid://cojj37bau14vy" path="res://Assets/Sprites/Player/Female/Normal/Normal_Female_Idle.png" id="3_er6st"]
 
 [sub_resource type="StyleBoxFlat" id="PanelStyle"]
 bg_color = Color(0.055, 0.062, 0.09, 0.98)
@@ -15,20 +16,47 @@ corner_radius_top_right = 18
 corner_radius_bottom_right = 18
 corner_radius_bottom_left = 18
 
+[sub_resource type="StyleBoxEmpty" id="EmptyStyle"]
+
 [sub_resource type="StyleBoxFlat" id="OptionsStyle"]
+content_margin_left = 18.0
+content_margin_top = 14.0
+content_margin_right = 18.0
+content_margin_bottom = 14.0
 bg_color = Color(0.075, 0.085, 0.13, 0.65)
 corner_radius_top_left = 14
 corner_radius_top_right = 14
 corner_radius_bottom_right = 14
 corner_radius_bottom_left = 14
-content_margin_left = 18.0
-content_margin_top = 14.0
-content_margin_right = 18.0
-content_margin_bottom = 14.0
 
-[sub_resource type="StyleBoxEmpty" id="EmptyStyle"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_r70vu"]
+atlas = ExtResource("3_er6st")
+region = Rect2(0, 0, 64, 64)
 
-[node name="LoadoutMenu" type="Control"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5m6x"]
+atlas = ExtResource("3_er6st")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_myy50"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r70vu")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5m6x")
+}],
+"loop": 1,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="LoadoutMenu" type="Control" unique_id=448802685]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -36,10 +64,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 script = ExtResource("1_script")
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=1595788398]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +75,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.015, 0.018, 0.03, 0.82)
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="." unique_id=1176562640]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,23 +87,23 @@ offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="PanelContainer" parent="Center"]
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=1529538243]
 custom_minimum_size = Vector2(920, 540)
 layout_mode = 2
 theme_override_styles/panel = SubResource("PanelStyle")
 
-[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+[node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=922242887]
 layout_mode = 2
 theme_override_constants/margin_left = 28
 theme_override_constants/margin_top = 22
 theme_override_constants/margin_right = 28
 theme_override_constants/margin_bottom = 22
 
-[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin"]
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=6980447]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="Center/Panel/Margin/Layout"]
+[node name="Title" type="Label" parent="Center/Panel/Margin/Layout" unique_id=783479836]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
 theme_override_fonts/font = ExtResource("2_font")
@@ -84,138 +111,172 @@ theme_override_font_sizes/font_size = 36
 text = "MODIFY LOADOUT"
 horizontal_alignment = 1
 
-[node name="Subtitle" type="Label" parent="Center/Panel/Margin/Layout"]
+[node name="Subtitle" type="Label" parent="Center/Panel/Margin/Layout" unique_id=1901560109]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
 text = "Choose what you bring into the fight"
 horizontal_alignment = 1
 
-[node name="Divider" type="HSeparator" parent="Center/Panel/Margin/Layout"]
+[node name="Divider" type="HSeparator" parent="Center/Panel/Margin/Layout" unique_id=1121101597]
+custom_minimum_size = Vector2(0, 4)
 layout_mode = 2
 theme_override_styles/separator = SubResource("EmptyStyle")
-custom_minimum_size = Vector2(0, 4)
 
-[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin/Layout"]
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin/Layout" unique_id=1312627320]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 14
 
-[node name="CategoryBar" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content"]
+[node name="CategoryBar" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content" unique_id=2133333996]
 layout_mode = 2
 theme_override_constants/separation = 18
 alignment = 1
 
-[node name="LeftCategories" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/CategoryBar"]
+[node name="LeftCategories" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/CategoryBar" unique_id=1342465430]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Weapon" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories"]
+[node name="Weapon" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories" unique_id=1693730678]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 text = "Weapon"
 
-[node name="DamageType" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories"]
+[node name="DamageType" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories" unique_id=612836219]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 tooltip_text = "Coming Soon"
 disabled = true
 text = "Damage"
 
-[node name="EffectType" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories"]
+[node name="EffectType" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories" unique_id=1533303119]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 text = "Effect"
 
-[node name="RightCategories" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/CategoryBar"]
+[node name="Cosmetics" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories" unique_id=1459848173]
+custom_minimum_size = Vector2(118, 40)
+layout_mode = 2
+text = "Cosmetics"
+
+[node name="RightCategories" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/CategoryBar" unique_id=210402866]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Armor" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories"]
+[node name="Armor" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories" unique_id=121280769]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 tooltip_text = "Coming Soon"
 disabled = true
 text = "Armor"
 
-[node name="Gadget" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories"]
+[node name="Gadget" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories" unique_id=1976007245]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 text = "Gadget"
 
-[node name="Ultimate" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories"]
+[node name="Ultimate" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories" unique_id=1776090812]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 text = "Ultimate"
 
-[node name="Perk" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories"]
+[node name="Perk" type="Button" parent="Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories" unique_id=811114293]
 custom_minimum_size = Vector2(118, 40)
 layout_mode = 2
 tooltip_text = "Coming Soon"
 disabled = true
 text = "Perk"
 
-[node name="Options" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content"]
+[node name="Options" type="PanelContainer" parent="Center/Panel/Margin/Layout/Content" unique_id=159297677]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("OptionsStyle")
 
-[node name="OptionsInner" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Options"]
+[node name="OptionsInner" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Options" unique_id=1316110301]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="CategoryTitle" type="Label" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner"]
+[node name="CategoryTitle" type="Label" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner" unique_id=654272057]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.84, 0.87, 1, 1)
 theme_override_font_sizes/font_size = 22
 text = "Weapon"
 horizontal_alignment = 1
 
-[node name="CategoryHint" type="Label" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner"]
+[node name="CategoryHint" type="Label" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner" unique_id=409401641]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.58, 0.62, 0.74, 1)
 text = "Choose your starting weapon."
 horizontal_alignment = 1
 
-[node name="OptionScroll" type="ScrollContainer" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner"]
+[node name="CosmeticsPanel" type="VBoxContainer" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner" unique_id=1235632767]
+visible = false
+layout_mode = 2
+
+[node name="GenderButton" type="Button" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner/CosmeticsPanel" unique_id=336352916]
+layout_mode = 2
+text = "Male"
+
+[node name="ModeButton" type="Button" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner/CosmeticsPanel" unique_id=1298758941]
+layout_mode = 2
+text = "Mode: Normal"
+
+[node name="SkinGrid" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner/CosmeticsPanel" unique_id=1546205302]
+layout_mode = 2
+
+[node name="PreviewLabel" type="Label" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner/CosmeticsPanel" unique_id=313240367]
+layout_mode = 2
+text = "Preview"
+
+[node name="OptionScroll" type="ScrollContainer" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner" unique_id=1232161037]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="OptionGrid" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner/OptionScroll"]
+[node name="OptionGrid" type="HBoxContainer" parent="Center/Panel/Margin/Layout/Content/Options/OptionsInner/OptionScroll" unique_id=288124800]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 theme_override_constants/separation = 14
 alignment = 1
 
-[node name="Divider2" type="HSeparator" parent="Center/Panel/Margin/Layout"]
+[node name="Divider2" type="HSeparator" parent="Center/Panel/Margin/Layout" unique_id=1234611555]
 layout_mode = 2
 
-[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Layout" unique_id=1839678670]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 1
 
-[node name="Profile" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="Profile" type="Button" parent="Center/Panel/Margin/Layout/Footer" unique_id=83500097]
 custom_minimum_size = Vector2(140, 42)
 layout_mode = 2
 text = "PROFILE"
 
-[node name="StatusLabel" type="Label" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="StatusLabel" type="Label" parent="Center/Panel/Margin/Layout/Footer" unique_id=111317532]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
 text = "Changes are saved when you confirm."
 vertical_alignment = 1
 
-[node name="Cancel" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="Cancel" type="Button" parent="Center/Panel/Margin/Layout/Footer" unique_id=1765172348]
 custom_minimum_size = Vector2(120, 42)
 layout_mode = 2
 text = "Cancel"
 
-[node name="Confirm" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="Confirm" type="Button" parent="Center/Panel/Margin/Layout/Footer" unique_id=53941383]
 custom_minimum_size = Vector2(140, 42)
 layout_mode = 2
 text = "Confirm"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Center/Panel/Margin/Layout" unique_id=1196423494]
+layout_mode = 2
+
+[node name="CosmeticPreview" type="Control" parent="Center/Panel/Margin/Layout/HBoxContainer" unique_id=1505076502]
+layout_mode = 2
+
+[node name="PreviewSprite" type="AnimatedSprite2D" parent="Center/Panel/Margin/Layout/HBoxContainer/CosmeticPreview" unique_id=1710655566]
+sprite_frames = SubResource("SpriteFrames_myy50")
+animation = &"idle"

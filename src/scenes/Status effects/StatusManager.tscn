@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://0tj6t7h8qhnu" path="res://Assets/Scripts/Status_effects/status_manager.gd" id="1_2as2y"]
 [ext_resource type="Texture2D" uid="uid://qpq2w12rpysf" path="res://Assets/Sprites/Group 5 - 1.png" id="2_61iq8"]
 [ext_resource type="Texture2D" uid="uid://bmsqea1guoqmp" path="res://Assets/Sprites/poison.png" id="3_sl1eb"]
-[ext_resource type="Texture2D" uid="uid://c4ftf0qf3h177" path="res://Assets/Sprites/shock.png" id="4_c83jm"]
+[ext_resource type="Texture2D" uid="uid://doolkcvtyip1q" path="res://Assets/Sprites/shock.png" id="4_c83jm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_61iq8"]
 atlas = ExtResource("2_61iq8")
@@ -106,7 +106,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_l8417")
 }],
-"loop": true,
+"loop": 1,
 "name": &"burn",
 "speed": 5.0
 }]
@@ -142,7 +142,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_njca1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"poison",
 "speed": 5.0
 }]
@@ -171,7 +171,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_f2cph")
 }],
-"loop": true,
+"loop": 1,
 "name": &"shock",
 "speed": 5.0
 }]

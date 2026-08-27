@@ -54,6 +54,8 @@ var speed_multiplier = 1.0  # Für "Freeze" (Verlangsamung)
 var can_move = true
 var has_effect:StringName = "none"
 var is_dashing: bool = false
+var cosmetic_gender: String = "Male"
+var cosmetic_skin: String = "Normal"
 
 func _ready() -> void:
 	add_to_group("Players")
@@ -70,6 +72,9 @@ func _ready() -> void:
 	_footstep_player = $Footsteps
 	_footstep_player.stream = FOOTSTEP_STREAM
 	_footstep_player.bus = "SFX"
+
+	_apply_cosmetic()
+
 	_sprite.play("idle")
 	_set_active_weapon(_apply_loadout())
 	hud.initialize(self)
@@ -369,3 +374,115 @@ func get_active_weapon_hud_state() -> Dictionary:
 	return {
 		"visible": false,
 	}
+
+# ============================
+# COSMETIC SYSTEM
+# ============================
+
+func _apply_cosmetic() -> void:
+
+	var state := get_node_or_null("/root/LoadoutState")
+
+	if state == null:
+		return
+
+
+	cosmetic_gender = state.selected_gender
+	cosmetic_skin = state.selected_skin
+
+
+	var idle_texture := _get_cosmetic_texture("Idle")
+	var walk_texture := _get_cosmetic_texture("Walk")
+
+
+	if idle_texture == null:
+		return
+
+
+	var frames := _sprite.sprite_frames
+
+
+	if frames.has_animation("idle"):
+		frames.set_frame(
+			"idle",
+			0,
+			idle_texture
+		)
+
+
+	if walk_texture != null and frames.has_animation("walk"):
+		frames.set_frame(
+			"walk",
+			0,
+			walk_texture
+		)
+
+
+
+func _get_cosmetic_texture(animation_name: String) -> Texture2D:
+
+	var state := get_node_or_null("/root/LoadoutState")
+	if state == null:
+		return null
+
+
+	var gender: String = str(state.selected_gender)
+	var mode: String = str(state.selected_cosmetic_mode)
+
+
+	var file_path := ""
+
+
+	# COMBINED SKINS
+	if mode == "combined":
+
+		var combined: String = str(state.selected_upper_skin) + str(state.selected_lower_skin)
+		
+		file_path = "res://Assets/Sprites/Player/%s/Combinedskins/%s/%s_%s_%s.png" % [
+			gender,
+			combined,
+			combined,
+			gender,
+			animation_name
+		]
+
+
+	# NORMAL SKINS
+	else:
+
+		var skin: String = str(state.selected_skin)
+		var folder := ""
+
+
+		match skin:
+			"Normal":
+				file_path = "res://Assets/Sprites/Player/%s/Normal/Normal_%s_%s.png" % [
+					gender,
+					gender,
+					animation_name
+				]
+
+			"Catgirl","Samurai","Steampunk","Wizard":
+				folder = "Achievementskins"
+
+			"Birthday","Christmas","Easter","Halloween":
+				folder = "Eventskins"
+
+
+		if folder != "":
+			file_path = "res://Assets/Sprites/Player/%s/%s/%s/%s_%s_%s.png" % [
+				gender,
+				folder,
+				skin,
+				skin,
+				gender,
+				animation_name
+			]
+
+
+	if ResourceLoader.exists(file_path):
+		return load(file_path) as Texture2D
+
+
+	print("Missing cosmetic sprite: ", file_path)
+	return null
