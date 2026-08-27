@@ -3,12 +3,12 @@ extends CharacterBody2D
 @onready var hud = $HUD # The HUD node
 @onready var _camera: Camera2D = $Camera2D
 ## Whether this instance is the one the local player sees and controls.
-## Non-local instances (currently: every character after the first one
-## BaseLevel finds) keep their camera off, their HUD hidden and ignore
+## Set automatically in _ready(): the first character to join the "Players"
+## group each level (or test) counts as local, every one after it doesn't.
+## Non-local instances keep their camera off, their HUD hidden and ignore
 ## input, so only one character reacts to the keyboard at a time. This is a
 ## placeholder for real multiplayer authority - once networking exists,
-## BaseLevel should assign this from is_multiplayer_authority() instead of
-## spawn order. Defaults to true so isolated scenes/tests behave normally.
+## replace the group-order check in _ready() with is_multiplayer_authority().
 @export var is_local_player: bool = true
 @export var speed: float = 200.0
 @export var jump_velocity: float = -500.0
@@ -57,6 +57,9 @@ var is_dashing: bool = false
 
 func _ready() -> void:
 	add_to_group("Players")
+	# First character to join "Players" this level is the local player;
+	# every one after it (group already has other members) is not.
+	is_local_player = get_tree().get_nodes_in_group("Players").size() == 1
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
 	_shotgun = $BasisWeapon
