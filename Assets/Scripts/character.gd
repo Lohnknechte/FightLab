@@ -58,13 +58,10 @@ var _damage_reduction: float = 0.0
 
 func _ready() -> void:
 	add_to_group("Players")
-<<<<<<< Updated upstream
 	# First character to join "Players" this level is the local player;
 	# every one after it (group already has other members) is not.
 	is_local_player = get_tree().get_nodes_in_group("Players").size() == 1
-=======
 	_apply_armor()
->>>>>>> Stashed changes
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
 	_shotgun = $BasisWeapon
