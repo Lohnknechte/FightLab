@@ -5,6 +5,7 @@ const QUICK_JOIN_SCENE := "res://src/scenes/level01.tscn"
 @onready var loadout_menu: Control = $LoadoutMenu
 @onready var profile_menu: Control = $ProfileMenu
 @onready var lobby_list: Control = $LobbyList
+@onready var level_menu: Control = $LevelMenu
 
 var _main_controls: Array[CanvasItem]
 
@@ -22,6 +23,7 @@ func _ready() -> void:
 	]
 	$Loadout_Button.pressed.connect(_open_loadout)
 	$Level_Button.pressed.connect(_open_profile)
+	$Create_Button.pressed.connect(_open_level_menu)
 	$Join_Button.pressed.connect(_open_lobby_list)
 	$Quick_Button.pressed.connect(_quick_join)
 	$Quit_Button.pressed.connect(_quit_game)
@@ -32,6 +34,8 @@ func _ready() -> void:
 	profile_menu.loadout_requested.connect(_open_loadout)
 	lobby_list.back.connect(_close_lobby_list)
 	lobby_list.join_requested.connect(_quick_join)
+	level_menu.back.connect(_close_level_menu)
+	level_menu.level_selected.connect(_on_level_selected)
 	loadout_menu.visible = false
 
 
@@ -76,6 +80,21 @@ func _close_lobby_list() -> void:
 	lobby_list.visible = false
 	_set_main_controls_visible(true)
 	$Join_Button.grab_focus()
+
+
+func _open_level_menu() -> void:
+	_set_main_controls_visible(false)
+	level_menu.open()
+
+
+func _close_level_menu() -> void:
+	level_menu.visible = false
+	_set_main_controls_visible(true)
+	$Create_Button.grab_focus()
+
+
+func _on_level_selected(level_path: String) -> void:
+	get_tree().change_scene_to_file(level_path)
 
 
 func _set_main_controls_visible(is_visible: bool) -> void:
