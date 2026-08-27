@@ -2,8 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bu2t6avjf6485" path="res://src/scenes/Tilemap.tscn" id="3_7si7p"]
 [ext_resource type="PackedScene" uid="uid://2wp52upgfki3" path="res://src/scenes/player.tscn" id="5_x4wxc"]
+[ext_resource type="Script" path="res://Assets/Scripts/Levels/level02.gd" id="6_level"]
 
 [node name="Level02" type="Node2D" unique_id=1131213286]
+script = ExtResource("6_level")
 
 [node name="Tilemap" parent="." unique_id=547437705 instance=ExtResource("3_7si7p")]
 position = Vector2(237, 35)
