@@ -4,11 +4,15 @@
 [ext_resource type="Script" uid="uid://cw2cs5qmny1ne" path="res://bg.gd" id="2_dnfjo"]
 [ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="3_257up"]
 [ext_resource type="AudioStream" uid="uid://c0opp4fcfhv0u" path="res://audio/music/Main_Menu.mp3" id="4_dnfjo"]
-[ext_resource type="Script" path="res://Assets/Scripts/UI/main_menu.gd" id="5_main"]
-[ext_resource type="PackedScene" path="res://src/scenes/ui/loadout_menu.tscn" id="6_loadout"]
+[ext_resource type="Script" uid="uid://bc7ixcnydrfqf" path="res://Assets/Scripts/UI/main_menu.gd" id="5_main"]
+[ext_resource type="PackedScene" uid="uid://cj8gl3aq1eldb" path="res://src/scenes/ui/loadout_menu.tscn" id="6_loadout"]
 [ext_resource type="PackedScene" path="res://src/scenes/ui/profile_menu.tscn" id="7_profile"]
+<<<<<<< Updated upstream
 [ext_resource type="PackedScene" path="res://src/scenes/ui/lobby_list.tscn" id="8_lobby"]
 [ext_resource type="PackedScene" path="res://src/scenes/ui/level_menu.tscn" id="9_level"]
+=======
+[ext_resource type="PackedScene" uid="uid://c3px0oub53syr" path="res://src/scenes/ui/lobby_list.tscn" id="8_lobby"]
+>>>>>>> Stashed changes
 
 [node name="Control" type="Control" unique_id=251354884]
 layout_mode = 3
@@ -106,10 +110,17 @@ stream = ExtResource("4_dnfjo")
 volume_db = 8.0
 autoplay = true
 
-[node name="LoadoutMenu" parent="." instance=ExtResource("6_loadout")]
+[node name="LoadoutMenu" parent="." unique_id=549952617 instance=ExtResource("6_loadout")]
+layout_mode = 1
 
-[node name="ProfileMenu" parent="." instance=ExtResource("7_profile")]
+[node name="ProfileMenu" parent="." unique_id=1252827292 instance=ExtResource("7_profile")]
+layout_mode = 1
 
+<<<<<<< Updated upstream
 [node name="LobbyList" parent="." instance=ExtResource("8_lobby")]
 
 [node name="LevelMenu" parent="." instance=ExtResource("9_level")]
+=======
+[node name="LobbyList" parent="." unique_id=418773272 instance=ExtResource("8_lobby")]
+layout_mode = 1
+>>>>>>> Stashed changes

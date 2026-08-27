@@ -23,14 +23,16 @@ func test_defaults_match_existing_equipment() -> void:
 	assert_eq(_state.selected_ultimate_id, "avada")
 	assert_eq(_state.selected_gadget_id, "dash")
 	assert_eq(_state.selected_effect_id, "none")
+	assert_eq(_state.selected_armor_id, "nackabazi")
 	assert_eq(_state.get_options(&"weapon").size(), 4)
 	assert_eq(_state.get_options(&"ultimate").size(), 1)
 	assert_eq(_state.get_options(&"gadget").size(), 1)
 	assert_eq(_state.get_options(&"effect").size(), 5)
+	assert_eq(_state.get_options(&"armor").size(), 4)
 
 
 func test_every_configured_icon_and_effect_resource_exists() -> void:
-	for category in [&"weapon", &"ultimate", &"gadget", &"effect"]:
+	for category in [&"weapon", &"ultimate", &"gadget", &"effect", &"armor"]:
 		for option in _state.get_options(category):
 			var icon_path: String = option.get("icon", "")
 			if not icon_path.is_empty():

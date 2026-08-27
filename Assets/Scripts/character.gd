@@ -54,12 +54,17 @@ var speed_multiplier = 1.0  # Für "Freeze" (Verlangsamung)
 var can_move = true
 var has_effect:StringName = "none"
 var is_dashing: bool = false
+var _damage_reduction: float = 0.0
 
 func _ready() -> void:
 	add_to_group("Players")
+<<<<<<< Updated upstream
 	# First character to join "Players" this level is the local player;
 	# every one after it (group already has other members) is not.
 	is_local_player = get_tree().get_nodes_in_group("Players").size() == 1
+=======
+	_apply_armor()
+>>>>>>> Stashed changes
 	current_health = max_health
 	_sprite = $AnimatedSprite2D
 	_shotgun = $BasisWeapon
@@ -93,6 +98,24 @@ func _apply_local_player_state() -> void:
 func set_is_local_player(value: bool) -> void:
 	is_local_player = value
 	_apply_local_player_state()
+
+
+## Reads the confirmed armor selection from the LoadoutState autoload and
+## applies its modifiers: flat damage reduction, movement/jump multipliers
+## and max health. No-op when the autoload is missing (isolated tests).
+func _apply_armor() -> void:
+	var state := get_node_or_null("/root/LoadoutState")
+	if state == null:
+		return
+
+	var armor: Dictionary = state.get_selected_option(&"armor")
+	if armor.is_empty():
+		return
+
+	_damage_reduction = clampf(float(armor.get("damage_reduction", 0.0)), 0.0, 1.0)
+	speed *= float(armor.get("speed_mult", 1.0))
+	jump_velocity *= float(armor.get("jump_mult", 1.0))
+	max_health = int(armor.get("max_health", max_health))
 
 
 ## Reads the confirmed selection from the LoadoutState autoload (if present)
@@ -252,8 +275,9 @@ func _play_jump_sound() -> void:
 func take_damage(amount: int) -> void:
 	if _is_dead:
 		return
-	print(amount)
-	current_health = clamp(current_health - amount, 0, max_health)
+
+	var effective := int(round(amount * (1.0 - _damage_reduction)))
+	current_health = clamp(current_health - effective, 0, max_health)
 	health_changed.emit(current_health, max_health)
 	if current_health == 0:
 		die()

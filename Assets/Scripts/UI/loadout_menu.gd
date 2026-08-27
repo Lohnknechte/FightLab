@@ -9,6 +9,7 @@ const CATEGORY_TITLES := {
 	&"ultimate": "Ultimate",
 	&"gadget": "Gadget",
 	&"effect": "Effect",
+	&"armor": "Armor",
 }
 
 @onready var category_title: Label = $Center/Panel/Margin/Layout/Content/Options/OptionsInner/CategoryTitle
@@ -17,6 +18,7 @@ const CATEGORY_TITLES := {
 @onready var status_label: Label = $Center/Panel/Margin/Layout/Footer/StatusLabel
 @onready var weapon_button: Button = $Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories/Weapon
 @onready var effect_button: Button = $Center/Panel/Margin/Layout/Content/CategoryBar/LeftCategories/EffectType
+@onready var armor_button: Button = $Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories/Armor
 @onready var gadget_button: Button = $Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories/Gadget
 @onready var ultimate_button: Button = $Center/Panel/Margin/Layout/Content/CategoryBar/RightCategories/Ultimate
 
@@ -25,11 +27,13 @@ var _draft_weapon_id := ""
 var _draft_ultimate_id := ""
 var _draft_gadget_id := ""
 var _draft_effect_id := ""
+var _draft_armor_id := ""
 
 
 func _ready() -> void:
 	weapon_button.pressed.connect(_show_category.bind(&"weapon"))
 	effect_button.pressed.connect(_show_category.bind(&"effect"))
+	armor_button.pressed.connect(_show_category.bind(&"armor"))
 	gadget_button.pressed.connect(_show_category.bind(&"gadget"))
 	ultimate_button.pressed.connect(_show_category.bind(&"ultimate"))
 	$Center/Panel/Margin/Layout/Footer/Profile.pressed.connect(_open_profile)
@@ -47,6 +51,7 @@ func open() -> void:
 	_draft_ultimate_id = state.selected_ultimate_id
 	_draft_gadget_id = state.selected_gadget_id
 	_draft_effect_id = state.selected_effect_id
+	_draft_armor_id = state.selected_armor_id
 	status_label.text = "Changes are saved when you confirm."
 	visible = true
 	_show_category(&"weapon")
@@ -70,6 +75,7 @@ func _show_category(category: StringName) -> void:
 func _update_category_highlight() -> void:
 	weapon_button.modulate = Color(1.15, 1.08, 0.75) if _current_category == &"weapon" else Color.WHITE
 	effect_button.modulate = Color(1.15, 1.08, 0.75) if _current_category == &"effect" else Color.WHITE
+	armor_button.modulate = Color(1.15, 1.08, 0.75) if _current_category == &"armor" else Color.WHITE
 	gadget_button.modulate = Color(1.15, 1.08, 0.75) if _current_category == &"gadget" else Color.WHITE
 	ultimate_button.modulate = Color(1.15, 1.08, 0.75) if _current_category == &"ultimate" else Color.WHITE
 
@@ -96,6 +102,11 @@ func _rebuild_options() -> void:
 		button.button_pressed = option.get("id", "") == selected_id
 		button.set_meta("option_id", str(option.get("id", "")))
 		button.expand_icon = true
+		button.icon_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		button.vertical_icon_alignment = VERTICAL_ALIGNMENT_TOP
+		button.alignment = HORIZONTAL_ALIGNMENT_CENTER
+		button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		button.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		button.add_theme_constant_override("icon_max_width", 72)
 		button.add_theme_constant_override("h_separation", 0)
 		var icon_path := str(option.get("icon", ""))
@@ -117,6 +128,8 @@ func _select_option(option_id: String) -> void:
 			_draft_gadget_id = option_id
 		&"effect":
 			_draft_effect_id = option_id
+		&"armor":
+			_draft_armor_id = option_id
 	for child in option_grid.get_children():
 		child.button_pressed = child.get_meta("option_id", "") == option_id
 
@@ -131,6 +144,8 @@ func _get_draft_id(category: StringName) -> String:
 			return _draft_gadget_id
 		&"effect":
 			return _draft_effect_id
+		&"armor":
+			return _draft_armor_id
 	return ""
 
 
@@ -140,7 +155,7 @@ func _confirm() -> void:
 		status_label.text = "Loadout state is unavailable."
 		return
 
-	var error: Error = state.confirm_selection(_draft_weapon_id, _draft_ultimate_id, _draft_gadget_id, _draft_effect_id)
+	var error: Error = state.confirm_selection(_draft_weapon_id, _draft_ultimate_id, _draft_gadget_id, _draft_effect_id, _draft_armor_id)
 	if error != OK:
 		status_label.text = "Loadout could not be saved."
 		return

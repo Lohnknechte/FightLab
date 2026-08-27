@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene format=3 uid="uid://c3px0oub53syr"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/UI/lobby_list.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://bl0yqe7i12oxo" path="res://Assets/Scripts/UI/lobby_list.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://e377swnyfu56" path="res://Assets/fonts/alagard/alagard.ttf" id="2_font"]
 
 [sub_resource type="StyleBoxFlat" id="PanelStyle"]
@@ -22,7 +22,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="LobbyList" type="Control"]
+[node name="LobbyList" type="Control" unique_id=103063195]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -30,10 +30,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 script = ExtResource("1_script")
 
-[node name="Dim" type="ColorRect" parent="."]
+[node name="Dim" type="ColorRect" parent="." unique_id=1151671516]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.015, 0.018, 0.03, 0.82)
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="." unique_id=402337109]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,23 +53,23 @@ offset_bottom = -28.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="PanelContainer" parent="Center"]
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=1549275624]
 custom_minimum_size = Vector2(820, 520)
 layout_mode = 2
 theme_override_styles/panel = SubResource("PanelStyle")
 
-[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+[node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=16640679]
 layout_mode = 2
 theme_override_constants/margin_left = 28
 theme_override_constants/margin_top = 22
 theme_override_constants/margin_right = 28
 theme_override_constants/margin_bottom = 22
 
-[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin"]
+[node name="Layout" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=165787583]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Title" type="Label" parent="Center/Panel/Margin/Layout"]
+[node name="Title" type="Label" parent="Center/Panel/Margin/Layout" unique_id=1850266115]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.96, 0.74, 0.12, 1)
 theme_override_fonts/font = ExtResource("2_font")
@@ -78,62 +77,62 @@ theme_override_font_sizes/font_size = 36
 text = "LOBBY LIST"
 horizontal_alignment = 1
 
-[node name="Hint" type="Label" parent="Center/Panel/Margin/Layout"]
+[node name="Hint" type="Label" parent="Center/Panel/Margin/Layout" unique_id=28774683]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
 text = "Placeholder servers - select a lobby to join Arena 01"
 horizontal_alignment = 1
 
-[node name="Columns" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+[node name="Columns" type="HBoxContainer" parent="Center/Panel/Margin/Layout" unique_id=448586134]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Lobby" type="Label" parent="Center/Panel/Margin/Layout/Columns"]
+[node name="Lobby" type="Label" parent="Center/Panel/Margin/Layout/Columns" unique_id=1753508832]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_font")
 text = "LOBBY / SERVER DETAILS"
 
-[node name="Status" type="Label" parent="Center/Panel/Margin/Layout/Columns"]
+[node name="Status" type="Label" parent="Center/Panel/Margin/Layout/Columns" unique_id=1172001725]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.12, 0.75, 0.57, 1)
 text = "3 SERVERS ONLINE"
 
-[node name="ServerScroll" type="ScrollContainer" parent="Center/Panel/Margin/Layout"]
+[node name="ServerScroll" type="ScrollContainer" parent="Center/Panel/Margin/Layout" unique_id=1277413954]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("ListStyle")
 horizontal_scroll_mode = 0
 
-[node name="ServerList" type="VBoxContainer" parent="Center/Panel/Margin/Layout/ServerScroll"]
+[node name="ServerList" type="VBoxContainer" parent="Center/Panel/Margin/Layout/ServerScroll" unique_id=856897449]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="Selection" type="Label" parent="Center/Panel/Margin/Layout"]
+[node name="Selection" type="Label" parent="Center/Panel/Margin/Layout" unique_id=1790976899]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.68, 0.71, 0.82, 1)
 text = "Select a server"
 
-[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Layout"]
+[node name="Footer" type="HBoxContainer" parent="Center/Panel/Margin/Layout" unique_id=1157385757]
 layout_mode = 2
 theme_override_constants/separation = 12
 alignment = 2
 
-[node name="Host" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="Host" type="Button" parent="Center/Panel/Margin/Layout/Footer" unique_id=561858929]
 custom_minimum_size = Vector2(140, 42)
 layout_mode = 2
 tooltip_text = "Available when the server backend is connected"
 disabled = true
 text = "HOST (SOON)"
 
-[node name="Join" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="Join" type="Button" parent="Center/Panel/Margin/Layout/Footer" unique_id=1902081798]
 custom_minimum_size = Vector2(140, 42)
 layout_mode = 2
 disabled = true
 text = "JOIN LOBBY"
 
-[node name="Back" type="Button" parent="Center/Panel/Margin/Layout/Footer"]
+[node name="Back" type="Button" parent="Center/Panel/Margin/Layout/Footer" unique_id=1913445354]
 custom_minimum_size = Vector2(120, 42)
 layout_mode = 2
 text = "BACK"
